@@ -39,7 +39,7 @@ export const Pages: CollectionConfig<'pages'> = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  localization: true,
+
   // This config controls what's populated by default when a page is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
   // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
@@ -54,7 +54,7 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req,locale }) => {
+      url: ({ data, req, locale }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'pages',
@@ -65,7 +65,7 @@ export const Pages: CollectionConfig<'pages'> = {
         return path
       },
     },
-    preview: (data, { req,locale }) =>
+    preview: (data, { req, locale }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'pages',

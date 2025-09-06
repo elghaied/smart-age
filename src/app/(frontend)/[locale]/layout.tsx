@@ -34,17 +34,19 @@ export default async function RootLayout({ children, params }: Args) {
   const { locale } = await params
   const currentLocale = localization.locales.find((loc) => loc.code === locale)
   const direction = currentLocale?.rtl ? 'rtl' : 'ltr'
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as TypedLocale)) {
     notFound()
   }
   setRequestLocale(locale)
   const messages = await getMessages()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)}  
-    lang={locale}
-    dir={direction} 
-    suppressHydrationWarning>
+    <html
+      className={cn(GeistSans.variable, GeistMono.variable)}
+      lang={locale}
+      dir={direction}
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
@@ -52,16 +54,16 @@ export default async function RootLayout({ children, params }: Args) {
       </head>
       <body>
         <Providers>
-        <NextIntlClientProvider messages={messages}>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+          <NextIntlClientProvider messages={messages}>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
+            <Header locale={locale} />
+            {children}
+            <Footer locale={locale} />
           </NextIntlClientProvider>
         </Providers>
       </body>

@@ -5,7 +5,6 @@ import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-import { homeStatic } from '@/endpoints/seed/home-static'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
@@ -46,20 +45,15 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home',locale = 'en' } = await paramsPromise
+  const { slug = 'home', locale = 'en' } = await paramsPromise
   const url = '/' + slug
 
-  let page: RequiredDataFromCollectionSlug<'pages'> | null
+  // let page: RequiredDataFromCollectionSlug<'pages'> | null
 
-  page = await queryPageBySlug({
+  const page = await queryPageBySlug({
     slug,
-    locale
+    locale,
   })
-
-  // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
-    page = homeStatic
-  }
 
   if (!page) {
     return <PayloadRedirects url={url} />
@@ -82,16 +76,16 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home',locale = "en" } = await paramsPromise
+  const { slug = 'home', locale = 'en' } = await paramsPromise
   const page = await queryPageBySlug({
     slug,
-    locale
+    locale,
   })
 
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug,locale }: { slug: string ; locale:TypedLocale}) => {
+const queryPageBySlug = cache(async ({ slug, locale }: { slug: string; locale: TypedLocale }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })

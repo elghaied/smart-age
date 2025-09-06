@@ -32,14 +32,6 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
-    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -72,9 +64,20 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users,Values,Services,Projects,Goals,Features],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    Values,
+    Services,
+    Projects,
+    Goals,
+    Features,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer,ContactInfo,Homepage,SiteSettings],
+  globals: [Header, Footer, ContactInfo, Homepage, SiteSettings],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
@@ -100,8 +103,8 @@ export default buildConfig({
     tasks: [],
   },
   localization,
-  i18n:{
+  i18n: {
     supportedLanguages: { en, ar },
     fallbackLanguage: 'en',
-  }
+  },
 })
