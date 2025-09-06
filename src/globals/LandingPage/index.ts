@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateHomepage } from './hooks/RevalidateHomePage'
 
 export const Homepage: GlobalConfig = {
   slug: 'homepage',
@@ -22,7 +23,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'SEO Meta',
-        ar: 'بيانات تحسين محركات البحث'
+        ar: 'بيانات تحسين محركات البحث',
       },
       fields: [
         {
@@ -45,7 +46,7 @@ export const Homepage: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Open Graph Title',
-            ar: 'عنوان الشبكة المفتوحة'
+            ar: 'عنوان الشبكة المفتوحة',
           },
           localized: true,
         },
@@ -54,7 +55,7 @@ export const Homepage: GlobalConfig = {
           type: 'textarea',
           label: {
             en: 'Open Graph Description',
-            ar: 'وصف الشبكة المفتوحة'
+            ar: 'وصف الشبكة المفتوحة',
           },
           localized: true,
         },
@@ -64,7 +65,7 @@ export const Homepage: GlobalConfig = {
           relationTo: 'media',
           label: {
             en: 'Open Graph Image',
-            ar: 'صورة الشبكة المفتوحة'
+            ar: 'صورة الشبكة المفتوحة',
           },
         },
       ],
@@ -75,7 +76,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Hero Section',
-        ar: 'قسم البطل'
+        ar: 'قسم البطل',
       },
       fields: [
         {
@@ -99,7 +100,7 @@ export const Homepage: GlobalConfig = {
           type: 'array',
           label: {
             en: 'Hero Features',
-            ar: 'مميزات البطل'
+            ar: 'مميزات البطل',
           },
           fields: [
             {
@@ -114,7 +115,7 @@ export const Homepage: GlobalConfig = {
           type: 'group',
           label: {
             en: 'Primary Call to Action',
-            ar: 'الدعوة الأساسية للعمل'
+            ar: 'الدعوة الأساسية للعمل',
           },
           fields: [
             {
@@ -133,7 +134,7 @@ export const Homepage: GlobalConfig = {
           type: 'group',
           label: {
             en: 'Secondary Call to Action',
-            ar: 'الدعوة الثانوية للعمل'
+            ar: 'الدعوة الثانوية للعمل',
           },
           fields: [
             {
@@ -170,7 +171,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'About Section',
-        ar: 'قسم من نحن'
+        ar: 'قسم من نحن',
       },
       fields: [
         {
@@ -193,7 +194,7 @@ export const Homepage: GlobalConfig = {
           type: 'group',
           label: {
             en: 'Mission',
-            ar: 'المهمة'
+            ar: 'المهمة',
           },
           fields: [
             {
@@ -213,7 +214,7 @@ export const Homepage: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Values Section Title',
-            ar: 'عنوان قسم القيم'
+            ar: 'عنوان قسم القيم',
           },
           localized: true,
         },
@@ -225,7 +226,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Why Choose Us Section',
-        ar: 'قسم لماذا نحن'
+        ar: 'قسم لماذا نحن',
       },
       fields: [
         {
@@ -246,7 +247,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Goals Section',
-        ar: 'قسم الأهداف'
+        ar: 'قسم الأهداف',
       },
       fields: [
         {
@@ -267,7 +268,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Projects Section',
-        ar: 'قسم المشاريع'
+        ar: 'قسم المشاريع',
       },
       fields: [
         {
@@ -293,7 +294,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Services Section',
-        ar: 'قسم الخدمات'
+        ar: 'قسم الخدمات',
       },
       fields: [
         {
@@ -319,7 +320,7 @@ export const Homepage: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Contact Section',
-        ar: 'قسم التواصل'
+        ar: 'قسم التواصل',
       },
       fields: [
         {
@@ -340,4 +341,7 @@ export const Homepage: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [revalidateHomepage],
+  },
 }

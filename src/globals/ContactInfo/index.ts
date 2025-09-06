@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateContactInfo } from './hooks/RevalidateContactInfo'
 
 export const ContactInfo: GlobalConfig = {
   slug: 'contact-info',
@@ -23,7 +24,7 @@ export const ContactInfo: GlobalConfig = {
       admin: {
         description: {
           en: 'Internal label for this contact info',
-          ar: 'تسمية داخلية لمعلومات الاتصال هذه'
+          ar: 'تسمية داخلية لمعلومات الاتصال هذه',
         },
       },
     },
@@ -33,7 +34,7 @@ export const ContactInfo: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Contact Information',
-        ar: 'معلومات الاتصال'
+        ar: 'معلومات الاتصال',
       },
       fields: [
         {
@@ -41,7 +42,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Address',
-            ar: 'العنوان'
+            ar: 'العنوان',
           },
           localized: true,
         },
@@ -50,7 +51,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Phone Number',
-            ar: 'رقم الهاتف'
+            ar: 'رقم الهاتف',
           },
         },
         {
@@ -58,7 +59,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'email',
           label: {
             en: 'Email Address',
-            ar: 'البريد الإلكتروني'
+            ar: 'البريد الإلكتروني',
           },
         },
         {
@@ -66,7 +67,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Working Hours',
-            ar: 'ساعات العمل'
+            ar: 'ساعات العمل',
           },
           localized: true,
         },
@@ -78,7 +79,7 @@ export const ContactInfo: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Contact Form',
-        ar: 'نموذج الاتصال'
+        ar: 'نموذج الاتصال',
       },
       fields: [
         {
@@ -86,7 +87,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Form Title',
-            ar: 'عنوان النموذج'
+            ar: 'عنوان النموذج',
           },
           localized: true,
         },
@@ -95,7 +96,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'group',
           label: {
             en: 'Form Fields Labels',
-            ar: 'تسميات حقول النموذج'
+            ar: 'تسميات حقول النموذج',
           },
           fields: [
             {
@@ -103,7 +104,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Name Field Label',
-                ar: 'تسمية حقل الاسم'
+                ar: 'تسمية حقل الاسم',
               },
               localized: true,
             },
@@ -112,7 +113,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Name Field Placeholder',
-                ar: 'نص توضيحي لحقل الاسم'
+                ar: 'نص توضيحي لحقل الاسم',
               },
               localized: true,
             },
@@ -121,7 +122,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Email Field Label',
-                ar: 'تسمية حقل البريد الإلكتروني'
+                ar: 'تسمية حقل البريد الإلكتروني',
               },
               localized: true,
             },
@@ -130,7 +131,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Email Field Placeholder',
-                ar: 'نص توضيحي لحقل البريد الإلكتروني'
+                ar: 'نص توضيحي لحقل البريد الإلكتروني',
               },
               localized: true,
             },
@@ -139,7 +140,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Subject Field Label',
-                ar: 'تسمية حقل الموضوع'
+                ar: 'تسمية حقل الموضوع',
               },
               localized: true,
             },
@@ -148,7 +149,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Subject Field Placeholder',
-                ar: 'نص توضيحي لحقل الموضوع'
+                ar: 'نص توضيحي لحقل الموضوع',
               },
               localized: true,
             },
@@ -157,7 +158,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Message Field Label',
-                ar: 'تسمية حقل الرسالة'
+                ar: 'تسمية حقل الرسالة',
               },
               localized: true,
             },
@@ -166,7 +167,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Message Field Placeholder',
-                ar: 'نص توضيحي لحقل الرسالة'
+                ar: 'نص توضيحي لحقل الرسالة',
               },
               localized: true,
             },
@@ -175,7 +176,7 @@ export const ContactInfo: GlobalConfig = {
               type: 'text',
               label: {
                 en: 'Submit Button Text',
-                ar: 'نص زر الإرسال'
+                ar: 'نص زر الإرسال',
               },
               localized: true,
             },
@@ -189,7 +190,7 @@ export const ContactInfo: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Contact Info Display Labels',
-        ar: 'تسميات عرض معلومات الاتصال'
+        ar: 'تسميات عرض معلومات الاتصال',
       },
       fields: [
         {
@@ -197,7 +198,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Address Label',
-            ar: 'تسمية العنوان'
+            ar: 'تسمية العنوان',
           },
           localized: true,
         },
@@ -206,7 +207,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Phone Label',
-            ar: 'تسمية الهاتف'
+            ar: 'تسمية الهاتف',
           },
           localized: true,
         },
@@ -215,7 +216,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Email Label',
-            ar: 'تسمية البريد الإلكتروني'
+            ar: 'تسمية البريد الإلكتروني',
           },
           localized: true,
         },
@@ -224,7 +225,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Working Hours Label',
-            ar: 'تسمية ساعات العمل'
+            ar: 'تسمية ساعات العمل',
           },
           localized: true,
         },
@@ -236,7 +237,7 @@ export const ContactInfo: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Social Media',
-        ar: 'وسائل التواصل الاجتماعي'
+        ar: 'وسائل التواصل الاجتماعي',
       },
       fields: [
         {
@@ -244,7 +245,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Social Media Section Title',
-            ar: 'عنوان قسم وسائل التواصل الاجتماعي'
+            ar: 'عنوان قسم وسائل التواصل الاجتماعي',
           },
           localized: true,
         },
@@ -253,7 +254,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Facebook URL',
-            ar: 'رابط فيسبوك'
+            ar: 'رابط فيسبوك',
           },
         },
         {
@@ -261,7 +262,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Twitter URL',
-            ar: 'رابط تويتر'
+            ar: 'رابط تويتر',
           },
         },
         {
@@ -269,7 +270,7 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Instagram URL',
-            ar: 'رابط إنستغرام'
+            ar: 'رابط إنستغرام',
           },
         },
         {
@@ -277,10 +278,13 @@ export const ContactInfo: GlobalConfig = {
           type: 'text',
           label: {
             en: 'LinkedIn URL',
-            ar: 'رابط لينكد إن'
+            ar: 'رابط لينكد إن',
           },
         },
       ],
     },
   ],
+  hooks: {
+    afterChange: [revalidateContactInfo],
+  },
 }

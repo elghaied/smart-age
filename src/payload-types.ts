@@ -1950,6 +1950,10 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  footerLabels?: {
+    footerWording?: string | null;
+    footerQuickLinksLabel?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2179,6 +2183,12 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  footerLabels?:
+    | T
+    | {
+        footerWording?: T;
+        footerQuickLinksLabel?: T;
       };
   updatedAt?: T;
   createdAt?: T;

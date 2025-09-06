@@ -28,12 +28,42 @@ export const Footer: GlobalConfig = {
         }),
       ],
       maxRows: 6,
+      localized: true,
       admin: {
         initCollapsed: true,
         components: {
           RowLabel: '@/Footer/RowLabel#RowLabel',
         },
       },
+    },
+    {
+      name: 'footerLabels',
+      type: 'group',
+      label: {
+        ar: 'عنوان الفوتر',
+        en: 'footer labels',
+      },
+      fields: [
+        {
+          name: 'footerWording',
+          type: 'text',
+          localized: true,
+          label: {
+            ar: 'كلمة الفوتر',
+            en: 'footer wording',
+          },
+        },
+        {
+          name: 'footerQuickLinksLabel',
+          type: 'text',
+          defaultValue: 'Quick Links',
+          localized: true,
+          label: {
+            ar: 'روابط سريعة',
+            en: 'quick links',
+          },
+        },
+      ],
     },
   ],
   hooks: {

@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -43,7 +44,7 @@ export const SiteSettings: GlobalConfig = {
       required: true,
       label: {
         en: 'Supported Languages',
-        ar: 'اللغات المدعومة'
+        ar: 'اللغات المدعومة',
       },
       fields: [
         {
@@ -62,7 +63,7 @@ export const SiteSettings: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Branding',
-        ar: 'الهوية التجارية'
+        ar: 'الهوية التجارية',
       },
       fields: [
         {
@@ -71,7 +72,7 @@ export const SiteSettings: GlobalConfig = {
           relationTo: 'media',
           label: {
             en: 'Logo',
-            ar: 'الشعار'
+            ar: 'الشعار',
           },
         },
         {
@@ -80,7 +81,7 @@ export const SiteSettings: GlobalConfig = {
           relationTo: 'media',
           label: {
             en: 'Favicon',
-            ar: 'أيقونة الموقع'
+            ar: 'أيقونة الموقع',
           },
         },
         {
@@ -88,12 +89,12 @@ export const SiteSettings: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Primary Color',
-            ar: 'اللون الأساسي'
+            ar: 'اللون الأساسي',
           },
           admin: {
             description: {
               en: 'Primary brand color (hex code)',
-              ar: 'اللون الأساسي للعلامة التجارية (رمز سادس عشري)'
+              ar: 'اللون الأساسي للعلامة التجارية (رمز سادس عشري)',
             },
           },
         },
@@ -102,12 +103,12 @@ export const SiteSettings: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Secondary Color',
-            ar: 'اللون الثانوي'
+            ar: 'اللون الثانوي',
           },
           admin: {
             description: {
               en: 'Secondary brand color (hex code)',
-              ar: 'اللون الثانوي للعلامة التجارية (رمز سادس عشري)'
+              ar: 'اللون الثانوي للعلامة التجارية (رمز سادس عشري)',
             },
           },
         },
@@ -119,7 +120,7 @@ export const SiteSettings: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Default SEO Settings',
-        ar: 'إعدادات تحسين محركات البحث الافتراضية'
+        ar: 'إعدادات تحسين محركات البحث الافتراضية',
       },
       fields: [
         {
@@ -143,7 +144,7 @@ export const SiteSettings: GlobalConfig = {
           relationTo: 'media',
           label: {
             en: 'Default Open Graph Image',
-            ar: 'صورة الشبكة المفتوحة الافتراضية'
+            ar: 'صورة الشبكة المفتوحة الافتراضية',
           },
         },
       ],
@@ -154,7 +155,7 @@ export const SiteSettings: GlobalConfig = {
       type: 'group',
       label: {
         en: 'Analytics & Tracking',
-        ar: 'التحليلات والتتبع'
+        ar: 'التحليلات والتتبع',
       },
       fields: [
         {
@@ -162,7 +163,7 @@ export const SiteSettings: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Google Analytics ID',
-            ar: 'معرف جوجل أناليتكس'
+            ar: 'معرف جوجل أناليتكس',
           },
         },
         {
@@ -170,7 +171,7 @@ export const SiteSettings: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Facebook Pixel ID',
-            ar: 'معرف فيسبوك بيكسل'
+            ar: 'معرف فيسبوك بيكسل',
           },
         },
         {
@@ -178,10 +179,13 @@ export const SiteSettings: GlobalConfig = {
           type: 'text',
           label: {
             en: 'Google Tag Manager ID',
-            ar: 'معرف مدير علامات جوجل'
+            ar: 'معرف مدير علامات جوجل',
           },
         },
       ],
     },
   ],
+  hooks: {
+    afterChange: [revalidateSiteSettings],
+  },
 }
