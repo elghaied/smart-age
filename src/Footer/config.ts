@@ -5,8 +5,18 @@ import { revalidateFooter } from './hooks/revalidateFooter'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
+  label: {
+    en: 'Footer',
+    ar: 'التذييل',
+  },
   access: {
     read: () => true,
+  },
+  admin: {
+    group: {
+      en: 'Navigation',
+      ar: 'التنقل',
+    },
   },
   fields: [
     {

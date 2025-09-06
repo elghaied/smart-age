@@ -14,21 +14,37 @@ const columnFields: Field[] = [
     name: 'size',
     type: 'select',
     defaultValue: 'oneThird',
+    label: {
+      en: 'Column Size',
+      ar: 'حجم العمود',
+    },
     options: [
       {
-        label: 'One Third',
+        label: {
+          en: 'One Third',
+          ar: 'ثلث',
+        },
         value: 'oneThird',
       },
       {
-        label: 'Half',
+        label: {
+          en: 'Half',
+          ar: 'نصف',
+        },
         value: 'half',
       },
       {
-        label: 'Two Thirds',
+        label: {
+          en: 'Two Thirds',
+          ar: 'ثلثان',
+        },
         value: 'twoThirds',
       },
       {
-        label: 'Full',
+        label: {
+          en: 'Full',
+          ar: 'كامل',
+        },
         value: 'full',
       },
     ],
@@ -46,11 +62,19 @@ const columnFields: Field[] = [
         ]
       },
     }),
-    label: false,
+    label: {
+      en: 'Content',
+      ar: 'المحتوى',
+    },
+    localized: true,
   },
   {
     name: 'enableLink',
     type: 'checkbox',
+    label: {
+      en: 'Enable Link',
+      ar: 'تفعيل الرابط',
+    },
   },
   link({
     overrides: {
@@ -66,10 +90,24 @@ const columnFields: Field[] = [
 export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
+  labels: {
+    singular: {
+      en: 'Content',
+      ar: 'محتوى',
+    },
+    plural: {
+      en: 'Content Blocks',
+      ar: 'كتل المحتوى',
+    },
+  },
   fields: [
     {
       name: 'columns',
       type: 'array',
+      label: {
+        en: 'Columns',
+        ar: 'الأعمدة',
+      },
       admin: {
         initCollapsed: true,
       },

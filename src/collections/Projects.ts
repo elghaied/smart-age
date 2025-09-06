@@ -2,7 +2,21 @@ import type { CollectionConfig } from 'payload'
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
+  labels: {
+    singular: {
+      en: 'Project',
+      ar: 'مشروع',
+    },
+    plural: {
+      en: 'Projects',
+      ar: 'المشاريع',
+    },
+  },
   admin: {
+    group: {
+      en: 'Business',
+      ar: 'الأعمال',
+    },
     useAsTitle: 'name',
     defaultColumns: ['name', 'year', 'status', 'isActive'],
   },

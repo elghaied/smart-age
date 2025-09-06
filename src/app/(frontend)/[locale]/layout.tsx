@@ -12,15 +12,39 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
-
+import { TypedLocale } from 'payload'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+import { getMessages, setRequestLocale } from 'next-intl/server'
+import { NextIntlClientProvider } from 'next-intl'
+import { routing } from '@/i18n/routing'
+import { notFound } from 'next/navigation'
+import localization from '@/i18n/localization'
+
+type Args = {
+  children: React.ReactNode
+  params: Promise<{
+    locale: TypedLocale
+  }>
+}
+
+export default async function RootLayout({ children, params }: Args) {
   const { isEnabled } = await draftMode()
+  const { locale } = await params
+  const currentLocale = localization.locales.find((loc) => loc.code === locale)
+  const direction = currentLocale?.rtl ? 'rtl' : 'ltr'
+  if (!routing.locales.includes(locale as any)) {
+    notFound()
+  }
+  setRequestLocale(locale)
+  const messages = await getMessages()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(GeistSans.variable, GeistMono.variable)}  
+    lang={locale}
+    dir={direction} 
+    suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
@@ -28,6 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+        <NextIntlClientProvider messages={messages}>
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
@@ -37,6 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
           <Footer />
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>
@@ -50,4 +76,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     creator: '@payloadcms',
   },
+}
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }

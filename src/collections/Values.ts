@@ -2,7 +2,21 @@ import type { CollectionConfig } from 'payload'
 
 export const Values: CollectionConfig = {
   slug: 'values',
+  labels: {
+    singular: {
+      en: 'Value',
+      ar: 'قيمة',
+    },
+    plural: {
+      en: 'Values',
+      ar: 'القيم',
+    },
+  },
   admin: {
+    group: {
+      en: 'Business',
+      ar: 'الأعمال',
+    },
     useAsTitle: 'title',
     defaultColumns: ['title', 'icon', 'order', 'isActive'],
   },

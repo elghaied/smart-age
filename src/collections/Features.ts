@@ -2,7 +2,21 @@ import type { CollectionConfig } from 'payload'
 
 export const Features: CollectionConfig = {
   slug: 'features',
+  labels: {
+    singular: {
+      en: 'Feature',
+      ar: 'ميزة',
+    },
+    plural: {
+      en: 'Features',
+      ar: 'المميزات',
+    },
+  },
   admin: {
+    group: {
+      en: 'Business',
+      ar: 'الأعمال',
+    },
     useAsTitle: 'title',
     defaultColumns: ['title', 'icon', 'order', 'isActive'],
   },

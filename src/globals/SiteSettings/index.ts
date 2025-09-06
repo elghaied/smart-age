@@ -2,8 +2,18 @@ import type { GlobalConfig } from 'payload'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
+  label: {
+    en: 'Site Settings',
+    ar: 'إعدادات الموقع',
+  },
   access: {
     read: () => true,
+  },
+  admin: {
+    group: {
+      en: 'Settings',
+      ar: 'الإعدادات',
+    },
   },
   fields: [
     {

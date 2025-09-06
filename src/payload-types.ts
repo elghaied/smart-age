@@ -124,7 +124,7 @@ export interface Config {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'ar';
   user: User & {
     collection: 'users';
   };

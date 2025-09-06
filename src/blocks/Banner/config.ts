@@ -8,16 +8,55 @@ import {
 
 export const Banner: Block = {
   slug: 'banner',
+  interfaceName: 'BannerBlock',
+  labels: {
+    singular: {
+      en: 'Banner',
+      ar: 'لافتة',
+    },
+    plural: {
+      en: 'Banners',
+      ar: 'اللافتات',
+    },
+  },
   fields: [
     {
       name: 'style',
       type: 'select',
       defaultValue: 'info',
+      label: {
+        en: 'Banner Style',
+        ar: 'نمط اللافتة',
+      },
       options: [
-        { label: 'Info', value: 'info' },
-        { label: 'Warning', value: 'warning' },
-        { label: 'Error', value: 'error' },
-        { label: 'Success', value: 'success' },
+        { 
+          label: {
+            en: 'Info',
+            ar: 'معلومات',
+          }, 
+          value: 'info' 
+        },
+        { 
+          label: {
+            en: 'Warning',
+            ar: 'تحذير',
+          }, 
+          value: 'warning' 
+        },
+        { 
+          label: {
+            en: 'Error',
+            ar: 'خطأ',
+          }, 
+          value: 'error' 
+        },
+        { 
+          label: {
+            en: 'Success',
+            ar: 'نجاح',
+          }, 
+          value: 'success' 
+        },
       ],
       required: true,
     },
@@ -29,9 +68,12 @@ export const Banner: Block = {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
-      label: false,
+      label: {
+        en: 'Banner Content',
+        ar: 'محتوى اللافتة',
+      },
+      localized: true,
       required: true,
     },
   ],
-  interfaceName: 'BannerBlock',
 }

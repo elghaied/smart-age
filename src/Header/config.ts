@@ -5,8 +5,18 @@ import { revalidateHeader } from './hooks/revalidateHeader'
 
 export const Header: GlobalConfig = {
   slug: 'header',
+  label: {
+    en: 'Header',
+    ar: 'الرأس',
+  },
   access: {
     read: () => true,
+  },
+  admin: {
+    group: {
+      en: 'Navigation',
+      ar: 'التنقل',
+    },
   },
   fields: [
     {

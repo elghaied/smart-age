@@ -2,8 +2,18 @@ import type { GlobalConfig } from 'payload'
 
 export const Homepage: GlobalConfig = {
   slug: 'homepage',
+  label: {
+    en: 'Homepage',
+    ar: 'الصفحة الرئيسية',
+  },
   access: {
     read: () => true,
+  },
+  admin: {
+    group: {
+      en: 'Content',
+      ar: 'المحتوى',
+    },
   },
   fields: [
     // SEO Meta Fields

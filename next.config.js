@@ -1,6 +1,8 @@
 import { withPayload } from '@payloadcms/next/withPayload'
-
+import createNextIntlPlugin from 'next-intl/plugin'
 import redirects from './redirects.js'
+
+const withNextIntl = createNextIntlPlugin()
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -32,5 +34,5 @@ const nextConfig = {
   reactStrictMode: true,
   redirects,
 }
+export default withNextIntl(withPayload(nextConfig, { devBundleServerPackages: false }))
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })

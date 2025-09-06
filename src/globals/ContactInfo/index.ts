@@ -2,8 +2,18 @@ import type { GlobalConfig } from 'payload'
 
 export const ContactInfo: GlobalConfig = {
   slug: 'contact-info',
+  label: {
+    en: 'Contact Information',
+    ar: 'معلومات الاتصال',
+  },
   access: {
     read: () => true,
+  },
+  admin: {
+    group: {
+      en: 'Settings',
+      ar: 'الإعدادات',
+    },
   },
   fields: [
     {

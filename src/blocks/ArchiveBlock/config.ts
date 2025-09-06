@@ -24,19 +24,33 @@ export const Archive: Block = {
           ]
         },
       }),
-      label: 'Intro Content',
+      label: {
+        en: 'Intro Content',
+        ar: 'المحتوى التمهيدي',
+      },
+      localized: true,
     },
     {
       name: 'populateBy',
       type: 'select',
       defaultValue: 'collection',
+      label: {
+        en: 'Populate By',
+        ar: 'ملء بواسطة',
+      },
       options: [
         {
-          label: 'Collection',
+          label: {
+            en: 'Collection',
+            ar: 'مجموعة',
+          },
           value: 'collection',
         },
         {
-          label: 'Individual Selection',
+          label: {
+            en: 'Individual Selection',
+            ar: 'اختيار فردي',
+          },
           value: 'selection',
         },
       ],
@@ -48,10 +62,16 @@ export const Archive: Block = {
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
       },
       defaultValue: 'posts',
-      label: 'Collections To Show',
+      label: {
+        en: 'Collections To Show',
+        ar: 'المجموعات المراد عرضها',
+      },
       options: [
         {
-          label: 'Posts',
+          label: {
+            en: 'Posts',
+            ar: 'المقالات',
+          },
           value: 'posts',
         },
       ],
@@ -63,7 +83,10 @@ export const Archive: Block = {
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
       },
       hasMany: true,
-      label: 'Categories To Show',
+      label: {
+        en: 'Categories To Show',
+        ar: 'الفئات المراد عرضها',
+      },
       relationTo: 'categories',
     },
     {
@@ -74,7 +97,10 @@ export const Archive: Block = {
         step: 1,
       },
       defaultValue: 10,
-      label: 'Limit',
+      label: {
+        en: 'Limit',
+        ar: 'الحد الأقصى',
+      },
     },
     {
       name: 'selectedDocs',
@@ -83,12 +109,21 @@ export const Archive: Block = {
         condition: (_, siblingData) => siblingData.populateBy === 'selection',
       },
       hasMany: true,
-      label: 'Selection',
+      label: {
+        en: 'Selection',
+        ar: 'الاختيار',
+      },
       relationTo: ['posts'],
     },
   ],
   labels: {
-    plural: 'Archives',
-    singular: 'Archive',
+    singular: {
+      en: 'Archive',
+      ar: 'أرشيف',
+    },
+    plural: {
+      en: 'Archives',
+      ar: 'الأرشيف',
+    },
   },
 }

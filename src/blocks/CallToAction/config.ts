@@ -26,7 +26,11 @@ export const CallToAction: Block = {
           ]
         },
       }),
-      label: false,
+      label: {
+        en: 'Content',
+        ar: 'المحتوى',
+      },
+      localized: true,
     },
     linkGroup({
       appearances: ['default', 'outline'],
@@ -36,7 +40,13 @@ export const CallToAction: Block = {
     }),
   ],
   labels: {
-    plural: 'Calls to Action',
-    singular: 'Call to Action',
+    singular: {
+      en: 'Call to Action',
+      ar: 'دعوة للعمل',
+    },
+    plural: {
+      en: 'Calls to Action',
+      ar: 'دعوات للعمل',
+    },
   },
 }

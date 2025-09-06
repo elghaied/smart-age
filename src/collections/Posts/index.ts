@@ -29,6 +29,16 @@ import { slugField } from '@/fields/slug'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
+  labels: {
+    singular: {
+      en: 'Post',
+      ar: 'مقال',
+    },
+    plural: {
+      en: 'Posts',
+      ar: 'المقالات',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -48,22 +58,28 @@ export const Posts: CollectionConfig<'posts'> = {
     },
   },
   admin: {
+    group: {
+      en: 'Content',
+      ar: 'المحتوى',
+    },
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) => {
+      url: ({ data, req,locale }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'posts',
+          locale: locale.code,
           req,
         })
 
         return path
       },
     },
-    preview: (data, { req }) =>
+    preview: (data, { req ,locale}) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'posts',
+        locale,
         req,
       }),
     useAsTitle: 'title',

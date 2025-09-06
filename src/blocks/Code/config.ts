@@ -3,18 +3,32 @@ import type { Block } from 'payload'
 export const Code: Block = {
   slug: 'code',
   interfaceName: 'CodeBlock',
+  labels: {
+    singular: {
+      en: 'Code Block',
+      ar: 'كتلة كود',
+    },
+    plural: {
+      en: 'Code Blocks',
+      ar: 'كتل الكود',
+    },
+  },
   fields: [
     {
       name: 'language',
       type: 'select',
       defaultValue: 'typescript',
+      label: {
+        en: 'Programming Language',
+        ar: 'لغة البرمجة',
+      },
       options: [
         {
-          label: 'Typescript',
+          label: 'TypeScript',
           value: 'typescript',
         },
         {
-          label: 'Javascript',
+          label: 'JavaScript',
           value: 'javascript',
         },
         {
@@ -26,7 +40,10 @@ export const Code: Block = {
     {
       name: 'code',
       type: 'code',
-      label: false,
+      label: {
+        en: 'Code',
+        ar: 'الكود',
+      },
       required: true,
     },
   ],

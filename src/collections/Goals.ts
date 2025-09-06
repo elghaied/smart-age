@@ -2,7 +2,21 @@ import type { CollectionConfig } from 'payload'
 
 export const Goals: CollectionConfig = {
   slug: 'goals',
+  labels: {
+    singular: {
+      en: 'Goal',
+      ar: 'هدف',
+    },
+    plural: {
+      en: 'Goals',
+      ar: 'الأهداف',
+    },
+  },
   admin: {
+    group: {
+      en: 'Business',
+      ar: 'الأعمال',
+    },
     useAsTitle: 'text',
     defaultColumns: ['text', 'icon', 'order', 'isActive'],
   },

@@ -23,12 +23,23 @@ import {
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
+  labels: {
+    singular: {
+      en: 'Page',
+      ar: 'صفحة',
+    },
+    plural: {
+      en: 'Pages',
+      ar: 'الصفحات',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  localization: true,
   // This config controls what's populated by default when a page is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
   // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
@@ -37,22 +48,28 @@ export const Pages: CollectionConfig<'pages'> = {
     slug: true,
   },
   admin: {
+    group: {
+      en: 'Content',
+      ar: 'المحتوى',
+    },
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) => {
+      url: ({ data, req,locale }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'pages',
+          locale: locale.code,
           req,
         })
 
         return path
       },
     },
-    preview: (data, { req }) =>
+    preview: (data, { req,locale }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'pages',
+        locale,
         req,
       }),
     useAsTitle: 'title',
