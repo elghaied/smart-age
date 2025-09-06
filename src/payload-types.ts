@@ -72,6 +72,11 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    values: Value;
+    services: Service;
+    projects: Project;
+    goals: Goal;
+    features: Feature;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +93,11 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    values: ValuesSelect<false> | ValuesSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    goals: GoalsSelect<false> | GoalsSelect<true>;
+    features: FeaturesSelect<false> | FeaturesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -103,10 +113,16 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'contact-info': ContactInfo;
+    homepage: Homepage;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'contact-info': ContactInfoSelect<false> | ContactInfoSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -736,6 +752,229 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "values".
+ */
+export interface Value {
+  id: string;
+  title: string;
+  description: string;
+  icon:
+    | 'Lightbulb'
+    | 'Heart'
+    | 'Award'
+    | 'Zap'
+    | 'Target'
+    | 'Shield'
+    | 'Users'
+    | 'Globe'
+    | 'Star'
+    | 'CheckCircle'
+    | 'Handshake'
+    | 'Eye';
+  /**
+   * Lower numbers appear first
+   */
+  order: number;
+  /**
+   * Uncheck to hide this value from the website
+   */
+  isActive?: boolean | null;
+  /**
+   * Optional image to represent this value
+   */
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  details?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  icon:
+    | 'Globe'
+    | 'Shield'
+    | 'Server'
+    | 'Smartphone'
+    | 'Cloud'
+    | 'BarChart3'
+    | 'Layers'
+    | 'Users'
+    | 'Headphones'
+    | 'Target'
+    | 'Lightbulb'
+    | 'Clock';
+  features?:
+    | {
+        feature?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Lower numbers appear first
+   */
+  order: number;
+  /**
+   * Uncheck to hide this service from the website
+   */
+  isActive?: boolean | null;
+  /**
+   * Optional image for the service
+   */
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  year: string;
+  /**
+   * Title for the year section (e.g., "Strong Beginning")
+   */
+  yearTitle?: string | null;
+  status: 'completed' | 'in_development' | 'planning';
+  /**
+   * Override the default status label with custom text
+   */
+  statusLabel?: string | null;
+  icon:
+    | 'Building'
+    | 'Shield'
+    | 'Server'
+    | 'Smartphone'
+    | 'Globe'
+    | 'Cloud'
+    | 'BarChart3'
+    | 'Database'
+    | 'Cpu'
+    | 'Users'
+    | 'Award';
+  /**
+   * Lower numbers appear first in timeline
+   */
+  order: number;
+  /**
+   * Uncheck to hide this project from the timeline
+   */
+  isActive?: boolean | null;
+  /**
+   * Optional image for the project
+   */
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "goals".
+ */
+export interface Goal {
+  id: string;
+  text: string;
+  /**
+   * Optional short title for display purposes
+   */
+  shortTitle?: string | null;
+  icon?:
+    | (
+        | 'Target'
+        | 'Shield'
+        | 'Server'
+        | 'Globe'
+        | 'Award'
+        | 'Zap'
+        | 'TrendingUp'
+        | 'Users'
+        | 'Lightbulb'
+        | 'Heart'
+        | 'CheckCircle'
+        | 'Flag'
+      )
+    | null;
+  category?: ('strategic' | 'operational' | 'customer_focused' | 'innovation' | 'growth' | 'quality') | null;
+  timeline?: ('short_term' | 'medium_term' | 'long_term' | 'ongoing') | null;
+  /**
+   * Lower numbers appear first
+   */
+  order: number;
+  /**
+   * Uncheck to hide this goal from the website
+   */
+  isActive?: boolean | null;
+  /**
+   * Optional progress indicator (0-100)
+   */
+  progress?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features".
+ */
+export interface Feature {
+  id: string;
+  title: string;
+  description: string;
+  icon:
+    | 'Globe'
+    | 'Target'
+    | 'Lightbulb'
+    | 'Clock'
+    | 'Shield'
+    | 'Award'
+    | 'Users'
+    | 'Zap'
+    | 'CheckCircle'
+    | 'Star'
+    | 'ThumbsUp'
+    | 'Rocket';
+  /**
+   * Lower numbers appear first
+   */
+  order: number;
+  /**
+   * Uncheck to hide this feature from the website
+   */
+  isActive?: boolean | null;
+  /**
+   * Optional image to illustrate this feature
+   */
+  image?: (string | null) | Media;
+  link?: {
+    url?: string | null;
+    text?: string | null;
+    openInNewTab?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -926,6 +1165,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'values';
+        value: string | Value;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'goals';
+        value: string | Goal;
+      } | null)
+    | ({
+        relationTo: 'features';
+        value: string | Feature;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1293,6 +1552,96 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "values_select".
+ */
+export interface ValuesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  icon?: T;
+  order?: T;
+  isActive?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  details?: T;
+  icon?: T;
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  order?: T;
+  isActive?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  year?: T;
+  yearTitle?: T;
+  status?: T;
+  statusLabel?: T;
+  icon?: T;
+  order?: T;
+  isActive?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "goals_select".
+ */
+export interface GoalsSelect<T extends boolean = true> {
+  text?: T;
+  shortTitle?: T;
+  icon?: T;
+  category?: T;
+  timeline?: T;
+  order?: T;
+  isActive?: T;
+  progress?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features_select".
+ */
+export interface FeaturesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  icon?: T;
+  order?: T;
+  isActive?: T;
+  image?: T;
+  link?:
+    | T
+    | {
+        url?: T;
+        text?: T;
+        openInNewTab?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -1606,6 +1955,191 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-info".
+ */
+export interface ContactInfo {
+  id: string;
+  /**
+   * Internal label for this contact info
+   */
+  label: string;
+  contactInfo?: {
+    address?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    workingHours?: string | null;
+  };
+  contactForm?: {
+    title?: string | null;
+    fields?: {
+      nameLabel?: string | null;
+      namePlaceholder?: string | null;
+      emailLabel?: string | null;
+      emailPlaceholder?: string | null;
+      subjectLabel?: string | null;
+      subjectPlaceholder?: string | null;
+      messageLabel?: string | null;
+      messagePlaceholder?: string | null;
+      submitButton?: string | null;
+    };
+  };
+  labels?: {
+    address?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    hours?: string | null;
+  };
+  socialMedia?: {
+    title?: string | null;
+    facebook?: string | null;
+    twitter?: string | null;
+    instagram?: string | null;
+    linkedin?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: string;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    keywords?: string | null;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    ogImage?: (string | null) | Media;
+  };
+  hero: {
+    title: string;
+    subtitle?: string | null;
+    description?: string | null;
+    features?:
+      | {
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    primaryCTA?: {
+      text?: string | null;
+      link?: string | null;
+    };
+    secondaryCTA?: {
+      text?: string | null;
+      link?: string | null;
+    };
+    established?: string | null;
+    location?: string | null;
+    backgroundImage?: (string | null) | Media;
+  };
+  about?: {
+    title?: string | null;
+    subtitle?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    mission?: {
+      title?: string | null;
+      text?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+    valuesTitle?: string | null;
+  };
+  whyUs?: {
+    title?: string | null;
+    subtitle?: string | null;
+  };
+  goals?: {
+    title?: string | null;
+    subtitle?: string | null;
+  };
+  projects?: {
+    title?: string | null;
+    subtitle?: string | null;
+    description?: string | null;
+  };
+  services?: {
+    title?: string | null;
+    subtitle?: string | null;
+    description?: string | null;
+  };
+  contact?: {
+    title?: string | null;
+    subtitle?: string | null;
+    description?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  siteName: string;
+  siteUrl: string;
+  defaultLocale: 'ar' | 'en';
+  supportedLocales: {
+    locale?: ('ar' | 'en') | null;
+    id?: string | null;
+  }[];
+  branding?: {
+    logo?: (string | null) | Media;
+    favicon?: (string | null) | Media;
+    /**
+     * Primary brand color (hex code)
+     */
+    primaryColor?: string | null;
+    /**
+     * Secondary brand color (hex code)
+     */
+    secondaryColor?: string | null;
+  };
+  defaultSEO?: {
+    title?: string | null;
+    description?: string | null;
+    keywords?: string | null;
+    ogImage?: (string | null) | Media;
+  };
+  analytics?: {
+    googleAnalyticsId?: string | null;
+    facebookPixelId?: string | null;
+    gtmId?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1645,6 +2179,194 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-info_select".
+ */
+export interface ContactInfoSelect<T extends boolean = true> {
+  label?: T;
+  contactInfo?:
+    | T
+    | {
+        address?: T;
+        phone?: T;
+        email?: T;
+        workingHours?: T;
+      };
+  contactForm?:
+    | T
+    | {
+        title?: T;
+        fields?:
+          | T
+          | {
+              nameLabel?: T;
+              namePlaceholder?: T;
+              emailLabel?: T;
+              emailPlaceholder?: T;
+              subjectLabel?: T;
+              subjectPlaceholder?: T;
+              messageLabel?: T;
+              messagePlaceholder?: T;
+              submitButton?: T;
+            };
+      };
+  labels?:
+    | T
+    | {
+        address?: T;
+        phone?: T;
+        email?: T;
+        hours?: T;
+      };
+  socialMedia?:
+    | T
+    | {
+        title?: T;
+        facebook?: T;
+        twitter?: T;
+        instagram?: T;
+        linkedin?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+      };
+  hero?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        primaryCTA?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+            };
+        secondaryCTA?:
+          | T
+          | {
+              text?: T;
+              link?: T;
+            };
+        established?: T;
+        location?: T;
+        backgroundImage?: T;
+      };
+  about?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        mission?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+            };
+        valuesTitle?: T;
+      };
+  whyUs?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+      };
+  goals?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+      };
+  projects?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+      };
+  services?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+      };
+  contact?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  siteUrl?: T;
+  defaultLocale?: T;
+  supportedLocales?:
+    | T
+    | {
+        locale?: T;
+        id?: T;
+      };
+  branding?:
+    | T
+    | {
+        logo?: T;
+        favicon?: T;
+        primaryColor?: T;
+        secondaryColor?: T;
+      };
+  defaultSEO?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+        ogImage?: T;
+      };
+  analytics?:
+    | T
+    | {
+        googleAnalyticsId?: T;
+        facebookPixelId?: T;
+        gtmId?: T;
       };
   updatedAt?: T;
   createdAt?: T;
