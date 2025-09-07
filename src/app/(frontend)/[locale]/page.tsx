@@ -8,6 +8,12 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { generateMetaForGlobal } from '@/utilities/generateMeta'
 import Hero from '@/components/sections/Hero'
+import About from '@/components/sections/About'
+import WhyUs from '@/components/sections/WhyUs'
+import Goals from '@/components/sections/Goals'
+import Projects from '@/components/sections/Projects'
+import { getCachedGoals } from '@/utilities/getGoals'
+import { getCachedProjects } from '@/utilities/getProjects'
 
 type Args = {
   params: Promise<{
@@ -22,6 +28,12 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
   // Fetch LandingPage global data
   const homepage = (await getCachedGlobal('homepage', 0, locale)()) as Homepage
 
+  // Fetch Goals data
+  const goals = await getCachedGoals(locale)()
+
+  // Fetch Projects data
+  const projects = await getCachedProjects(locale)()
+
   if (!homepage) {
     return <div>Homepage data not found</div>
   }
@@ -33,46 +45,20 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
       {/* Hero Section */}
       <Hero hero={homepage.hero} />
 
-      {/* About Section - placeholder */}
-      {homepage.about && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">{homepage.about.title}</h2>
-            {homepage.about.subtitle && <p className="text-gray-600">{homepage.about.subtitle}</p>}
-          </div>
-        </section>
-      )}
+      {/* About Section */}
+      <About about={homepage.about} />
 
-      {/* Why Us Section - placeholder */}
-      {homepage.whyUs && (
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">{homepage.whyUs.title}</h2>
-            {homepage.whyUs.subtitle && <p className="text-gray-600">{homepage.whyUs.subtitle}</p>}
-          </div>
-        </section>
-      )}
+      {/* Why Us Section */}
+      <WhyUs whyUs={homepage.whyUs} />
 
-      {/* Goals Section - placeholder */}
+      {/* Goals Section */}
       {homepage.goals && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">{homepage.goals.title}</h2>
-            {homepage.goals.subtitle && <p className="text-gray-600">{homepage.goals.subtitle}</p>}
-          </div>
-        </section>
+        <Goals title={homepage.goals.title!} subtitle={homepage.goals.subtitle!} goals={goals} />
       )}
 
-      {/* Projects Section - placeholder */}
+      {/* Projects Section */}
       {homepage.projects && (
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">{homepage.projects.title}</h2>
-            {homepage.projects.subtitle && (
-              <p className="text-gray-600">{homepage.projects.subtitle}</p>
-            )}
-          </div>
-        </section>
+        <Projects projects={homepage.projects} projectsData={projects} locale={locale} />
       )}
 
       {/* Services Section - placeholder */}

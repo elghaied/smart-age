@@ -884,7 +884,7 @@ export interface Project {
   /**
    * Optional image for the project
    */
-  image?: (string | null) | Media;
+  image?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
 }

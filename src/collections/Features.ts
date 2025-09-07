@@ -31,7 +31,7 @@ export const Features: CollectionConfig = {
       localized: true,
       label: {
         en: 'Feature Title',
-        ar: 'عنوان الميزة'
+        ar: 'عنوان الميزة',
       },
     },
     {
@@ -41,7 +41,7 @@ export const Features: CollectionConfig = {
       localized: true,
       label: {
         en: 'Feature Description',
-        ar: 'وصف الميزة'
+        ar: 'وصف الميزة',
       },
     },
     {
@@ -50,7 +50,7 @@ export const Features: CollectionConfig = {
       required: true,
       label: {
         en: 'Feature Icon',
-        ar: 'أيقونة الميزة'
+        ar: 'أيقونة الميزة',
       },
       options: [
         { label: 'Globe (🌐)', value: 'Globe' },
@@ -74,12 +74,12 @@ export const Features: CollectionConfig = {
       defaultValue: 0,
       label: {
         en: 'Display Order',
-        ar: 'ترتيب العرض'
+        ar: 'ترتيب العرض',
       },
       admin: {
         description: {
           en: 'Lower numbers appear first',
-          ar: 'الأرقام الأقل تظهر أولاً'
+          ar: 'الأرقام الأقل تظهر أولاً',
         },
       },
     },
@@ -89,12 +89,12 @@ export const Features: CollectionConfig = {
       defaultValue: true,
       label: {
         en: 'Is Active',
-        ar: 'نشط'
+        ar: 'نشط',
       },
       admin: {
         description: {
           en: 'Uncheck to hide this feature from the website',
-          ar: 'ألغ التحديد لإخفاء هذه الميزة من الموقع'
+          ar: 'ألغ التحديد لإخفاء هذه الميزة من الموقع',
         },
       },
     },
@@ -104,12 +104,12 @@ export const Features: CollectionConfig = {
       relationTo: 'media',
       label: {
         en: 'Feature Image',
-        ar: 'صورة الميزة'
+        ar: 'صورة الميزة',
       },
       admin: {
         description: {
           en: 'Optional image to illustrate this feature',
-          ar: 'صورة اختيارية لتوضيح هذه الميزة'
+          ar: 'صورة اختيارية لتوضيح هذه الميزة',
         },
       },
     },
@@ -118,7 +118,7 @@ export const Features: CollectionConfig = {
       type: 'group',
       label: {
         en: 'Optional Link',
-        ar: 'رابط اختياري'
+        ar: 'رابط اختياري',
       },
       fields: [
         {
@@ -126,7 +126,7 @@ export const Features: CollectionConfig = {
           type: 'text',
           label: {
             en: 'Link URL',
-            ar: 'رابط URL'
+            ar: 'رابط URL',
           },
         },
         {
@@ -135,7 +135,7 @@ export const Features: CollectionConfig = {
           localized: true,
           label: {
             en: 'Link Text',
-            ar: 'نص الرابط'
+            ar: 'نص الرابط',
           },
         },
         {
@@ -144,7 +144,7 @@ export const Features: CollectionConfig = {
           defaultValue: false,
           label: {
             en: 'Open in New Tab',
-            ar: 'فتح في تبويب جديد'
+            ar: 'فتح في تبويب جديد',
           },
         },
       ],

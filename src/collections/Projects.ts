@@ -31,7 +31,7 @@ export const Projects: CollectionConfig = {
       localized: true,
       label: {
         en: 'Project Name',
-        ar: 'اسم المشروع'
+        ar: 'اسم المشروع',
       },
     },
     {
@@ -41,7 +41,7 @@ export const Projects: CollectionConfig = {
       localized: true,
       label: {
         en: 'Project Description',
-        ar: 'وصف المشروع'
+        ar: 'وصف المشروع',
       },
     },
     {
@@ -50,7 +50,7 @@ export const Projects: CollectionConfig = {
       required: true,
       label: {
         en: 'Year',
-        ar: 'السنة'
+        ar: 'السنة',
       },
     },
     {
@@ -59,12 +59,12 @@ export const Projects: CollectionConfig = {
       localized: true,
       label: {
         en: 'Year Section Title',
-        ar: 'عنوان قسم السنة'
+        ar: 'عنوان قسم السنة',
       },
       admin: {
         description: {
           en: 'Title for the year section (e.g., "Strong Beginning")',
-          ar: 'عنوان لقسم السنة (مثل "بداية قوية")'
+          ar: 'عنوان لقسم السنة (مثل "بداية قوية")',
         },
       },
     },
@@ -74,29 +74,29 @@ export const Projects: CollectionConfig = {
       required: true,
       label: {
         en: 'Project Status',
-        ar: 'حالة المشروع'
+        ar: 'حالة المشروع',
       },
       options: [
-        { 
+        {
           label: {
             en: 'Completed',
-            ar: 'مكتمل'
-          }, 
-          value: 'completed' 
+            ar: 'مكتمل',
+          },
+          value: 'completed',
         },
-        { 
+        {
           label: {
             en: 'In Development',
-            ar: 'قيد التطوير'
-          }, 
-          value: 'in_development' 
+            ar: 'قيد التطوير',
+          },
+          value: 'in_development',
         },
-        { 
+        {
           label: {
             en: 'Planning',
-            ar: 'في مرحلة التخطيط'
-          }, 
-          value: 'planning' 
+            ar: 'في مرحلة التخطيط',
+          },
+          value: 'planning',
         },
       ],
     },
@@ -106,12 +106,12 @@ export const Projects: CollectionConfig = {
       localized: true,
       label: {
         en: 'Custom Status Label',
-        ar: 'تسمية حالة مخصصة'
+        ar: 'تسمية حالة مخصصة',
       },
       admin: {
         description: {
           en: 'Override the default status label with custom text',
-          ar: 'استبدال تسمية الحالة الافتراضية بنص مخصص'
+          ar: 'استبدال تسمية الحالة الافتراضية بنص مخصص',
         },
       },
     },
@@ -121,7 +121,7 @@ export const Projects: CollectionConfig = {
       required: true,
       label: {
         en: 'Project Icon',
-        ar: 'أيقونة المشروع'
+        ar: 'أيقونة المشروع',
       },
       options: [
         { label: 'Building (🏢)', value: 'Building' },
@@ -144,12 +144,12 @@ export const Projects: CollectionConfig = {
       defaultValue: 0,
       label: {
         en: 'Display Order',
-        ar: 'ترتيب العرض'
+        ar: 'ترتيب العرض',
       },
       admin: {
         description: {
           en: 'Lower numbers appear first in timeline',
-          ar: 'الأرقام الأقل تظهر أولاً في الخط الزمني'
+          ar: 'الأرقام الأقل تظهر أولاً في الخط الزمني',
         },
       },
     },
@@ -159,12 +159,12 @@ export const Projects: CollectionConfig = {
       defaultValue: true,
       label: {
         en: 'Is Active',
-        ar: 'نشط'
+        ar: 'نشط',
       },
       admin: {
         description: {
           en: 'Uncheck to hide this project from the timeline',
-          ar: 'ألغ التحديد لإخفاء هذا المشروع من الخط الزمني'
+          ar: 'ألغ التحديد لإخفاء هذا المشروع من الخط الزمني',
         },
       },
     },
@@ -172,14 +172,15 @@ export const Projects: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
+      hasMany: true,
       label: {
         en: 'Project Image',
-        ar: 'صورة المشروع'
+        ar: 'صورة المشروع',
       },
       admin: {
         description: {
           en: 'Optional image for the project',
-          ar: 'صورة اختيارية للمشروع'
+          ar: 'صورة اختيارية للمشروع',
         },
       },
     },

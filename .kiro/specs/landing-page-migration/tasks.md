@@ -45,68 +45,93 @@
     - Pass hero data from LandingPage global to component
     - _Requirements: 7.2, 7.4_
 
-- [ ] 5. Create About section component
-  - [ ] 5.1 Create About component from provided code
+- [x] 5. Create About section component
+  - [x] 5.1 Create About component from provided code
     - Create `src/components/sections/About/index.tsx`
     - Implement using provided About section code and LandingPage about data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 5.2 Integrate About component into main page
+  - [x] 5.2 Integrate About component into main page
     - Add About component import and usage to main page
     - Pass about data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
-- [ ] 6. Create Why Us section component
-  - [ ] 6.1 Create WhyUs component from provided code
+- [x] 6. Create Why Us section component
+  - [x] 6.1 Wait for user to provide Why Us section code and collection information
+    - User must provide the original Why Us section HTML/React code from the old project
+    - User must specify which Payload collection(s) to use for dynamic data (e.g., Values, Features, etc.)
+    - _Requirements: 8.1, 8.2_
+
+  - [x] 6.2 Create WhyUs component from provided code
     - Create `src/components/sections/WhyUs/index.tsx`
-    - Implement using provided Why Us section code and LandingPage whyUs data
+    - Implement using provided Why Us section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 6.2 Integrate WhyUs component into main page
+  - [x] 6.3 Integrate WhyUs component into main page
     - Add WhyUs component import and usage to main page
     - Pass whyUs data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
-- [ ] 7. Create Goals section component
-  - [ ] 7.1 Create Goals component from provided code
+- [x] 7. Create Goals section component
+  - [x] 7.1 Wait for user to provide Goals section code and collection information
+    - User must provide the original Goals section HTML/React code from the old project
+    - User must specify which Payload collection(s) to use for dynamic data (e.g., Goals, Objectives, etc.)
+    - _Requirements: 8.1, 8.2_
+
+  - [x] 7.2 Create Goals component from provided code
     - Create `src/components/sections/Goals/index.tsx`
-    - Implement using provided Goals section code and LandingPage goals data
+    - Implement using provided Goals section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 7.2 Integrate Goals component into main page
+  - [x] 7.3 Integrate Goals component into main page
     - Add Goals component import and usage to main page
     - Pass goals data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
-- [ ] 8. Create Projects section component
-  - [ ] 8.1 Create Projects component from provided code
+- [x] 8. Create Projects section component
+  - [x] 8.1 Wait for user to provide Projects section code and collection information
+    - User must provide the original Projects section HTML/React code from the old project
+    - User must specify which Payload collection(s) to use for dynamic data (e.g., Projects, Portfolio, etc.)
+    - _Requirements: 8.1, 8.2_
+
+  - [x] 8.2 Create Projects component from provided code
     - Create `src/components/sections/Projects/index.tsx`
-    - Implement using provided Projects section code and LandingPage projects data
+    - Implement using provided Projects section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 8.2 Integrate Projects component into main page
+  - [x] 8.3 Integrate Projects component into main page
     - Add Projects component import and usage to main page
     - Pass projects data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
 - [ ] 9. Create Services section component
-  - [ ] 9.1 Create Services component from provided code
+  - [ ] 9.1 Wait for user to provide Services section code and collection information
+    - User must provide the original Services section HTML/React code from the old project
+    - User must specify which Payload collection(s) to use for dynamic data (e.g., Services, Offerings, etc.)
+    - _Requirements: 8.1, 8.2_
+
+  - [ ] 9.2 Create Services component from provided code
     - Create `src/components/sections/Services/index.tsx`
-    - Implement using provided Services section code and LandingPage services data
+    - Implement using provided Services section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 9.2 Integrate Services component into main page
+  - [ ] 9.3 Integrate Services component into main page
     - Add Services component import and usage to main page
     - Pass services data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
 - [ ] 10. Create Contact section component
-  - [ ] 10.1 Create Contact component from provided code
+  - [ ] 10.1 Wait for user to provide Contact section code and collection information
+    - User must provide the original Contact section HTML/React code from the old project
+    - User must specify which Payload collection(s) to use for dynamic data (e.g., ContactInfo global, Forms, etc.)
+    - _Requirements: 8.1, 8.2_
+
+  - [ ] 10.2 Create Contact component from provided code
     - Create `src/components/sections/Contact/index.tsx`
-    - Implement using provided Contact section code and LandingPage contact data
+    - Implement using provided Contact section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 10.2 Integrate Contact component into main page
+  - [ ] 10.3 Integrate Contact component into main page
     - Add Contact component import and usage to main page
     - Pass contact data from LandingPage global
     - _Requirements: 7.2, 8.4_
