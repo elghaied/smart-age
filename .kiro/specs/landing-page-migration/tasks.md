@@ -5,8 +5,8 @@
   - Establish consistent naming convention for section components
   - _Requirements: 2.1, 6.1_
 
-- [-] 2. Migrate LandingPage global to use SEO plugin fields
-  - [ ] 2.1 Replace custom SEO fields with SEO plugin fields
+- [x] 2. Migrate LandingPage global to use SEO plugin fields
+  - [x] 2.1 Replace custom SEO fields with SEO plugin fields
     - Remove existing custom `meta` group fields from LandingPage global configuration
     - Import and implement SEO plugin fields (`MetaTitleField`, `MetaDescriptionField`, `MetaImageField`, `OverviewField`, `PreviewField`)
     - Ensure proper integration with existing SEO plugin configuration
@@ -17,13 +17,13 @@
     - Ensure SEO metadata generation works correctly with plugin fields
     - _Requirements: 5.4, 5.5_
 
-- [-] 3. Prepare main landing page for section integration
+- [x] 3. Prepare main landing page for section integration
   - [x] 3.1 Read current landing page structure and understand data fetching
     - Examine `src/app/(frontend)/[locale]/page.tsx` to understand current implementation
     - Identify how LandingPage global data is currently accessed
     - _Requirements: 7.2, 7.3_
 
-  - [-] 3.2 Set up data fetching for LandingPage global
+  - [x] 3.2 Set up data fetching for LandingPage global
     - Implement or verify existing method to fetch LandingPage global data
     - Ensure proper locale handling for multilingual content
     - _Requirements: 1.2, 3.1, 3.2_
@@ -104,50 +104,82 @@
     - Pass projects data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
-- [ ] 9. Create Services section component
-  - [ ] 9.1 Wait for user to provide Services section code and collection information
+- [x] 9. Create Services section component
+  - [x] 9.1 Wait for user to provide Services section code and collection information
     - User must provide the original Services section HTML/React code from the old project
     - User must specify which Payload collection(s) to use for dynamic data (e.g., Services, Offerings, etc.)
     - _Requirements: 8.1, 8.2_
 
-  - [ ] 9.2 Create Services component from provided code
+  - [x] 9.2 Create Services component from provided code
     - Create `src/components/sections/Services/index.tsx`
     - Implement using provided Services section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 9.3 Integrate Services component into main page
+  - [x] 9.3 Integrate Services component into main page
     - Add Services component import and usage to main page
     - Pass services data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
-- [ ] 10. Create Contact section component
-  - [ ] 10.1 Wait for user to provide Contact section code and collection information
+- [-] 10. Create Team section component
+  - [x] 10.1 Create Team Members collection
+    - Create new Payload collection `src/collections/TeamMembers.ts`
+    - Define fields for name, role, description, image, specialties array
+    - Include localization support for multilingual content
+    - Set up proper access controls and admin interface
+    - _Requirements: 8.1, 8.2, 1.2, 3.1_
+
+  - [x] 10.2 Add Team section to LandingPage global
+    - Modify `src/globals/LandingPage/index.ts` to include team section fields
+    - Add team title, subtitle, and description fields with localization
+    - Include team stats configuration (experts count, experience years, certifications, support availability)
+    - _Requirements: 8.1, 8.2, 1.2, 3.2_
+
+  - [x] 10.3 Create Team component from provided code
+    - Create `src/components/sections/Team/index.tsx`
+    - Implement using provided Team section code and TeamMembers collection data
+    - Include team member cards with images, roles, descriptions, and specialties
+    - Add team statistics section with dynamic data
+    - _Requirements: 8.1, 8.2, 6.1_
+
+  - [x] 10.4 Create utility function for fetching team members
+    - Create `src/utilities/getTeamMembers.ts` for fetching team member data
+    - Implement caching and locale support similar to other collection utilities
+    - _Requirements: 7.3, 1.2, 3.1_
+
+  - [x] 10.5 Integrate Team component into main page
+    - Add Team component import and usage to main page
+    - Pass team data from LandingPage global and team members from collection
+    - Position Team section between Services and Contact sections
+    - _Requirements: 7.2, 8.4_
+
+- [x] 11. Create Contact section component
+  - [x] 11.1 Wait for user to provide Contact section code and collection information
     - User must provide the original Contact section HTML/React code from the old project
     - User must specify which Payload collection(s) to use for dynamic data (e.g., ContactInfo global, Forms, etc.)
     - _Requirements: 8.1, 8.2_
 
-  - [ ] 10.2 Create Contact component from provided code
+  - [x] 11.2 Create Contact component from provided code
     - Create `src/components/sections/Contact/index.tsx`
     - Implement using provided Contact section code and specified collection data
     - _Requirements: 8.1, 8.2, 6.1_
 
-  - [ ] 10.3 Integrate Contact component into main page
+  - [x] 11.3 Integrate Contact component into main page
     - Add Contact component import and usage to main page
     - Pass contact data from LandingPage global
     - _Requirements: 7.2, 8.4_
 
-- [ ] 11. Final integration and optimization
-  - [ ] 11.1 Review all section components for consistency
-    - Ensure all components (Hero, About, WhyUs, Goals, Projects, Services, Contact) follow same patterns
+- [ ] 12. Final integration and optimization
+  - [ ] 12.1 Review all section components for consistency
+    - Ensure all components (Hero, About, WhyUs, Goals, Projects, Services, Team, Contact) follow same patterns
     - Verify proper error handling for missing data across all sections
     - _Requirements: 7.1, 7.5_
 
-  - [ ] 11.2 Optimize main landing page structure
+  - [ ] 12.2 Optimize main landing page structure
     - Organize all section component imports and usage logically
     - Ensure proper data flow and component ordering for all sections
     - _Requirements: 7.2, 7.4_
 
-  - [ ] 11.3 Verify SEO and performance optimization
+  - [ ] 12.3 Verify SEO and performance optimization
     - Check that all sections use semantic HTML structure
     - Ensure images use proper optimization through Payload media system
     - Verify no performance regressions from added sections

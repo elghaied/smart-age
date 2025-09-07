@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import React from 'react'
 import { TypedLocale } from 'payload'
-import type { Homepage } from '@/payload-types'
+import type { Homepage, ContactInfo } from '@/payload-types'
 
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { getCachedGlobal } from '@/utilities/getGlobals'
@@ -12,6 +12,9 @@ import About from '@/components/sections/About'
 import WhyUs from '@/components/sections/WhyUs'
 import Goals from '@/components/sections/Goals'
 import Projects from '@/components/sections/Projects'
+import Services from '@/components/sections/Services'
+import Team from '@/components/sections/Team'
+import Contact from '@/components/sections/Contact'
 import { getCachedGoals } from '@/utilities/getGoals'
 import { getCachedProjects } from '@/utilities/getProjects'
 
@@ -27,6 +30,9 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
 
   // Fetch LandingPage global data
   const homepage = (await getCachedGlobal('homepage', 0, locale)()) as Homepage
+
+  // Fetch ContactInfo global data
+  const contactInfo = (await getCachedGlobal('contact-info', 0, locale)()) as ContactInfo
 
   // Fetch Goals data
   const goals = await getCachedGoals(locale)()
@@ -61,28 +67,15 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
         <Projects projects={homepage.projects} projectsData={projects} locale={locale} />
       )}
 
-      {/* Services Section - placeholder */}
-      {homepage.services && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">{homepage.services.title}</h2>
-            {homepage.services.subtitle && (
-              <p className="text-gray-600">{homepage.services.subtitle}</p>
-            )}
-          </div>
-        </section>
-      )}
+      {/* Services Section */}
+      <Services services={homepage.services} />
 
-      {/* Contact Section - placeholder */}
-      {homepage.contact && (
-        <section className="py-16 bg-gray-50 pb-24">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">{homepage.contact.title}</h2>
-            {homepage.contact.subtitle && (
-              <p className="text-gray-600">{homepage.contact.subtitle}</p>
-            )}
-          </div>
-        </section>
+      {/* Team Section */}
+      <Team team={homepage.team} locale={locale} />
+
+      {/* Contact Section */}
+      {homepage.contact && contactInfo && (
+        <Contact contact={homepage.contact} contactInfo={contactInfo} locale={locale} />
       )}
     </article>
   )

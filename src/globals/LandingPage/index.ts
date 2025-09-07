@@ -277,6 +277,111 @@ export const Homepage: GlobalConfig = {
                 },
               ],
             },
+            // Team Section
+            {
+              name: 'team',
+              type: 'group',
+              label: {
+                en: 'Team Section',
+                ar: 'قسم الفريق',
+              },
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  localized: true,
+                  label: {
+                    en: 'Section Title',
+                    ar: 'عنوان القسم',
+                  },
+                },
+                {
+                  name: 'subtitle',
+                  type: 'text',
+                  localized: true,
+                  label: {
+                    en: 'Section Subtitle',
+                    ar: 'العنوان الفرعي للقسم',
+                  },
+                },
+                {
+                  name: 'description',
+                  type: 'textarea',
+                  localized: true,
+                  label: {
+                    en: 'Section Description',
+                    ar: 'وصف القسم',
+                  },
+                },
+                {
+                  name: 'stats',
+                  type: 'group',
+                  label: {
+                    en: 'Team Statistics',
+                    ar: 'إحصائيات الفريق',
+                  },
+                  fields: [
+                    {
+                      name: 'expertsCount',
+                      type: 'number',
+                      label: {
+                        en: 'Number of Experts',
+                        ar: 'عدد الخبراء',
+                      },
+                      admin: {
+                        description: {
+                          en: 'Total number of experts in the team',
+                          ar: 'العدد الإجمالي للخبراء في الفريق',
+                        },
+                      },
+                    },
+                    {
+                      name: 'experienceYears',
+                      type: 'number',
+                      label: {
+                        en: 'Years of Experience',
+                        ar: 'سنوات الخبرة',
+                      },
+                      admin: {
+                        description: {
+                          en: 'Combined years of experience',
+                          ar: 'سنوات الخبرة المجمعة',
+                        },
+                      },
+                    },
+                    {
+                      name: 'certificationsCount',
+                      type: 'number',
+                      label: {
+                        en: 'Number of Certifications',
+                        ar: 'عدد الشهادات',
+                      },
+                      admin: {
+                        description: {
+                          en: 'Total certifications held by team members',
+                          ar: 'إجمالي الشهادات التي يحملها أعضاء الفريق',
+                        },
+                      },
+                    },
+                    {
+                      name: 'supportAvailability',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'Support Availability',
+                        ar: 'توفر الدعم',
+                      },
+                      admin: {
+                        description: {
+                          en: 'Support availability hours (e.g., "24/7", "Business Hours")',
+                          ar: 'ساعات توفر الدعم (مثل "24/7"، "ساعات العمل")',
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
             // Contact Section
             {
               name: 'contact',

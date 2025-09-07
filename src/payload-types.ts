@@ -77,6 +77,7 @@ export interface Config {
     projects: Project;
     goals: Goal;
     features: Feature;
+    'team-members': TeamMember;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -98,6 +99,7 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     goals: GoalsSelect<false> | GoalsSelect<true>;
     features: FeaturesSelect<false> | FeaturesSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -975,6 +977,40 @@ export interface Feature {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members".
+ */
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  /**
+   * Brief description about the team member
+   */
+  description: string;
+  /**
+   * Professional photo of the team member
+   */
+  image: string | Media;
+  /**
+   * Areas of expertise and skills
+   */
+  specialties: {
+    specialty: string;
+    id?: string | null;
+  }[];
+  /**
+   * Lower numbers appear first
+   */
+  order: number;
+  /**
+   * Uncheck to hide this team member from the website
+   */
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1185,6 +1221,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'features';
         value: string | Feature;
+      } | null)
+    | ({
+        relationTo: 'team-members';
+        value: string | TeamMember;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1642,6 +1682,26 @@ export interface FeaturesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  description?: T;
+  image?: T;
+  specialties?:
+    | T
+    | {
+        specialty?: T;
+        id?: T;
+      };
+  order?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -2087,6 +2147,29 @@ export interface Homepage {
     subtitle?: string | null;
     description?: string | null;
   };
+  team?: {
+    title?: string | null;
+    subtitle?: string | null;
+    description?: string | null;
+    stats?: {
+      /**
+       * Total number of experts in the team
+       */
+      expertsCount?: number | null;
+      /**
+       * Combined years of experience
+       */
+      experienceYears?: number | null;
+      /**
+       * Total certifications held by team members
+       */
+      certificationsCount?: number | null;
+      /**
+       * Support availability hours (e.g., "24/7", "Business Hours")
+       */
+      supportAvailability?: string | null;
+    };
+  };
   contact?: {
     title?: string | null;
     subtitle?: string | null;
@@ -2315,6 +2398,21 @@ export interface HomepageSelect<T extends boolean = true> {
         title?: T;
         subtitle?: T;
         description?: T;
+      };
+  team?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        stats?:
+          | T
+          | {
+              expertsCount?: T;
+              experienceYears?: T;
+              certificationsCount?: T;
+              supportAvailability?: T;
+            };
       };
   contact?:
     | T

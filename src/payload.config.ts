@@ -22,6 +22,7 @@ import { Services } from './collections/Services'
 import { Projects } from './collections/Projects'
 import { Goals } from './collections/Goals'
 import { Features } from './collections/Features'
+import { TeamMembers } from './collections/TeamMembers'
 import { ContactInfo } from './globals/ContactInfo'
 import { Homepage } from './globals/LandingPage'
 import { SiteSettings } from './globals/SiteSettings'
@@ -75,6 +76,7 @@ export default buildConfig({
     Projects,
     Goals,
     Features,
+    TeamMembers,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ContactInfo, Homepage, SiteSettings],
