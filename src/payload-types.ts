@@ -990,7 +990,7 @@ export interface TeamMember {
   /**
    * Professional photo of the team member
    */
-  image: string | Media;
+  image?: (string | null) | Media;
   /**
    * Areas of expertise and skills
    */

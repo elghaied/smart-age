@@ -64,7 +64,7 @@ export const TeamMembers: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+
       label: {
         en: 'Profile Image',
         ar: 'صورة الملف الشخصي',

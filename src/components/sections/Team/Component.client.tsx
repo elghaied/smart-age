@@ -120,8 +120,8 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
               <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg border border-border">
                 <div className="text-center space-y-4">
                   {/* Profile Image */}
-                  {member.image && typeof member.image === 'object' && (
-                    <div className="relative mx-auto w-24 h-24 mb-4">
+                  <div className="relative mx-auto w-24 h-24 mb-4">
+                    {member.image && typeof member.image === 'object' ? (
                       <Image
                         src={member.image.url || ''}
                         alt={member.image.alt || member.name}
@@ -129,8 +129,12 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
                         height={96}
                         className="w-full h-full object-cover rounded-full border-4 border-primary/10 group-hover:border-primary/20 transition-colors"
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <div className="w-full h-full bg-muted rounded-full border-4 border-primary/10 group-hover:border-primary/20 transition-colors flex items-center justify-center">
+                        <Users className="h-10 w-10 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
 
                   {/* Member Info */}
                   <div className="space-y-2">
