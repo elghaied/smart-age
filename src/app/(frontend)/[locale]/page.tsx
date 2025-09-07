@@ -7,6 +7,7 @@ import type { Homepage } from '@/payload-types'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { generateMetaForGlobal } from '@/utilities/generateMeta'
+import Hero from '@/components/sections/Hero'
 
 type Args = {
   params: Promise<{
@@ -26,41 +27,11 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
   }
 
   return (
-    <article className="pt-16 pb-24">
+    <article>
       {draft && <LivePreviewListener />}
 
-      {/* Hero Section - will be replaced with Hero component */}
-      {homepage.hero && (
-        <section className="bg-gray-50 py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">{homepage.hero.title}</h1>
-            {homepage.hero.subtitle && (
-              <p className="text-xl text-gray-600 mb-6">{homepage.hero.subtitle}</p>
-            )}
-            {homepage.hero.description && (
-              <p className="text-gray-700 mb-8">{homepage.hero.description}</p>
-            )}
-            <div className="flex gap-4 justify-center">
-              {homepage.hero.primaryCTA?.text && (
-                <a
-                  href={homepage.hero.primaryCTA.link || '#'}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
-                >
-                  {homepage.hero.primaryCTA.text}
-                </a>
-              )}
-              {homepage.hero.secondaryCTA?.text && (
-                <a
-                  href={homepage.hero.secondaryCTA.link || '#'}
-                  className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50"
-                >
-                  {homepage.hero.secondaryCTA.text}
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Hero Section */}
+      <Hero hero={homepage.hero} />
 
       {/* About Section - placeholder */}
       {homepage.about && (
@@ -118,7 +89,7 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
 
       {/* Contact Section - placeholder */}
       {homepage.contact && (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 pb-24">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-4">{homepage.contact.title}</h2>
             {homepage.contact.subtitle && (

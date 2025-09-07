@@ -28,19 +28,19 @@
     - Ensure proper locale handling for multilingual content
     - _Requirements: 1.2, 3.1, 3.2_
 
-- [ ] 4. Create Hero section component
-  - [ ] 4.1 Analyze provided Hero section code
+- [x] 4. Create Hero section component
+  - [x] 4.1 Analyze provided Hero section code
     - Review HTML structure, styling classes, and data requirements for Hero section
     - Map to existing LandingPage global hero fields
     - _Requirements: 8.1, 8.2_
 
-  - [ ] 4.2 Create Hero component file
+  - [x] 4.2 Create Hero component file
     - Create `src/components/sections/Hero/index.tsx`
     - Implement Hero component using provided section code
     - Adapt styling to work with existing Tailwind CSS setup
     - _Requirements: 6.1, 6.2, 6.3_
 
-  - [ ] 4.3 Integrate Hero component into main landing page
+  - [x] 4.3 Integrate Hero component into main landing page
     - Import Hero component in main page file
     - Pass hero data from LandingPage global to component
     - _Requirements: 7.2, 7.4_
