@@ -2009,14 +2009,6 @@ export interface ContactInfo {
  */
 export interface Homepage {
   id: string;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    keywords?: string | null;
-    ogTitle?: string | null;
-    ogDescription?: string | null;
-    ogImage?: (string | null) | Media;
-  };
   hero: {
     title: string;
     subtitle?: string | null;
@@ -2098,6 +2090,10 @@ export interface Homepage {
   contact?: {
     title?: string | null;
     subtitle?: string | null;
+    description?: string | null;
+  };
+  meta?: {
+    title?: string | null;
     description?: string | null;
   };
   updatedAt?: string | null;
@@ -2252,16 +2248,6 @@ export interface ContactInfoSelect<T extends boolean = true> {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        keywords?: T;
-        ogTitle?: T;
-        ogDescription?: T;
-        ogImage?: T;
-      };
   hero?:
     | T
     | {
@@ -2335,6 +2321,12 @@ export interface HomepageSelect<T extends boolean = true> {
     | {
         title?: T;
         subtitle?: T;
+        description?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
         description?: T;
       };
   updatedAt?: T;
