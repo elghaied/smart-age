@@ -1,15 +1,31 @@
+'use client'
+
 import { cn } from '@/utilities/ui'
 import * as React from 'react'
 
-const Card: React.FC<
-  { ref?: React.Ref<HTMLDivElement> } & React.HTMLAttributes<HTMLDivElement>
-> = ({ className, ref, ...props }) => (
-  <div
-    className={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)}
-    ref={ref}
-    {...props}
-  />
-)
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  ref?: React.Ref<HTMLDivElement>
+  interactive?: boolean
+  loading?: boolean
+}
+
+const Card: React.FC<CardProps> = ({
+  className,
+  ref,
+  interactive = false,
+  loading = false,
+  ...props
+}) => {
+  const cardClassName = cn(
+    'rounded-lg border border-border bg-card text-card-foreground shadow-sm transition-all duration-200 ease-in-out',
+    interactive &&
+      'hover:shadow-md hover:border-accent/20 cursor-pointer hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]',
+    loading && 'opacity-60 pointer-events-none',
+    className,
+  )
+
+  return <div className={cardClassName} ref={ref} {...props} />
+}
 
 const CardHeader: React.FC<
   { ref?: React.Ref<HTMLDivElement> } & React.HTMLAttributes<HTMLDivElement>

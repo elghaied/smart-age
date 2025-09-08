@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Award, Clock, Star, Mail, Linkedin } from 'lucide-react'
+import { Users, Award, Clock, Star, Mail, Linkedin, MapPin } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useLocale } from 'next-intl'
@@ -29,14 +29,29 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{team.title}</h2>
+          <motion.div
+            initial={{ scale: 0.9 }}
+            whileInView={{ scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-block p-3 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl mb-6"
+          >
+            <Users className="h-8 w-8 text-primary" />
+          </motion.div>
+
+          <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-primary via-foreground to-accent bg-clip-text text-transparent mb-6">
+            {team.title}
+          </h2>
           {team.subtitle && (
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-4">{team.subtitle}</p>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed">
+              {team.subtitle}
+            </p>
           )}
           {team.description && (
-            <p className="text-base text-muted-foreground max-w-3xl mx-auto">{team.description}</p>
+            <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              {team.description}
+            </p>
           )}
         </motion.div>
 
@@ -50,57 +65,59 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
             className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
           >
             {stats.expertsCount && (
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-primary" />
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center group cursor-pointer">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                  <Users className="h-10 w-10 text-primary group-hover:text-accent transition-colors duration-300" />
                 </div>
-                <div className="text-3xl font-bold text-foreground mb-2">{stats.expertsCount}+</div>
-                <p className="text-muted-foreground text-sm">
+                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
+                  {stats.expertsCount}+
+                </div>
+                <p className="text-muted-foreground text-sm font-medium">
                   {locale === 'ar' ? 'خبير' : 'Experts'}
                 </p>
-              </div>
+              </motion.div>
             )}
 
             {stats.experienceYears && (
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Clock className="h-8 w-8 text-primary" />
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center group cursor-pointer">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                  <Clock className="h-10 w-10 text-primary group-hover:text-accent transition-colors duration-300" />
                 </div>
-                <div className="text-3xl font-bold text-foreground mb-2">
+                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
                   {stats.experienceYears}+
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-sm font-medium">
                   {locale === 'ar' ? 'سنة خبرة' : 'Years Experience'}
                 </p>
-              </div>
+              </motion.div>
             )}
 
             {stats.certificationsCount && (
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Award className="h-8 w-8 text-primary" />
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center group cursor-pointer">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                  <Award className="h-10 w-10 text-primary group-hover:text-accent transition-colors duration-300" />
                 </div>
-                <div className="text-3xl font-bold text-foreground mb-2">
+                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
                   {stats.certificationsCount}+
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-sm font-medium">
                   {locale === 'ar' ? 'شهادة' : 'Certifications'}
                 </p>
-              </div>
+              </motion.div>
             )}
 
             {stats.supportAvailability && (
-              <div className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Star className="h-8 w-8 text-primary" />
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center group cursor-pointer">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                  <Star className="h-10 w-10 text-primary group-hover:text-accent transition-colors duration-300" />
                 </div>
-                <div className="text-2xl font-bold text-foreground mb-2">
+                <div className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
                   {stats.supportAvailability}
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-sm font-medium">
                   {locale === 'ar' ? 'دعم متاح' : 'Support Available'}
                 </p>
-              </div>
+              </motion.div>
             )}
           </motion.div>
         )}
@@ -114,61 +131,91 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               className="group"
             >
-              <Card className="p-6 h-full transition-all duration-300 hover:shadow-lg border border-border">
-                <div className="text-center space-y-4">
+              <Card className="relative p-6 h-full transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 border border-border bg-gradient-to-br from-card to-card/50 backdrop-blur-sm overflow-hidden">
+                {/* Decorative gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="relative text-center space-y-4">
                   {/* Profile Image */}
-                  <div className="relative mx-auto w-24 h-24 mb-4">
+                  <div className="relative mx-auto w-28 h-28 mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     {member.image && typeof member.image === 'object' ? (
                       <Image
                         src={member.image.url || ''}
                         alt={member.image.alt || member.name}
-                        width={96}
-                        height={96}
-                        className="w-full h-full object-cover rounded-full border-4 border-primary/10 group-hover:border-primary/20 transition-colors"
+                        width={112}
+                        height={112}
+                        className="relative w-full h-full object-cover rounded-full border-4 border-primary/20 group-hover:border-accent/40 transition-all duration-300 shadow-lg group-hover:shadow-xl"
                       />
                     ) : (
-                      <div className="w-full h-full bg-muted rounded-full border-4 border-primary/10 group-hover:border-primary/20 transition-colors flex items-center justify-center">
-                        <Users className="h-10 w-10 text-muted-foreground" />
+                      <div className="relative w-full h-full bg-gradient-to-br from-muted to-muted/70 rounded-full border-4 border-primary/20 group-hover:border-accent/40 transition-all duration-300 flex items-center justify-center shadow-lg group-hover:shadow-xl">
+                        <Users className="h-12 w-12 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
                       </div>
                     )}
                   </div>
 
                   {/* Member Info */}
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-foreground">{member.name}</h3>
-                    <p className="text-primary font-medium">{member.role}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                      {member.name}
+                    </h3>
+                    <div className="inline-block px-3 py-1 bg-gradient-to-r from-primary/10 to-accent/10 rounded-full">
+                      <p className="text-primary font-semibold text-sm">{member.role}</p>
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed px-2">
                       {member.description}
                     </p>
                   </div>
 
                   {/* Specialties */}
                   {member.specialties && member.specialties.length > 0 && (
-                    <div className="flex flex-wrap gap-2 justify-center">
+                    <div className="flex flex-wrap gap-2 justify-center pt-2">
                       {member.specialties.slice(0, 3).map((specialtyItem, specialtyIndex) => (
-                        <Badge key={specialtyIndex} variant="secondary" className="text-xs">
+                        <Badge
+                          key={specialtyIndex}
+                          variant="secondary"
+                          className="text-xs bg-gradient-to-r from-secondary/20 to-accent/20 hover:from-secondary/30 hover:to-accent/30 transition-all duration-200 border-primary/20"
+                        >
                           {specialtyItem.specialty}
                         </Badge>
                       ))}
                       {member.specialties.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
+                        <Badge
+                          variant="outline"
+                          className="text-xs border-primary/30 text-primary hover:bg-primary/10 transition-all duration-200"
+                        >
                           +{member.specialties.length - 3}
                         </Badge>
                       )}
                     </div>
                   )}
 
-                  {/* Social Links Placeholder - Can be extended if needed */}
-                  <div className="flex justify-center space-x-3 pt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">
+                  {/* Social Links */}
+                  <div className="flex justify-center space-x-4 pt-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center hover:from-primary hover:to-accent hover:text-primary-foreground transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
+                    >
                       <Mail className="h-4 w-4" />
-                    </div>
-                    <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center hover:from-primary hover:to-accent hover:text-primary-foreground transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
+                    >
                       <Linkedin className="h-4 w-4" />
-                    </div>
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center hover:from-primary hover:to-accent hover:text-primary-foreground transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
+                    >
+                      <MapPin className="h-4 w-4" />
+                    </motion.div>
                   </div>
                 </div>
               </Card>
@@ -182,24 +229,47 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-20"
         >
-          <div className="bg-muted/50 rounded-2xl p-8 border border-border">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              {locale === 'ar' ? 'انضم إلى فريقنا المتميز' : 'Join Our Exceptional Team'}
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              {locale === 'ar'
-                ? 'نحن دائماً نبحث عن المواهب المتميزة للانضمام إلى فريقنا. إذا كنت تشارك رؤيتنا وتريد أن تكون جزءاً من مستقبل التكنولوجيا، تواصل معنا'
-                : 'We are always looking for exceptional talent to join our team. If you share our vision and want to be part of the future of technology, get in touch with us'}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
-                {locale === 'ar' ? 'تصفح الوظائف المتاحة' : 'View Open Positions'}
-              </button>
-              <button className="px-6 py-3 border border-border rounded-lg hover:bg-muted transition-colors font-medium">
-                {locale === 'ar' ? 'أرسل سيرتك الذاتية' : 'Send Your Resume'}
-              </button>
+          <div className="relative bg-gradient-to-br from-primary/5 via-card to-accent/5 rounded-3xl p-10 border border-primary/20 backdrop-blur-sm overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-2xl" />
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-accent/10 to-transparent rounded-full blur-2xl" />
+
+            <div className="relative">
+              <motion.div
+                initial={{ scale: 0.9 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="inline-block p-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl mb-6"
+              >
+                <Users className="h-12 w-12 text-primary" />
+              </motion.div>
+
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
+                {locale === 'ar' ? 'انضم إلى فريقنا المتميز' : 'Join Our Exceptional Team'}
+              </h3>
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+                {locale === 'ar'
+                  ? 'نحن دائماً نبحث عن المواهب المتميزة للانضمام إلى فريقنا. إذا كنت تشارك رؤيتنا وتريد أن تكون جزءاً من مستقبل التكنولوجيا، تواصل معنا'
+                  : 'We are always looking for exceptional talent to join our team. If you share our vision and want to be part of the future of technology, get in touch with us'}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl hover:shadow-lg hover:shadow-primary/25 transition-all duration-200 font-semibold"
+                >
+                  {locale === 'ar' ? 'تصفح الوظائف المتاحة' : 'View Open Positions'}
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 border-2 border-primary/30 rounded-xl hover:bg-primary/10 hover:border-primary/50 transition-all duration-200 font-semibold text-primary"
+                >
+                  {locale === 'ar' ? 'أرسل سيرتك الذاتية' : 'Send Your Resume'}
+                </motion.button>
+              </div>
             </div>
           </div>
         </motion.div>

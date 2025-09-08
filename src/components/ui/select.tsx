@@ -16,7 +16,7 @@ const SelectTrigger: React.FC<
 > = ({ children, className, ref, ...props }) => (
   <SelectPrimitive.Trigger
     className={cn(
-      'flex h-10 w-full items-center justify-between rounded border border-input bg-background px-3 py-2 text-inherit ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+      'flex h-10 w-full items-center justify-between rounded border border-border bg-input px-3 py-2 text-inherit ring-offset-background transition-all duration-200 ease-in-out placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:border-accent/50 hover:border-accent/30 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
       className,
     )}
     ref={ref}
@@ -24,7 +24,7 @@ const SelectTrigger: React.FC<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
+      <ChevronDown className="h-4 w-4 opacity-50 transition-transform duration-200" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 )
@@ -63,7 +63,7 @@ const SelectContent: React.FC<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border bg-card text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border border-border bg-card text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className,
@@ -104,7 +104,7 @@ const SelectItem: React.FC<
 > = ({ children, className, ref, ...props }) => (
   <SelectPrimitive.Item
     className={cn(
-      'relative flex w-full cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex w-full cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 text-sm outline-none transition-colors duration-150 focus:bg-accent/10 focus:text-accent-foreground hover:bg-accent/5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}
     ref={ref}
@@ -112,7 +112,7 @@ const SelectItem: React.FC<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        <Check className="h-4 w-4 text-accent" />
       </SelectPrimitive.ItemIndicator>
     </span>
 

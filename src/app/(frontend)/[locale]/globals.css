@@ -3,86 +3,301 @@
 @tailwind utilities;
 
 @layer base {
+  /* Typography Scale - Consistent heading hierarchy */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-size: unset;
-    font-weight: unset;
+    font-family: var(--font-geist-sans);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: oklch(var(--foreground));
+    margin-bottom: 0.5em;
   }
 
-  :root {
-    /* Light Mode - Teal-based theme */
-    --background: 180 20% 98%; /* Light background with teal tint */
-    --foreground: 180 50% 15%; /* Dark teal text */
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+  }
 
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  h5 {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h6 {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  /* Body text and paragraph styling */
+  p {
+    font-family: var(--font-geist-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: oklch(var(--foreground));
+    margin-bottom: 1rem;
+  }
+
+  /* Large text variant */
+  .text-large {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    line-height: 1.5;
+  }
+
+  /* Small text variant */
+  .text-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Extra small text variant */
+  .text-xs {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  /* Lead text for introductory paragraphs */
+  .text-lead {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    line-height: 1.5;
+    font-weight: 400;
+    color: oklch(var(--muted-foreground));
+  }
+
+  /* Muted text */
+  .text-muted {
+    color: oklch(var(--muted-foreground));
+  }
+
+  /* Arabic typography optimizations */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    letter-spacing: 0;
+    font-weight: 700;
+  }
+
+  [dir="rtl"] p {
+    line-height: 1.8;
+    text-align: right;
+  }
+
+  /* Code and monospace text */
+  code,
+  pre {
+    font-family: var(--font-geist-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Link styling */
+  a {
+    color: oklch(var(--primary));
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+  }
+
+  a:hover {
+    color: oklch(var(--accent));
+    text-decoration: underline;
+  }
+
+  /* List styling */
+  ul,
+  ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  [dir="rtl"] ul,
+  [dir="rtl"] ol {
+    padding-left: 0;
+    padding-right: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+    line-height: 1.6;
+  }
+
+  /* Blockquote styling */
+  blockquote {
+    border-left: 4px solid oklch(var(--primary));
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: oklch(var(--muted-foreground));
+  }
+
+  [dir="rtl"] blockquote {
+    border-left: none;
+    border-right: 4px solid oklch(var(--primary));
+    padding-left: 0;
+    padding-right: 1rem;
+  }
+
+  /* Fallback colors for browsers without OKLCH support */
+  :root {
+    /* HSL fallbacks - Light Mode */
+    --background: 180 20% 98%;
+    --foreground: 180 50% 15%;
     --card: 0 0% 100%;
     --card-foreground: 180 50% 15%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 180 50% 15%;
-
-    --primary: 180 50% 15%; /* Dark teal */
+    --primary: 180 50% 15%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 180 40% 35%; /* Medium teal */
+    --secondary: 180 40% 35%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 180 10% 96%;
     --muted-foreground: 180 10% 45%;
-
-    --accent: 180 60% 55%; /* Light teal */
+    --accent: 180 60% 55%;
     --accent-foreground: 180 50% 15%;
-
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 180 10% 90%;
     --input: 180 10% 94%;
     --ring: 180 60% 55%;
-
-    --radius: 0.5rem;
-
     --success: 142 76% 36%;
     --warning: 38 92% 50%;
     --error: 0 84% 60%;
   }
 
+  /* OKLCH colors for modern browsers - Light Mode */
+  @supports (color: oklch(0.5 0.1 180)) {
+    :root {
+    /* Light Mode - Smart Age Tech Teal Theme */
+    --background: 0.98 0.01 200; /* Light background with subtle teal tint */
+    --foreground: 0.25 0.05 200; /* Dark teal text */
+
+    --card: 1.0 0.0 0; /* Pure white cards */
+    --card-foreground: 0.25 0.05 200;
+
+    --popover: 1.0 0.0 0;
+    --popover-foreground: 0.25 0.05 200;
+
+    --primary: 0.25 0.05 200; /* Dark teal primary */
+    --primary-foreground: 1.0 0.0 0;
+
+    --secondary: 0.45 0.08 200; /* Medium teal */
+    --secondary-foreground: 1.0 0.0 0;
+
+    --muted: 0.96 0.02 200; /* Subtle teal muted */
+    --muted-foreground: 0.45 0.04 200;
+
+    --accent: 0.65 0.12 200; /* Light teal accent */
+    --accent-foreground: 0.25 0.05 200;
+
+    --destructive: 0.55 0.15 25; /* Red for destructive actions */
+    --destructive-foreground: 0.98 0.01 25;
+
+    --border: 0.90 0.02 200; /* Subtle teal border */
+    --input: 0.94 0.02 200; /* Light teal input background */
+    --ring: 0.65 0.12 200; /* Teal focus ring */
+
+      --radius: 0.5rem;
+
+      --success: 0.55 0.15 142; /* Green for success */
+      --warning: 0.70 0.15 65; /* Orange for warnings */
+      --error: 0.55 0.15 25; /* Red for errors */
+    }
+  }
+
+  /* HSL fallbacks - Dark Mode */
   [data-theme='dark'] {
-    /* Dark Mode - Teal-based theme */
-    --background: 200 30% 8%; /* Dark navy background */
-    --foreground: 180 60% 85%; /* Light teal text */
-
-    --card: 180 50% 12%; /* Dark teal cards */
+    --background: 200 30% 8%;
+    --foreground: 180 60% 85%;
+    --card: 180 50% 12%;
     --card-foreground: 180 60% 85%;
-
     --popover: 180 50% 12%;
     --popover-foreground: 180 60% 85%;
-
-    --primary: 180 60% 65%; /* Light teal primary */
+    --primary: 180 60% 65%;
     --primary-foreground: 200 30% 8%;
-
-    --secondary: 180 40% 35%; /* Medium teal */
+    --secondary: 180 40% 35%;
     --secondary-foreground: 180 60% 85%;
-
     --muted: 200 20% 15%;
     --muted-foreground: 180 20% 65%;
-
-    --accent: 180 60% 65%; /* Light teal accent */
+    --accent: 180 60% 65%;
     --accent-foreground: 200 30% 8%;
-
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 180 20% 20%;
     --input: 200 20% 15%;
     --ring: 180 60% 65%;
-
     --success: 142 52% 24%;
     --warning: 38 64% 35%;
     --error: 0 62% 50%;
+  }
+
+  /* OKLCH colors for modern browsers - Dark Mode */
+  @supports (color: oklch(0.5 0.1 180)) {
+    [data-theme='dark'] {
+    /* Dark Mode - Smart Age Tech Teal Theme */
+    --background: 0.08 0.02 220; /* Dark navy background */
+    --foreground: 0.85 0.08 200; /* Light teal text */
+
+    --card: 0.12 0.04 200; /* Dark teal cards */
+    --card-foreground: 0.85 0.08 200;
+
+    --popover: 0.12 0.04 200;
+    --popover-foreground: 0.85 0.08 200;
+
+    --primary: 0.65 0.12 200; /* Light teal primary */
+    --primary-foreground: 0.08 0.02 220;
+
+    --secondary: 0.45 0.08 200; /* Medium teal */
+    --secondary-foreground: 0.85 0.08 200;
+
+    --muted: 0.15 0.03 220; /* Dark muted with navy tint */
+    --muted-foreground: 0.65 0.06 200;
+
+    --accent: 0.65 0.12 200; /* Light teal accent */
+    --accent-foreground: 0.08 0.02 220;
+
+    --destructive: 0.45 0.12 25; /* Darker red for dark mode */
+    --destructive-foreground: 0.95 0.02 25;
+
+    --border: 0.20 0.03 200; /* Dark teal border */
+    --input: 0.15 0.03 220; /* Dark input background */
+    --ring: 0.65 0.12 200; /* Teal focus ring */
+
+      --success: 0.45 0.12 142; /* Darker green for dark mode */
+      --warning: 0.60 0.12 65; /* Darker orange for dark mode */
+      --error: 0.45 0.12 25; /* Darker red for dark mode */
+    }
   }
 }
 
@@ -90,8 +305,658 @@
   * {
     @apply border-border;
   }
+  
+  html {
+    /* Smooth scroll behavior for navigation links */
+    scroll-behavior: smooth;
+  }
+  
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    /* Smooth transitions for theme switching */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  /* Ensure smooth transitions for all elements using color variables */
+  *,
+  *::before,
+  *::after {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  
+  /* Enhanced focus management for accessibility */
+  *:focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  
+  /* Remove default focus outline for mouse users */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  /* Enhanced focus for interactive elements */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [role="link"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px oklch(var(--ring) / 0.2);
+    transition: box-shadow 0.15s ease-in-out;
+  }
+  
+  /* Skip link styles */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: oklch(var(--primary));
+    color: oklch(var(--primary-foreground));
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 1000;
+    transition: top 0.3s ease;
+  }
+  
+  .skip-link:focus {
+    top: 6px;
+  }
+  
+  /* Focus trap for modals and dialogs */
+  .focus-trap {
+    position: relative;
+  }
+  
+  .focus-trap:before,
+  .focus-trap:after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  /* Typography utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Display text styles */
+  .text-display-sm {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+  
+  .text-display-md {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+  }
+  
+  .text-display-lg {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.06em;
+    font-weight: 700;
+  }
+  
+  .text-display-xl {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.07em;
+    font-weight: 800;
+  }
+  
+  /* Heading utilities with proper hierarchy */
+  .heading-1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .heading-2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .heading-3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .heading-4 {
+    font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .heading-5 {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .heading-6 {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.35;
+    font-weight: 600;
+    font-family: var(--font-geist-sans);
+  }
+  
+  /* Body text utilities */
+  .body-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .body-md {
+    font-size: 1rem;
+    line-height: 1.6;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .body-lg {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .body-xl {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    font-family: var(--font-geist-sans);
+  }
+  
+  /* Lead text for introductory content */
+  .text-lead {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    line-height: 1.5;
+    font-weight: 400;
+    color: oklch(var(--muted-foreground));
+    font-family: var(--font-geist-sans);
+  }
+  
+  /* Caption and small text */
+  .text-caption {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: oklch(var(--muted-foreground));
+    font-family: var(--font-geist-sans);
+  }
+  
+  .text-overline {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: oklch(var(--muted-foreground));
+    font-family: var(--font-geist-sans);
+  }
+  
+  /* Arabic typography optimizations */
+  [dir="rtl"] .text-display-sm,
+  [dir="rtl"] .text-display-md,
+  [dir="rtl"] .text-display-lg,
+  [dir="rtl"] .text-display-xl,
+  [dir="rtl"] .heading-1,
+  [dir="rtl"] .heading-2,
+  [dir="rtl"] .heading-3,
+  [dir="rtl"] .heading-4,
+  [dir="rtl"] .heading-5,
+  [dir="rtl"] .heading-6 {
+    letter-spacing: 0;
+    font-weight: 700;
+  }
+  
+  [dir="rtl"] .body-sm,
+  [dir="rtl"] .body-md,
+  [dir="rtl"] .body-lg,
+  [dir="rtl"] .body-xl,
+  [dir="rtl"] .text-lead {
+    line-height: 1.8;
+    text-align: right;
+  }
+  
+  /* Grid pattern background for enhanced sections */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, oklch(var(--border)) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(var(--border)) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+  }
+  
+  /* Line clamp utilities for text truncation */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Spacing utilities for consistent layout patterns */
+  .space-section-sm {
+    padding-top: clamp(2rem, 5vw, 4rem);
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+  }
+  
+  .space-section-md {
+    padding-top: clamp(3rem, 8vw, 6rem);
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+  
+  .space-section-lg {
+    padding-top: clamp(4rem, 10vw, 8rem);
+    padding-bottom: clamp(4rem, 10vw, 8rem);
+  }
+  
+  .space-section-xl {
+    padding-top: clamp(6rem, 12vw, 12rem);
+    padding-bottom: clamp(6rem, 12vw, 12rem);
+  }
+  
+  /* Component spacing utilities */
+  .space-component-sm {
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+  
+  .space-component-md {
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+  
+  .space-component-lg {
+    padding: clamp(2rem, 5vw, 4rem);
+  }
+  
+  /* Content spacing utilities */
+  .space-content-sm {
+    margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  
+  .space-content-md {
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+  }
+  
+  .space-content-lg {
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+  
+  /* Gap utilities for flex and grid layouts */
+  .gap-section {
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+  
+  .gap-component {
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  
+  .gap-content {
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  
+  /* Container utilities with consistent max-widths */
+  .container-content {
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .container-layout {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+  
+  .container-full {
+    max-width: 1536px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+  
+  /* Visual separation utilities */
+  .separator-section {
+    border-top: 1px solid oklch(var(--border));
+    margin-top: clamp(3rem, 8vw, 6rem);
+    margin-bottom: clamp(3rem, 8vw, 6rem);
+  }
+  
+  .separator-component {
+    border-top: 1px solid oklch(var(--border));
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+  
+  .separator-content {
+    border-top: 1px solid oklch(var(--border));
+    margin-top: clamp(1rem, 3vw, 2rem);
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+  }
+  
+  /* Layout grid utilities */
+  .grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  
+  .grid-auto-fill {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  
+  /* Responsive grid utilities */
+  .grid-responsive-sm {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  
+  @media (min-width: 640px) {
+    .grid-responsive-sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .grid-responsive-sm {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .grid-responsive-md {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  
+  @media (min-width: 768px) {
+    .grid-responsive-md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .grid-responsive-md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Flex utilities with consistent spacing */
+  .flex-section {
+    display: flex;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+  
+  .flex-component {
+    display: flex;
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  
+  .flex-content {
+    display: flex;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  
+  /* Stack utilities for vertical spacing */
+  .stack-section > * + * {
+    margin-top: clamp(2rem, 5vw, 4rem);
+  }
+  
+  .stack-component > * + * {
+    margin-top: clamp(1rem, 3vw, 2rem);
+  }
+  
+  .stack-content > * + * {
+    margin-top: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  
+  /* Responsive spacing adjustments */
+  @media (max-width: 640px) {
+    .space-section-sm,
+    .space-section-md,
+    .space-section-lg,
+    .space-section-xl {
+      padding-top: clamp(1.5rem, 4vw, 3rem);
+      padding-bottom: clamp(1.5rem, 4vw, 3rem);
+    }
+    
+    .space-component-sm,
+    .space-component-md,
+    .space-component-lg {
+      padding: clamp(1rem, 4vw, 1.5rem);
+    }
+  }
+  
+  /* RTL spacing adjustments */
+  [dir="rtl"] .container-content,
+  [dir="rtl"] .container-layout,
+  [dir="rtl"] .container-full {
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+  
+  /* Interactive feedback utilities */
+  .interactive-hover {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .interactive-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px oklch(var(--primary) / 0.15);
+  }
+  
+  .interactive-scale:hover {
+    transform: scale(1.02);
+  }
+  
+  .interactive-scale:active {
+    transform: scale(0.98);
+  }
+  
+  /* Button ripple effect container */
+  .ripple-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Loading state utilities */
+  .loading-shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(var(--muted)) 0%,
+      oklch(var(--muted-foreground) / 0.1) 50%,
+      oklch(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  /* Pulse animation for loading states */
+  .loading-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  /* Success/Error state animations */
+  .success-bounce {
+    animation: successBounce 0.6s ease-out;
+  }
+  
+  @keyframes successBounce {
+    0% {
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .error-shake {
+    animation: errorShake 0.5s ease-in-out;
+  }
+  
+  @keyframes errorShake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-2px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(2px);
+    }
+  }
+  
+  /* Focus ring enhancements */
+  .focus-ring-enhanced:focus-visible {
+    outline: none;
+    box-shadow: 
+      0 0 0 2px oklch(var(--background)),
+      0 0 0 4px oklch(var(--ring)),
+      0 0 0 6px oklch(var(--ring) / 0.3);
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    
+    /* Disable specific animations that might cause issues */
+    .motion-reduce-disable {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
+    }
+    
+    /* Disable interactive effects for reduced motion */
+    .interactive-hover:hover,
+    .interactive-scale:hover,
+    .interactive-scale:active {
+      transform: none !important;
+    }
+    
+    .loading-shimmer,
+    .loading-pulse,
+    .success-bounce,
+    .error-shake {
+      animation: none !important;
+    }
+  }
+  
+  /* Utility classes for motion preferences */
+  .motion-safe {
+    animation: none;
+    transition: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-safe {
+      animation: inherit;
+      transition: inherit;
+    }
   }
 }
 

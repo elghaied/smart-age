@@ -8,6 +8,7 @@ import React from 'react'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
+import { SkipLink } from '@/components/SkipLink'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -55,6 +56,10 @@ export default async function RootLayout({ children, params }: Args) {
       <body>
         <Providers>
           <NextIntlClientProvider messages={messages}>
+            {/* Skip links for keyboard navigation */}
+            <SkipLink href="#main-content">Skip to main content</SkipLink>
+            <SkipLink href="#navigation">Skip to navigation</SkipLink>
+
             <AdminBar
               adminBarProps={{
                 preview: isEnabled,
@@ -62,7 +67,9 @@ export default async function RootLayout({ children, params }: Args) {
             />
 
             <Header locale={locale} />
-            {children}
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
             <Footer locale={locale} />
           </NextIntlClientProvider>
         </Providers>
