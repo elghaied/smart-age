@@ -1,0 +1,979 @@
+{
+  "timestamp": "2025-09-08T15:39:37.431Z",
+  "summary": {
+    "totalDevices": 15,
+    "totalTests": 90,
+    "passedTests": 90,
+    "failedTests": 0
+  },
+  "breakpointAnalysis": {
+    "breakpoints": {
+      "sm": 640,
+      "md": 768,
+      "lg": 1024,
+      "xl": 1280,
+      "2xl": 1536
+    },
+    "recommendations": [
+      "Test all major breakpoints with real devices when possible",
+      "Verify touch interactions work properly on mobile devices",
+      "Ensure content remains accessible at all viewport sizes",
+      "Test both portrait and landscape orientations on mobile",
+      "Verify performance on lower-end devices"
+    ],
+    "coverage": {
+      "sm": {
+        "width": 640,
+        "devices": [
+          "iPad (tablet)",
+          "iPad Air (tablet)",
+          "iPad Pro 11\" (tablet)",
+          "iPad Pro 12.9\" (tablet)",
+          "Surface Pro (tablet)",
+          "MacBook Air (desktop)",
+          "MacBook Pro 13\" (desktop)",
+          "MacBook Pro 16\" (desktop)",
+          "Full HD (desktop)",
+          "4K Display (desktop)"
+        ],
+        "count": 10
+      },
+      "md": {
+        "width": 768,
+        "devices": [
+          "iPad (tablet)",
+          "iPad Air (tablet)",
+          "iPad Pro 11\" (tablet)",
+          "iPad Pro 12.9\" (tablet)",
+          "Surface Pro (tablet)",
+          "MacBook Air (desktop)",
+          "MacBook Pro 13\" (desktop)",
+          "MacBook Pro 16\" (desktop)",
+          "Full HD (desktop)",
+          "4K Display (desktop)"
+        ],
+        "count": 10
+      },
+      "lg": {
+        "width": 1024,
+        "devices": [
+          "iPad Pro 12.9\" (tablet)",
+          "MacBook Air (desktop)",
+          "MacBook Pro 13\" (desktop)",
+          "MacBook Pro 16\" (desktop)",
+          "Full HD (desktop)",
+          "4K Display (desktop)"
+        ],
+        "count": 6
+      },
+      "xl": {
+        "width": 1280,
+        "devices": [
+          "MacBook Air (desktop)",
+          "MacBook Pro 13\" (desktop)",
+          "MacBook Pro 16\" (desktop)",
+          "Full HD (desktop)",
+          "4K Display (desktop)"
+        ],
+        "count": 5
+      },
+      "2xl": {
+        "width": 1536,
+        "devices": [
+          "MacBook Pro 16\" (desktop)",
+          "Full HD (desktop)",
+          "4K Display (desktop)"
+        ],
+        "count": 3
+      }
+    }
+  },
+  "deviceResults": {
+    "mobile": {
+      "iPhone SE": {
+        "device": "iPhone SE",
+        "category": "mobile",
+        "viewport": {
+          "width": 375,
+          "height": 667,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: small",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on mobile",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 1 columns at 375px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should collapse to hamburger menu at 375px",
+            "recommendation": "Implement mobile-friendly navigation"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 45ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "iPhone 12": {
+        "device": "iPhone 12",
+        "category": "mobile",
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "pixelRatio": 3
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: small",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on mobile",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 1 columns at 390px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 3x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should collapse to hamburger menu at 390px",
+            "recommendation": "Implement mobile-friendly navigation"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 45ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "iPhone 12 Pro Max": {
+        "device": "iPhone 12 Pro Max",
+        "category": "mobile",
+        "viewport": {
+          "width": 428,
+          "height": 926,
+          "pixelRatio": 3
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: small",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on mobile",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 1 columns at 428px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 3x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should collapse to hamburger menu at 428px",
+            "recommendation": "Implement mobile-friendly navigation"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 45ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "Samsung Galaxy S21": {
+        "device": "Samsung Galaxy S21",
+        "category": "mobile",
+        "viewport": {
+          "width": 360,
+          "height": 800,
+          "pixelRatio": 3
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: small",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on mobile",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 1 columns at 360px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 3x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should collapse to hamburger menu at 360px",
+            "recommendation": "Implement mobile-friendly navigation"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 45ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "Google Pixel 5": {
+        "device": "Google Pixel 5",
+        "category": "mobile",
+        "viewport": {
+          "width": 393,
+          "height": 851,
+          "pixelRatio": 2.75
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: small",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on mobile",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 1 columns at 393px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2.75x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should collapse to hamburger menu at 393px",
+            "recommendation": "Implement mobile-friendly navigation"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 45ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      }
+    },
+    "tablet": {
+      "iPad": {
+        "device": "iPad",
+        "category": "tablet",
+        "viewport": {
+          "width": 768,
+          "height": 1024,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: medium",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 2 columns at 768px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 768px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 55ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "iPad Air": {
+        "device": "iPad Air",
+        "category": "tablet",
+        "viewport": {
+          "width": 820,
+          "height": 1180,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: medium",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 2 columns at 820px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 820px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 55ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "iPad Pro 11\"": {
+        "device": "iPad Pro 11\"",
+        "category": "tablet",
+        "viewport": {
+          "width": 834,
+          "height": 1194,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: medium",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 2 columns at 834px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 834px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 55ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "iPad Pro 12.9\"": {
+        "device": "iPad Pro 12.9\"",
+        "category": "tablet",
+        "viewport": {
+          "width": 1024,
+          "height": 1366,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: large",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 3 columns at 1024px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 1024px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 65ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "Surface Pro": {
+        "device": "Surface Pro",
+        "category": "tablet",
+        "viewport": {
+          "width": 912,
+          "height": 1368,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: medium",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 2 columns at 912px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 912px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 55ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      }
+    },
+    "desktop": {
+      "MacBook Air": {
+        "device": "MacBook Air",
+        "category": "desktop",
+        "viewport": {
+          "width": 1366,
+          "height": 768,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: large",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 3 columns at 1366px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 1366px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 65ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "MacBook Pro 13\"": {
+        "device": "MacBook Pro 13\"",
+        "category": "desktop",
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: large",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 3 columns at 1440px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 1440px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 65ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "MacBook Pro 16\"": {
+        "device": "MacBook Pro 16\"",
+        "category": "desktop",
+        "viewport": {
+          "width": 1728,
+          "height": 1117,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: large",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 3 columns at 1728px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 1728px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 65ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "Full HD": {
+        "device": "Full HD",
+        "category": "desktop",
+        "viewport": {
+          "width": 1920,
+          "height": 1080,
+          "pixelRatio": 1
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: large",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 3 columns at 1920px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "Standard images should be served for 1x displays",
+            "recommendation": "Standard resolution images are sufficient"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 1920px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 65ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      },
+      "4K Display": {
+        "device": "4K Display",
+        "category": "desktop",
+        "viewport": {
+          "width": 3840,
+          "height": 2160,
+          "pixelRatio": 2
+        },
+        "tests": [
+          {
+            "name": "Typography Scaling",
+            "description": "Verify text scales appropriately across viewports",
+            "passed": true,
+            "details": "Typography should use clamp() for responsive scaling. Expected size: large",
+            "recommendation": "Typography scaling implemented correctly"
+          },
+          {
+            "name": "Touch Target Sizes",
+            "description": "Ensure interactive elements meet minimum touch target size (44px)",
+            "passed": true,
+            "details": "Touch targets should be at least 44px on desktop",
+            "recommendation": "Verify all buttons, links, and form inputs meet minimum touch target size"
+          },
+          {
+            "name": "Grid Layout Responsiveness",
+            "description": "Test CSS Grid and Flexbox layouts adapt to different screen sizes",
+            "passed": true,
+            "details": "Expected 3 columns at 3840px width",
+            "recommendation": "Grid layouts should adapt smoothly across breakpoints"
+          },
+          {
+            "name": "Image Responsiveness",
+            "description": "Verify images scale and load appropriately",
+            "passed": true,
+            "details": "High DPI images should be served for 2x displays",
+            "recommendation": "Serve 2x images for high DPI displays"
+          },
+          {
+            "name": "Navigation Adaptation",
+            "description": "Test navigation adapts to different screen sizes",
+            "passed": true,
+            "details": "Navigation should show full menu at 3840px",
+            "recommendation": "Full navigation menu appropriate"
+          },
+          {
+            "name": "Content Readability",
+            "description": "Ensure content remains readable across all viewport sizes",
+            "passed": true,
+            "details": "Optimal line length should be around 65ch for readability",
+            "recommendation": "Use max-width constraints to maintain readable line lengths"
+          }
+        ],
+        "summary": {
+          "passed": 6,
+          "failed": 0,
+          "total": 6
+        }
+      }
+    }
+  },
+  "recommendations": [
+    "Regularly test on actual devices, not just browser emulation",
+    "Pay special attention to touch interactions on mobile devices",
+    "Verify text remains readable at all zoom levels",
+    "Test with slow network connections on mobile",
+    "Ensure images load efficiently across different connection speeds",
+    "Validate that all interactive elements are accessible via keyboard",
+    "Test with different font size preferences",
+    "Verify the design works with browser zoom up to 200%"
+  ]
+}

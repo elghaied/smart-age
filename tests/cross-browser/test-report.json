@@ -1,0 +1,131 @@
+{
+  "timestamp": "2025-09-08T14:50:20.035Z",
+  "testSuite": "Design System Cross-Browser Compatibility",
+  "browsers": {
+    "chrome": {
+      "name": "Chrome",
+      "cssCustomProps": 49,
+      "oklch": 111,
+      "grid": 57,
+      "focusVisible": 86,
+      "clamp": 79,
+      "reducedMotion": 74
+    },
+    "firefox": {
+      "name": "Firefox",
+      "cssCustomProps": 31,
+      "oklch": 113,
+      "grid": 52,
+      "focusVisible": 85,
+      "clamp": 75,
+      "reducedMotion": 63
+    },
+    "safari": {
+      "name": "Safari",
+      "cssCustomProps": 9.1,
+      "oklch": 15.4,
+      "grid": 10.1,
+      "focusVisible": 15.4,
+      "clamp": 13.1,
+      "reducedMotion": 10.1
+    },
+    "edge": {
+      "name": "Edge",
+      "cssCustomProps": 16,
+      "oklch": 111,
+      "grid": 16,
+      "focusVisible": 86,
+      "clamp": 79,
+      "reducedMotion": 74
+    }
+  },
+  "testCases": [
+    {
+      "name": "CSS Custom Properties",
+      "description": "Verify CSS custom properties work correctly",
+      "test": "CSS.supports(\"color\", \"var(--test-color)\")",
+      "fallback": "HSL color values as fallback"
+    },
+    {
+      "name": "OKLCH Color Support",
+      "description": "Test modern OKLCH color space support",
+      "test": "CSS.supports(\"color\", \"oklch(0.5 0.1 180)\")",
+      "fallback": "HSL color values as fallback"
+    },
+    {
+      "name": "CSS Grid Layout",
+      "description": "Verify CSS Grid support for responsive layouts",
+      "test": "CSS.supports(\"display\", \"grid\")",
+      "fallback": "Flexbox layouts as fallback"
+    },
+    {
+      "name": "Focus Visible Pseudo-class",
+      "description": "Test :focus-visible for accessibility",
+      "test": "CSS.supports(\"selector(:focus-visible)\")",
+      "fallback": ":focus pseudo-class as fallback"
+    },
+    {
+      "name": "CSS Clamp Function",
+      "description": "Test clamp() for responsive typography",
+      "test": "CSS.supports(\"font-size\", \"clamp(1rem, 2vw, 2rem)\")",
+      "fallback": "Media queries for responsive sizing"
+    },
+    {
+      "name": "Reduced Motion Preference",
+      "description": "Test prefers-reduced-motion media query",
+      "test": "window.matchMedia(\"(prefers-reduced-motion)\").media !== \"not all\"",
+      "fallback": "Animation controls in UI"
+    }
+  ],
+  "colorTests": [
+    {
+      "name": "Primary Text on Background",
+      "foreground": "var(--foreground)",
+      "background": "var(--background)",
+      "minContrast": 4.5
+    },
+    {
+      "name": "Primary Button",
+      "foreground": "var(--primary-foreground)",
+      "background": "var(--primary)",
+      "minContrast": 4.5
+    },
+    {
+      "name": "Muted Text",
+      "foreground": "var(--muted-foreground)",
+      "background": "var(--background)",
+      "minContrast": 3
+    },
+    {
+      "name": "Focus Ring",
+      "foreground": "var(--ring)",
+      "background": "var(--background)",
+      "minContrast": 3
+    }
+  ],
+  "instructions": {
+    "manual": [
+      "1. Open tests/cross-browser/design-system-test.html in each target browser",
+      "2. Verify all color swatches display correctly",
+      "3. Test button hover effects and focus states",
+      "4. Toggle between light and dark themes",
+      "5. Test responsive behavior by resizing window",
+      "6. Verify keyboard navigation works properly",
+      "7. Check console for any JavaScript errors",
+      "8. Test on different screen sizes and devices"
+    ],
+    "automated": [
+      "1. Run this script: node tests/cross-browser/run-browser-tests.js",
+      "2. Use Playwright for automated testing: npm run test:e2e",
+      "3. Check Lighthouse scores for performance",
+      "4. Validate HTML and CSS with W3C validators"
+    ]
+  },
+  "expectedResults": {
+    "chrome": "Full support for all features",
+    "firefox": "Full support for all features",
+    "safari": "OKLCH may fallback to HSL in older versions",
+    "edge": "Full support for all features",
+    "fallbacks": "HSL colors should work in all browsers"
+  }
+}

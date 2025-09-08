@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Testing - Smart Age Tech</title>
+    <style>
+        /* Include critical CSS for testing */
+        :root {
+            /* HSL fallbacks - Light Mode */
+            --background: 180 20% 98%;
+            --foreground: 180 50% 15%;
+            --card: 0 0% 100%;
+            --card-foreground: 180 50% 15%;
+            --primary: 180 50% 15%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 180 40% 35%;
+            --secondary-foreground: 0 0% 100%;
+            --muted: 180 10% 96%;
+            --muted-foreground: 180 10% 45%;
+            --accent: 180 60% 55%;
+            --accent-foreground: 180 50% 15%;
+            --border: 180 10% 90%;
+            --input: 180 10% 94%;
+            --ring: 180 60% 55%;
+        }
+
+        /* OKLCH colors for modern browsers - Light Mode */
+        @supports (color: oklch(0.5 0.1 180)) {
+            :root {
+                --background: 0.98 0.01 200;
+                --foreground: 0.25 0.05 200;
+                --card: 1.0 0.0 0;
+                --card-foreground: 0.25 0.05 200;
+                --primary: 0.25 0.05 200;
+                --primary-foreground: 1.0 0.0 0;
+                --secondary: 0.45 0.08 200;
+                --secondary-foreground: 1.0 0.0 0;
+                --muted: 0.96 0.02 200;
+                --muted-foreground: 0.45 0.04 200;
+                --accent: 0.65 0.12 200;
+                --accent-foreground: 0.25 0.05 200;
+                --border: 0.90 0.02 200;
+                --input: 0.94 0.02 200;
+                --ring: 0.65 0.12 200;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+            padding: 1rem;
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            body {
+                background-color: oklch(var(--background));
+                color: oklch(var(--foreground));
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .test-section {
+                background-color: oklch(var(--card));
+                border-color: oklch(var(--border));
+            }
+        }
+
+        .viewport-info {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .viewport-info {
+                background: oklch(var(--primary));
+                color: oklch(var(--primary-foreground));
+            }
+        }
+
+        .responsive-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .responsive-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .responsive-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .test-card {
+            padding: 1.5rem;
+            background-color: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .test-card {
+                background-color: oklch(var(--card));
+                border-color: oklch(var(--border));
+            }
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.15);
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .test-card:hover {
+                box-shadow: 0 4px 12px oklch(var(--primary) / 0.15);
+            }
+        }
+
+        .test-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            min-height: 44px; /* Touch-friendly minimum */
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .test-button {
+                background-color: oklch(var(--primary));
+                color: oklch(var(--primary-foreground));
+            }
+        }
+
+        .test-button:hover {
+            transform: scale(1.05);
+        }
+
+        .test-button:focus-visible {
+            outline: 2px solid hsl(var(--ring));
+            outline-offset: 2px;
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .test-button:focus-visible {
+                outline-color: oklch(var(--ring));
+            }
+        }
+
+        .test-input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: hsl(var(--input));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.375rem;
+            color: hsl(var(--foreground));
+            margin: 0.5rem 0;
+            min-height: 44px; /* Touch-friendly minimum */
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .test-input {
+                background-color: oklch(var(--input));
+                border-color: oklch(var(--border));
+                color: oklch(var(--foreground));
+            }
+        }
+
+        .typography-test {
+            margin: 1rem 0;
+        }
+
+        .typography-test h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.5rem;
+            color: hsl(var(--primary));
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .typography-test h1 {
+                color: oklch(var(--primary));
+            }
+        }
+
+        .typography-test h2 {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .typography-test h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .typography-test p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .breakpoint-indicator {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .breakpoint-indicator.mobile {
+            background-color: #ef4444;
+            color: white;
+            display: block;
+        }
+
+        .breakpoint-indicator.tablet {
+            background-color: #f59e0b;
+            color: white;
+            display: none;
+        }
+
+        .breakpoint-indicator.desktop {
+            background-color: #22c55e;
+            color: white;
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .breakpoint-indicator.mobile { display: none; }
+            .breakpoint-indicator.tablet { display: block; }
+        }
+
+        @media (min-width: 1024px) {
+            .breakpoint-indicator.tablet { display: none; }
+            .breakpoint-indicator.desktop { display: block; }
+        }
+
+        .touch-test {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        @supports (color: oklch(0.5 0.1 180)) {
+            .touch-target {
+                background-color: oklch(var(--secondary));
+                color: oklch(var(--secondary-foreground));
+            }
+        }
+
+        .touch-target:hover {
+            transform: scale(1.05);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-pass { background-color: #22c55e; }
+        .status-fail { background-color: #ef4444; }
+        .status-warning { background-color: #f59e0b; }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .test-button:hover,
+            .test-card:hover,
+            .touch-target:hover {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport-info" id="viewportInfo">
+        Loading...
+    </div>
+    
+    <div class="container">
+        <h1>Responsive Design Testing</h1>
+        <p>This page tests the responsive behavior of the Smart Age Tech design system across different screen sizes and devices.</p>
+
+        <div class="breakpoint-indicator mobile">
+            📱 Mobile View (< 640px)
+        </div>
+        <div class="breakpoint-indicator tablet">
+            📱 Tablet View (640px - 1023px)
+        </div>
+        <div class="breakpoint-indicator desktop">
+            🖥️ Desktop View (≥ 1024px)
+        </div>
+
+        <div class="test-section">
+            <h2>Viewport Information</h2>
+            <div id="viewportDetails">
+                Loading viewport information...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Typography Scaling</h2>
+            <div class="typography-test">
+                <h1>Heading 1 - Responsive Typography</h1>
+                <h2>Heading 2 - Scales with Viewport</h2>
+                <h3>Heading 3 - Uses clamp() Function</h3>
+                <p>This paragraph text should scale appropriately across different screen sizes. The clamp() function ensures readable text at all viewport widths while maintaining proper proportions.</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Responsive Grid Layout</h2>
+            <div class="responsive-grid">
+                <div class="test-card">
+                    <h3>Card 1</h3>
+                    <p>This card should stack on mobile and arrange in a grid on larger screens.</p>
+                </div>
+                <div class="test-card">
+                    <h3>Card 2</h3>
+                    <p>Test the responsive grid behavior by resizing your browser window.</p>
+                </div>
+                <div class="test-card">
+                    <h3>Card 3</h3>
+                    <p>On desktop, this should show 3 columns. On tablet, 2 columns. On mobile, 1 column.</p>
+                </div>
+                <div class="test-card">
+                    <h3>Card 4</h3>
+                    <p>All cards should maintain consistent spacing and proportions.</p>
+                </div>
+                <div class="test-card">
+                    <h3>Card 5</h3>
+                    <p>Hover effects should work smoothly across all device types.</p>
+                </div>
+                <div class="test-card">
+                    <h3>Card 6</h3>
+                    <p>Touch interactions should be optimized for mobile devices.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Touch-Friendly Interactions</h2>
+            <p>All interactive elements should meet the minimum 44px touch target size:</p>
+            <div class="touch-test">
+                <div class="touch-target">Button 1</div>
+                <div class="touch-target">Button 2</div>
+                <div class="touch-target">Button 3</div>
+                <div class="touch-target">Button 4</div>
+                <div class="touch-target">Button 5</div>
+                <div class="touch-target">Button 6</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Form Elements</h2>
+            <p>Form inputs should be touch-friendly and properly sized:</p>
+            <input type="text" class="test-input" placeholder="Test input field - should be at least 44px tall">
+            <input type="email" class="test-input" placeholder="Email input">
+            <textarea class="test-input" rows="3" placeholder="Textarea should also be touch-friendly"></textarea>
+            <div>
+                <button class="test-button">Submit Button</button>
+                <button class="test-button" style="background-color: hsl(var(--secondary)); color: hsl(var(--secondary-foreground));">Cancel</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Responsive Test Results</h2>
+            <div id="testResults">
+                <p><span class="status-indicator" id="viewportTest"></span>Viewport Detection</p>
+                <p><span class="status-indicator" id="touchTest"></span>Touch Target Sizes</p>
+                <p><span class="status-indicator" id="typographyTest"></span>Typography Scaling</p>
+                <p><span class="status-indicator" id="gridTest"></span>Grid Layout Responsiveness</p>
+                <p><span class="status-indicator" id="interactionTest"></span>Touch Interactions</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Viewport detection and testing
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const pixelRatio = window.devicePixelRatio || 1;
+            const orientation = width > height ? 'landscape' : 'portrait';
+            
+            document.getElementById('viewportInfo').textContent = `${width}×${height} (${pixelRatio}x)`;
+            
+            document.getElementById('viewportDetails').innerHTML = `
+                <strong>Screen Dimensions:</strong> ${width}px × ${height}px<br>
+                <strong>Device Pixel Ratio:</strong> ${pixelRatio}x<br>
+                <strong>Orientation:</strong> ${orientation}<br>
+                <strong>Available Screen:</strong> ${screen.availWidth}px × ${screen.availHeight}px<br>
+                <strong>Color Depth:</strong> ${screen.colorDepth}-bit<br>
+                <strong>User Agent:</strong> ${navigator.userAgent}
+            `;
+        }
+
+        // Test responsive features
+        function runResponsiveTests() {
+            const results = {
+                viewport: false,
+                touch: false,
+                typography: false,
+                grid: false,
+                interaction: false
+            };
+
+            // Test viewport detection
+            results.viewport = window.innerWidth > 0 && window.innerHeight > 0;
+
+            // Test touch target sizes
+            const touchTargets = document.querySelectorAll('.touch-target, .test-button, .test-input');
+            let touchTargetsValid = true;
+            touchTargets.forEach(target => {
+                const rect = target.getBoundingClientRect();
+                if (rect.height < 44 || rect.width < 44) {
+                    touchTargetsValid = false;
+                }
+            });
+            results.touch = touchTargetsValid;
+
+            // Test typography scaling
+            const h1 = document.querySelector('.typography-test h1');
+            const h1Size = parseFloat(getComputedStyle(h1).fontSize);
+            results.typography = h1Size >= 32; // Should be at least 32px
+
+            // Test grid responsiveness
+            const grid = document.querySelector('.responsive-grid');
+            const gridColumns = getComputedStyle(grid).gridTemplateColumns;
+            results.grid = gridColumns !== 'none';
+
+            // Test interaction capabilities
+            results.interaction = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            // Update indicators
+            Object.entries(results).forEach(([test, passed]) => {
+                const indicator = document.getElementById(`${test}Test`);
+                if (indicator) {
+                    indicator.className = `status-indicator ${passed ? 'status-pass' : 'status-fail'}`;
+                }
+            });
+
+            return results;
+        }
+
+        // Test reduced motion preference
+        function testReducedMotion() {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                console.log('Reduced motion preference detected - animations should be minimal');
+                document.body.style.setProperty('--animation-duration', '0.01ms');
+            }
+        }
+
+        // Performance monitoring
+        function monitorPerformance() {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData) {
+                    console.log('Page Performance:', {
+                        domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                        loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
+                        totalTime: perfData.loadEventEnd - perfData.fetchStart
+                    });
+                }
+            }
+        }
+
+        // Initialize tests
+        document.addEventListener('DOMContentLoaded', function() {
+            updateViewportInfo();
+            runResponsiveTests();
+            testReducedMotion();
+            
+            // Re-run tests on resize
+            window.addEventListener('resize', function() {
+                updateViewportInfo();
+                runResponsiveTests();
+            });
+
+            // Monitor performance
+            window.addEventListener('load', function() {
+                setTimeout(monitorPerformance, 0);
+            });
+        });
+
+        // Test touch interactions
+        document.querySelectorAll('.touch-target').forEach(target => {
+            target.addEventListener('click', function() {
+                this.style.backgroundColor = '#22c55e';
+                this.textContent = '✓ Touched';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                    this.textContent = this.textContent.replace('✓ Touched', '').trim() || 'Touch Target';
+                }, 1000);
+            });
+        });
+
+        // Log viewport changes
+        window.addEventListener('resize', function() {
+            console.log(`Viewport changed to: ${window.innerWidth}×${window.innerHeight}`);
+        });
+
+        // Test orientation changes
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                console.log('Orientation changed, new dimensions:', window.innerWidth, 'x', window.innerHeight);
+                updateViewportInfo();
+                runResponsiveTests();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

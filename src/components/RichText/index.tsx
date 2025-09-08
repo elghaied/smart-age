@@ -71,7 +71,9 @@ export default function RichText(props: Props) {
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+          // Enhanced prose styling with design system integration
+          'mx-auto prose md:prose-md dark:prose-invert prose-headings:font-geist prose-headings:tracking-tight prose-headings:text-foreground prose-p:text-foreground prose-p:leading-relaxed prose-strong:text-foreground prose-strong:font-semibold prose-em:text-muted-foreground prose-blockquote:border-l-primary prose-blockquote:bg-muted/30 prose-blockquote:text-muted-foreground prose-blockquote:not-italic prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:text-accent hover:prose-a:underline prose-a:underline-offset-4 prose-code:text-accent prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-ul:text-foreground prose-ol:text-foreground prose-li:text-foreground prose-li:leading-relaxed':
+            enableProse,
         },
         className,
       )}

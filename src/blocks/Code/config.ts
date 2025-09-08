@@ -32,8 +32,60 @@ export const Code: Block = {
           value: 'javascript',
         },
         {
+          label: 'JSX',
+          value: 'jsx',
+        },
+        {
+          label: 'TSX',
+          value: 'tsx',
+        },
+        {
           label: 'CSS',
           value: 'css',
+        },
+        {
+          label: 'SCSS',
+          value: 'scss',
+        },
+        {
+          label: 'HTML',
+          value: 'html',
+        },
+        {
+          label: 'JSON',
+          value: 'json',
+        },
+        {
+          label: 'Python',
+          value: 'python',
+        },
+        {
+          label: 'Java',
+          value: 'java',
+        },
+        {
+          label: 'C#',
+          value: 'csharp',
+        },
+        {
+          label: 'PHP',
+          value: 'php',
+        },
+        {
+          label: 'SQL',
+          value: 'sql',
+        },
+        {
+          label: 'Bash',
+          value: 'bash',
+        },
+        {
+          label: 'YAML',
+          value: 'yaml',
+        },
+        {
+          label: 'Markdown',
+          value: 'markdown',
         },
       ],
     },

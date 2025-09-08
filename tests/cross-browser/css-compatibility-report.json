@@ -1,0 +1,157 @@
+{
+  "timestamp": "2025-09-08T15:27:12.112Z",
+  "summary": {
+    "filesAnalyzed": 1,
+    "totalFeatures": 7,
+    "totalIssues": 1,
+    "totalRecommendations": 5
+  },
+  "browserCompatibility": {
+    "chrome": {
+      "supported": [],
+      "unsupported": [],
+      "partial": []
+    },
+    "firefox": {
+      "supported": [],
+      "unsupported": [],
+      "partial": []
+    },
+    "safari": {
+      "supported": [],
+      "unsupported": [],
+      "partial": []
+    },
+    "edge": {
+      "supported": [],
+      "unsupported": [],
+      "partial": []
+    }
+  },
+  "files": [
+    {
+      "file": "src/app/(frontend)/[locale]/globals.css",
+      "features": [
+        {
+          "feature": "OKLCH Color Space",
+          "pattern": "oklch(",
+          "occurrences": 31,
+          "support": {
+            "chrome": 111,
+            "firefox": 113,
+            "safari": 15.4,
+            "edge": 111
+          },
+          "fallback": "HSL color values"
+        },
+        {
+          "feature": "CSS Custom Properties",
+          "pattern": "var(--",
+          "occurrences": 45,
+          "support": {
+            "chrome": 49,
+            "firefox": 31,
+            "safari": 9.1,
+            "edge": 16
+          },
+          "fallback": "Static color values"
+        },
+        {
+          "feature": "CSS clamp() Function",
+          "pattern": "clamp(",
+          "occurrences": 61,
+          "support": {
+            "chrome": 79,
+            "firefox": 75,
+            "safari": 13.1,
+            "edge": 79
+          },
+          "fallback": "Media queries for responsive sizing"
+        },
+        {
+          "feature": "CSS Grid Layout",
+          "pattern": "display: grid",
+          "occurrences": 4,
+          "support": {
+            "chrome": 57,
+            "firefox": 52,
+            "safari": 10.1,
+            "edge": 16
+          },
+          "fallback": "Flexbox layouts"
+        },
+        {
+          "feature": "Focus Visible Pseudo-class",
+          "pattern": ":focus-visible",
+          "occurrences": 11,
+          "support": {
+            "chrome": 86,
+            "firefox": 85,
+            "safari": 15.4,
+            "edge": 86
+          },
+          "fallback": ":focus pseudo-class"
+        },
+        {
+          "feature": "CSS Feature Queries",
+          "pattern": "@supports",
+          "occurrences": 2,
+          "support": {
+            "chrome": 28,
+            "firefox": 22,
+            "safari": 9,
+            "edge": 12
+          },
+          "fallback": "Progressive enhancement"
+        },
+        {
+          "feature": "Reduced Motion Media Query",
+          "pattern": "prefers-reduced-motion",
+          "occurrences": 3,
+          "support": {
+            "chrome": 74,
+            "firefox": 63,
+            "safari": 10.1,
+            "edge": 79
+          },
+          "fallback": "Animation controls in UI"
+        }
+      ],
+      "issues": [
+        {
+          "type": "Missing Fallback",
+          "description": "OKLCH colors found without HSL fallbacks",
+          "severity": "medium",
+          "recommendation": "Add HSL fallback values for older browsers"
+        }
+      ],
+      "recommendations": [
+        {
+          "type": "Vendor Prefix",
+          "description": "Consider adding -webkit- prefix for transform",
+          "severity": "low"
+        },
+        {
+          "type": "Vendor Prefix",
+          "description": "Consider adding -webkit- prefix for transition",
+          "severity": "low"
+        },
+        {
+          "type": "Vendor Prefix",
+          "description": "Consider adding -webkit- prefix for animation",
+          "severity": "low"
+        },
+        {
+          "type": "Vendor Prefix",
+          "description": "Consider adding -webkit- prefix for box-shadow",
+          "severity": "low"
+        },
+        {
+          "type": "Vendor Prefix",
+          "description": "Consider adding -webkit- prefix for border-radius",
+          "severity": "low"
+        }
+      ]
+    }
+  ]
+}
