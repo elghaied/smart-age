@@ -53,6 +53,11 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
                   like: query,
                 },
               },
+              {
+                'categories.title': {
+                  like: query,
+                },
+              },
             ],
           },
         }

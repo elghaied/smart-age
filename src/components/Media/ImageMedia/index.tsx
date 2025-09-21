@@ -4,7 +4,7 @@ import type { StaticImageData } from 'next/image'
 
 import { cn } from '@/utilities/ui'
 import NextImage from 'next/image'
-import React, { useState } from 'react'
+import React from 'react'
 
 import type { Props as MediaProps } from '../types'
 
@@ -13,9 +13,9 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 const { breakpoints } = cssVariables
 
-// Enhanced placeholder with teal theme
+// A base64 encoded image to use as a placeholder while the image is loading
 const placeholderBlur =
-  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJva2xjaCgwLjk2IDAuMDIgMjAwKSIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjQwIiBmaWxsPSJva2xjaCgwLjY1IDAuMTIgMjAwKSIgZmlsbC1vcGFjaXR5PSIwLjMiLz4KPHN2Zz4K'
+  'data:image/png;base64,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'
 
 export const ImageMedia: React.FC<MediaProps> = (props) => {
   const {
@@ -28,11 +28,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     size: sizeFromProps,
     src: srcFromProps,
     loading: loadingFromProps,
-    onLoad,
   } = props
-
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
 
   let width: number | undefined
   let height: number | undefined
@@ -53,111 +49,29 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
 
-  // Enhanced responsive sizes with better breakpoint handling
+  // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
     ? sizeFromProps
     : Object.entries(breakpoints)
-        .map(([, value]) => `(max-width: ${value}px) ${Math.min(value, 800)}px`)
+        .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
 
-  const handleLoad = () => {
-    setIsLoading(false)
-    setHasError(false)
-    onLoad?.()
-  }
-
-  const handleError = () => {
-    setIsLoading(false)
-    setHasError(true)
-  }
-
-  // Error fallback component
-  if (hasError) {
-    return (
-      <div
-        className={cn(
-          'flex items-center justify-center bg-muted border border-border rounded-lg',
-          'min-h-[200px] text-muted-foreground',
-          pictureClassName,
-        )}
-      >
-        <div className="text-center space-y-2">
-          <div className="w-12 h-12 mx-auto rounded-full bg-destructive/10 flex items-center justify-center">
-            <svg
-              className="w-6 h-6 text-destructive"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
-          </div>
-          <p className="text-sm font-medium">Failed to load image</p>
-          <p className="text-xs text-muted-foreground">{alt || 'Image could not be displayed'}</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className={cn('relative overflow-hidden', pictureClassName)}>
-      {/* Loading state overlay */}
-      {isLoading && (
-        <div
-          className={cn(
-            'absolute inset-0 z-10 flex items-center justify-center',
-            'bg-muted/50 backdrop-blur-sm transition-opacity duration-300',
-          )}
-        >
-          <div className="flex items-center space-x-2 text-muted-foreground">
-            <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-            <span className="text-sm font-medium">Loading...</span>
-          </div>
-        </div>
-      )}
-
-      <picture className="block">
-        <NextImage
-          alt={alt || ''}
-          className={cn(
-            'transition-all duration-300 ease-in-out',
-            {
-              'opacity-0': isLoading,
-              'opacity-100': !isLoading,
-              'scale-105 hover:scale-100': !isLoading && !fill,
-            },
-            imgClassName,
-          )}
-          fill={fill}
-          height={!fill ? height : undefined}
-          placeholder="blur"
-          blurDataURL={placeholderBlur}
-          priority={priority}
-          quality={90}
-          loading={loading}
-          sizes={sizes}
-          src={src}
-          width={!fill ? width : undefined}
-          onLoad={handleLoad}
-          onError={handleError}
-          style={{
-            objectFit: fill ? 'cover' : undefined,
-            objectPosition: 'center',
-          }}
-        />
-      </picture>
-
-      {/* Caption overlay for images with alt text */}
-      {alt && !isLoading && !hasError && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 hover:opacity-100 transition-opacity duration-200">
-          <p className="text-white text-sm font-medium line-clamp-2">{alt}</p>
-        </div>
-      )}
-    </div>
+    <picture className={cn(pictureClassName)}>
+      <NextImage
+        alt={alt || ''}
+        className={cn(imgClassName)}
+        fill={fill}
+        height={!fill ? height : undefined}
+        placeholder="blur"
+        blurDataURL={placeholderBlur}
+        priority={priority}
+        quality={100}
+        loading={loading}
+        sizes={sizes}
+        src={src}
+        width={!fill ? width : undefined}
+      />
+    </picture>
   )
 }

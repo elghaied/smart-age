@@ -1,10 +1,10 @@
 'use client'
 
-import { cn } from '@/utilities/ui'
 import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
 import * as React from 'react'
 import { LoadingSpinner } from '@/components/LoadingState'
+import { cn } from '@/utilities/ui'
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded text-sm font-medium ring-offset-background transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden hover:scale-105 active:scale-95',
@@ -41,7 +41,6 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
-  ref?: React.Ref<HTMLButtonElement>
   loading?: boolean
   loadingText?: string
 }
@@ -65,7 +64,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const isDisabled = disabled || loading
 
     const content = (
-      <>
+      <span className="inline-flex items-center">
         {loading && (
           <LoadingSpinner
             size={size === 'sm' ? 'sm' : size === 'lg' ? 'md' : 'sm'}
@@ -73,14 +72,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           />
         )}
         <span>{loading && loadingText ? loadingText : children}</span>
-      </>
+      </span>
     )
 
     return (
       <Comp
-        className={cn(buttonVariants({ className, size, variant }))}
+        className={cn(buttonVariants({ size, variant }), className)}
         ref={ref}
-        disabled={isDisabled}
+        // ✅ Only apply disabled to real buttons
+        {...(!asChild && { disabled: isDisabled })}
+        // ✅ For a11y: still show disabled state on links/divs
+        {...(asChild && isDisabled ? { 'aria-disabled': true } : {})}
         {...props}
       >
         {content}

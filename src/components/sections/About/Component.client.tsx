@@ -19,7 +19,7 @@ const iconMap = {
   Target,
   Users,
 } as const
-
+const colors = ['bg-primary', 'bg-accent', 'bg-secondary'] // extend if needed
 export default function AboutClient({ about, values }: AboutClientProps) {
   if (!about) return null
 
@@ -162,31 +162,22 @@ export default function AboutClient({ about, values }: AboutClientProps) {
           <Card className="p-12 bg-gradient-to-br from-primary/5 to-accent/5 border-2 border-primary/10 hover:border-accent/20 transition-all duration-300">
             <div className="max-w-3xl mx-auto">
               <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
-                Ready to Transform Your Business?
+                {about.aboutUsCallToAction?.title}
               </h3>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Join the growing number of businesses that trust Smart Age Tech to deliver
-                innovative solutions that drive growth and success in the digital age.
+                {about.aboutUsCallToAction?.description}
               </p>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <div className="flex items-center gap-3 text-primary">
-                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-                  <span className="font-semibold">Innovative Solutions</span>
-                </div>
-                <div className="flex items-center gap-3 text-primary">
-                  <div
-                    className="w-3 h-3 bg-accent rounded-full animate-pulse"
-                    style={{ animationDelay: '0.5s' }}
-                  ></div>
-                  <span className="font-semibold">Expert Team</span>
-                </div>
-                <div className="flex items-center gap-3 text-primary">
-                  <div
-                    className="w-3 h-3 bg-secondary rounded-full animate-pulse"
-                    style={{ animationDelay: '1s' }}
-                  ></div>
-                  <span className="font-semibold">Proven Results</span>
-                </div>
+                {about.aboutUsCallToAction?.strongPoints?.map((points, i) => (
+                  <div key={i} className="flex items-center gap-3 text-primary">
+                    <div
+                      className={`w-3 h-3 rounded-full animate-pulse ${colors[i % colors.length]}`}
+                      style={{ animationDelay: `${i * 0.5}s` }}
+                    />
+                    <span className="font-semibold">{points.point}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </Card>

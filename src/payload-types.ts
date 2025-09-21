@@ -2029,24 +2029,12 @@ export interface ContactInfo {
   label: string;
   contactInfo?: {
     address?: string | null;
+    mapLink?: string | null;
     phone?: string | null;
     email?: string | null;
     workingHours?: string | null;
   };
-  contactForm?: {
-    title?: string | null;
-    fields?: {
-      nameLabel?: string | null;
-      namePlaceholder?: string | null;
-      emailLabel?: string | null;
-      emailPlaceholder?: string | null;
-      subjectLabel?: string | null;
-      subjectPlaceholder?: string | null;
-      messageLabel?: string | null;
-      messagePlaceholder?: string | null;
-      submitButton?: string | null;
-    };
-  };
+  contactForm: FormBlock[];
   labels?: {
     address?: string | null;
     phone?: string | null;
@@ -2128,6 +2116,16 @@ export interface Homepage {
       } | null;
     };
     valuesTitle?: string | null;
+    aboutUsCallToAction?: {
+      title?: string | null;
+      description?: string | null;
+      strongPoints?:
+        | {
+            point?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
   whyUs?: {
     title?: string | null;
@@ -2146,6 +2144,13 @@ export interface Homepage {
     title?: string | null;
     subtitle?: string | null;
     description?: string | null;
+    servicesCallToAction?: {
+      miniTitle?: string | null;
+      title?: string | null;
+      description?: string | null;
+      buttonText?: string | null;
+      buttonLink?: string | null;
+    };
   };
   team?: {
     title?: string | null;
@@ -2155,25 +2160,39 @@ export interface Homepage {
       /**
        * Total number of experts in the team
        */
-      expertsCount?: number | null;
+      expertsCount?: string | null;
       /**
        * Combined years of experience
        */
-      experienceYears?: number | null;
+      experienceYears?: string | null;
       /**
        * Total certifications held by team members
        */
-      certificationsCount?: number | null;
+      certificationsCount?: string | null;
       /**
        * Support availability hours (e.g., "24/7", "Business Hours")
        */
       supportAvailability?: string | null;
+    };
+    teamCallToAction?: {
+      title?: string | null;
+      description?: string | null;
+      viewPositionsButtonText?: string | null;
+      viewPositionsButtonLink?: string | null;
+      joinUsButtonText?: string | null;
+      joinUsButtonLink?: string | null;
     };
   };
   contact?: {
     title?: string | null;
     subtitle?: string | null;
     description?: string | null;
+    contactCallToAction?: {
+      title?: string | null;
+      description?: string | null;
+      callUsButtonText?: string | null;
+      emailUsButtonText?: string | null;
+    };
   };
   meta?: {
     title?: string | null;
@@ -2283,6 +2302,7 @@ export interface ContactInfoSelect<T extends boolean = true> {
     | T
     | {
         address?: T;
+        mapLink?: T;
         phone?: T;
         email?: T;
         workingHours?: T;
@@ -2290,20 +2310,7 @@ export interface ContactInfoSelect<T extends boolean = true> {
   contactForm?:
     | T
     | {
-        title?: T;
-        fields?:
-          | T
-          | {
-              nameLabel?: T;
-              namePlaceholder?: T;
-              emailLabel?: T;
-              emailPlaceholder?: T;
-              subjectLabel?: T;
-              subjectPlaceholder?: T;
-              messageLabel?: T;
-              messagePlaceholder?: T;
-              submitButton?: T;
-            };
+        formBlock?: T | FormBlockSelect<T>;
       };
   labels?:
     | T
@@ -2372,6 +2379,18 @@ export interface HomepageSelect<T extends boolean = true> {
               text?: T;
             };
         valuesTitle?: T;
+        aboutUsCallToAction?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              strongPoints?:
+                | T
+                | {
+                    point?: T;
+                    id?: T;
+                  };
+            };
       };
   whyUs?:
     | T
@@ -2398,6 +2417,15 @@ export interface HomepageSelect<T extends boolean = true> {
         title?: T;
         subtitle?: T;
         description?: T;
+        servicesCallToAction?:
+          | T
+          | {
+              miniTitle?: T;
+              title?: T;
+              description?: T;
+              buttonText?: T;
+              buttonLink?: T;
+            };
       };
   team?:
     | T
@@ -2413,6 +2441,16 @@ export interface HomepageSelect<T extends boolean = true> {
               certificationsCount?: T;
               supportAvailability?: T;
             };
+        teamCallToAction?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              viewPositionsButtonText?: T;
+              viewPositionsButtonLink?: T;
+              joinUsButtonText?: T;
+              joinUsButtonLink?: T;
+            };
       };
   contact?:
     | T
@@ -2420,6 +2458,14 @@ export interface HomepageSelect<T extends boolean = true> {
         title?: T;
         subtitle?: T;
         description?: T;
+        contactCallToAction?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              callUsButtonText?: T;
+              emailUsButtonText?: T;
+            };
       };
   meta?:
     | T
@@ -2524,7 +2570,26 @@ export interface BannerBlock {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
+  language?:
+    | (
+        | 'typescript'
+        | 'javascript'
+        | 'jsx'
+        | 'tsx'
+        | 'css'
+        | 'scss'
+        | 'html'
+        | 'json'
+        | 'python'
+        | 'java'
+        | 'csharp'
+        | 'php'
+        | 'sql'
+        | 'bash'
+        | 'yaml'
+        | 'markdown'
+      )
+    | null;
   code: string;
   id?: string | null;
   blockName?: string | null;

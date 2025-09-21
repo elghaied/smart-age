@@ -240,7 +240,8 @@ export default function Hero({ hero }: HeroProps) {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto bg-card/30 backdrop-blur-md border-border/50 px-8 py-4 text-base font-semibold hover:bg-accent/10 hover:border-accent/30 transition-all duration-300"
+                  className="w-full sm:w-auto bg-card/30 backdrop-blur-md border-border/50 px-8 py-4 text-base font-semibold 
+             hover:bg-accent/10 hover:border-accent/30 hover:text-foreground transition-all duration-300"
                   asChild={!!hero.secondaryCTA.link}
                 >
                   {hero.secondaryCTA.link ? (

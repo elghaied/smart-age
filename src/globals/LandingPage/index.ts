@@ -181,6 +181,49 @@ export const Homepage: GlobalConfig = {
                   },
                   localized: true,
                 },
+                {
+                  name: 'aboutUsCallToAction',
+                  type: 'group',
+                  label: {
+                    en: 'About Us Call to Action',
+                    ar: 'الدعوة إلى العمل حولنا',
+                  },
+                  fields: [
+                    {
+                      name: 'title',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'CTA Title',
+                        ar: 'عنوان CTA',
+                      },
+                    },
+                    {
+                      name: 'description',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'CTA Description',
+                        ar: 'وصف CTA',
+                      },
+                    },
+                    {
+                      name: 'strongPoints',
+                      type: 'array',
+                      label: {
+                        en: 'Strong Points',
+                        ar: 'نقاط القوة',
+                      },
+                      fields: [
+                        {
+                          name: 'point',
+                          type: 'text',
+                          localized: true,
+                        },
+                      ],
+                    },
+                  ],
+                },
               ],
             },
             // Why Us Section
@@ -275,6 +318,61 @@ export const Homepage: GlobalConfig = {
                   type: 'textarea',
                   localized: true,
                 },
+                {
+                  name: 'servicesCallToAction',
+                  type: 'group',
+                  label: {
+                    en: 'Services Call to Action',
+                    ar: 'الدعوة إلى العمل للخدمات',
+                  },
+                  fields: [
+                    {
+                      name: 'miniTitle',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'Mini Title',
+                        ar: 'عنوان صغير',
+                      },
+                    },
+                    {
+                      name: 'title',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'CTA Title',
+
+                        ar: 'عنوان CTA',
+                      },
+                    },
+                    {
+                      name: 'description',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'CTA Description',
+                        ar: 'وصف CTA',
+                      },
+                    },
+                    {
+                      name: 'buttonText',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'Button Text',
+                        ar: 'نص الزر',
+                      },
+                    },
+                    {
+                      name: 'buttonLink',
+                      type: 'text',
+                      label: {
+                        en: 'Button Link',
+                        ar: 'رابط الزر',
+                      },
+                    },
+                  ],
+                },
               ],
             },
             // Team Section
@@ -323,7 +421,7 @@ export const Homepage: GlobalConfig = {
                   fields: [
                     {
                       name: 'expertsCount',
-                      type: 'number',
+                      type: 'text',
                       label: {
                         en: 'Number of Experts',
                         ar: 'عدد الخبراء',
@@ -337,7 +435,7 @@ export const Homepage: GlobalConfig = {
                     },
                     {
                       name: 'experienceYears',
-                      type: 'number',
+                      type: 'text',
                       label: {
                         en: 'Years of Experience',
                         ar: 'سنوات الخبرة',
@@ -351,7 +449,7 @@ export const Homepage: GlobalConfig = {
                     },
                     {
                       name: 'certificationsCount',
-                      type: 'number',
+                      type: 'text',
                       label: {
                         en: 'Number of Certifications',
                         ar: 'عدد الشهادات',
@@ -376,6 +474,68 @@ export const Homepage: GlobalConfig = {
                           en: 'Support availability hours (e.g., "24/7", "Business Hours")',
                           ar: 'ساعات توفر الدعم (مثل "24/7"، "ساعات العمل")',
                         },
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: 'teamCallToAction',
+                  type: 'group',
+                  label: {
+                    en: 'Team Call to Action',
+                    ar: 'الدعوة إلى العمل للفريق',
+                  },
+                  fields: [
+                    {
+                      name: 'title',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'CTA Title',
+                        ar: 'عنوان CTA',
+                      },
+                    },
+                    {
+                      name: 'description',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'CTA Description',
+                        ar: 'وصف CTA',
+                      },
+                    },
+                    {
+                      name: 'viewPositionsButtonText',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'View Open Positions Button Text',
+                        ar: 'عرض نص زر الوظائف المفتوحة',
+                      },
+                    },
+                    {
+                      name: 'viewPositionsButtonLink',
+                      type: 'text',
+                      label: {
+                        en: 'View Open Positions Button Link',
+                        ar: 'عرض رابط زر الوظائف المفتوحة',
+                      },
+                    },
+                    {
+                      name: 'joinUsButtonText',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'Join Us Button Text',
+                        ar: 'انضم إلينا نص الزر',
+                      },
+                    },
+                    {
+                      name: 'joinUsButtonLink',
+                      type: 'text',
+                      label: {
+                        en: 'Join Us Button Link',
+                        ar: 'انضم إلينا رابط الزر',
                       },
                     },
                   ],
@@ -405,6 +565,40 @@ export const Homepage: GlobalConfig = {
                   name: 'description',
                   type: 'textarea',
                   localized: true,
+                },
+                {
+                  name: 'contactCallToAction',
+                  type: 'group',
+                  label: {
+                    en: 'Contact Call to Action',
+                    ar: 'الدعوة إلى العمل للتواصل',
+                  },
+                  fields: [
+                    {
+                      name: 'title',
+                      type: 'text',
+                      localized: true,
+                    },
+                    { name: 'description', type: 'text', localized: true },
+                    {
+                      name: 'callUsButtonText',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'Call Us Button Text',
+                        ar: 'اتصل بنا نص الزر',
+                      },
+                    },
+                    {
+                      name: 'emailUsButtonText',
+                      type: 'text',
+                      localized: true,
+                      label: {
+                        en: 'Email Us Button Text',
+                        ar: 'راسلنا نص الزر',
+                      },
+                    },
+                  ],
                 },
               ],
             },

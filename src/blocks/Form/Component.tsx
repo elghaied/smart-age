@@ -10,6 +10,7 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import { Send } from 'lucide-react'
 
 export type FormBlockType = {
   blockName?: string
@@ -116,15 +117,27 @@ export const FormBlock: React.FC<
   return (
     <div className="container lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
-        <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
+        <RichText
+          className="mb-8 lg:mb-12 text-muted-foreground text-sm"
+          data={introContent}
+          enableGutter={false}
+        />
       )}
-      <div className="p-6 lg:p-8 border border-border rounded-lg bg-card shadow-sm hover:shadow-md transition-shadow duration-200">
+
+      {/* Outer card only */}
+      <div
+        className="p-10 rounded-2xl 
+                  bg-card/90 backdrop-blur-sm 
+                  shadow-sm hover:shadow-xl hover:shadow-primary/10 
+                  transition-all duration-300"
+      >
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
               <RichText data={confirmationMessage} />
             </div>
           )}
+
           {isLoading && !hasSubmitted && (
             <div className="flex items-center justify-center p-8">
               <div className="flex items-center space-x-3">
@@ -133,6 +146,7 @@ export const FormBlock: React.FC<
               </div>
             </div>
           )}
+
           {error && (
             <div className="mb-6 p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive">
               <div className="flex items-center space-x-2">
@@ -149,50 +163,57 @@ export const FormBlock: React.FC<
               </div>
             </div>
           )}
+
           {!hasSubmitted && (
-            <form id={formID} onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="space-y-6">
-                {formFromProps &&
-                  formFromProps.fields &&
-                  formFromProps.fields?.map((field, index) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
-                    if (Field) {
-                      return (
-                        <div key={index}>
-                          <Field
-                            form={formFromProps}
-                            {...field}
-                            {...formMethods}
-                            control={control}
-                            errors={errors}
-                            register={register}
-                          />
-                        </div>
-                      )
-                    }
-                    return null
-                  })}
+            <form id={formID} onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <div className="space-y-8">
+                {formFromProps?.fields?.map((field, index) => {
+                  const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
+                  if (Field) {
+                    return (
+                      <div key={index} className="space-y-3">
+                        <Field
+                          form={formFromProps}
+                          {...field}
+                          {...formMethods}
+                          control={control}
+                          errors={errors}
+                          register={register}
+                          className="w-full h-12 text-base bg-background/50 border-border/50 
+                                 focus:border-primary focus:ring-primary/20 
+                                 transition-all duration-300"
+                        />
+                      </div>
+                    )
+                  }
+                  return null
+                })}
               </div>
 
-              <div className="pt-4 border-t border-border">
-                <Button
-                  form={formID}
-                  type="submit"
-                  variant="default"
-                  className="w-full sm:w-auto min-w-[120px] transition-all duration-200 hover:scale-105 active:scale-95"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent"></div>
-                      <span>Submitting...</span>
-                    </div>
-                  ) : (
-                    submitButtonLabel || 'Submit'
-                  )}
-                </Button>
-              </div>
+              {/* Submit button */}
+              <Button
+                form={formID}
+                type="submit"
+                size="lg"
+                variant="default"
+                disabled={isLoading}
+                className="w-full h-14 text-lg font-semibold group 
+                       hover:scale-105 transition-all duration-300 
+                       bg-primary hover:bg-primary/90 
+                       shadow-lg hover:shadow-xl hover:shadow-primary/25"
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-3">
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-current border-t-transparent"></div>
+                    <span>Submitting...</span>
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-3">
+                    <Send className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:rotate-12" />
+                    {submitButtonLabel || 'Submit'}
+                  </span>
+                )}
+              </Button>
             </form>
           )}
         </FormProvider>

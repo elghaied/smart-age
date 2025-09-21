@@ -169,136 +169,153 @@
     padding-right: 1rem;
   }
 
-  /* Fallback colors for browsers without OKLCH support */
+/* Fallback colors for browsers without OKLCH support */
+:root {
+  /* HSL fallbacks - Light Mode */
+  --background: 180 20% 98%;
+  --foreground: 180 50% 15%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 180 50% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 180 50% 15%;
+
+  --primary: 180 50% 15%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 180 40% 35%;
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 180 10% 96%;
+  --muted-foreground: 180 10% 35%;
+
+  --accent: 180 60% 55%;
+  --accent-foreground: 0 0% 100%; /* FIX: white for contrast */
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%; /* white for contrast */
+
+  --border: 180 10% 90%;
+  --input: 180 10% 94%;
+  --ring: 180 60% 55%;
+
+  --success: 142 76% 36%;
+  --warning: 38 92% 50%;
+  --error: 0 84% 60%;
+}
+
+/* OKLCH colors for modern browsers - Light Mode */
+@supports (color: oklch(0.5 0.1 180)) {
   :root {
-    /* HSL fallbacks - Light Mode */
-    --background: 180 20% 98%;
-    --foreground: 180 50% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 180 50% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 180 50% 15%;
-    --primary: 180 50% 15%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 180 40% 35%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 180 10% 96%;
-    --muted-foreground: 180 10% 45%;
-    --accent: 180 60% 55%;
-    --accent-foreground: 180 50% 15%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 180 10% 90%;
-    --input: 180 10% 94%;
-    --ring: 180 60% 55%;
-    --success: 142 76% 36%;
-    --warning: 38 92% 50%;
-    --error: 0 84% 60%;
-  }
+    --background: 0.98 0.01 200;
+    --foreground: 0.25 0.05 200;
 
-  /* OKLCH colors for modern browsers - Light Mode */
-  @supports (color: oklch(0.5 0.1 180)) {
-    :root {
-    /* Light Mode - Smart Age Tech Teal Theme */
-    --background: 0.98 0.01 200; /* Light background with subtle teal tint */
-    --foreground: 0.25 0.05 200; /* Dark teal text */
-
-    --card: 1.0 0.0 0; /* Pure white cards */
+    --card: 1.0 0.0 0;
     --card-foreground: 0.25 0.05 200;
 
     --popover: 1.0 0.0 0;
     --popover-foreground: 0.25 0.05 200;
 
-    --primary: 0.25 0.05 200; /* Dark teal primary */
-    --primary-foreground: 1.0 0.0 0;
+    --primary: 0.25 0.05 200; /* dark teal */
+    --primary-foreground: 1.0 0.0 0; /* white */
 
-    --secondary: 0.45 0.08 200; /* Medium teal */
-    --secondary-foreground: 1.0 0.0 0;
+    --secondary: 0.45 0.08 200;
+    --secondary-foreground: 1.0 0.0 0; /* white */
 
-    --muted: 0.96 0.02 200; /* Subtle teal muted */
-    --muted-foreground: 0.45 0.04 200;
+    --muted: 0.96 0.02 200;
+    --muted-foreground: 0.35 0.05 200; /* darker muted text */
 
-    --accent: 0.65 0.12 200; /* Light teal accent */
-    --accent-foreground: 0.25 0.05 200;
+    --accent: 0.65 0.12 200;
+    --accent-foreground: 1.0 0.0 0; /* FIX: white */
 
-    --destructive: 0.55 0.15 25; /* Red for destructive actions */
-    --destructive-foreground: 0.98 0.01 25;
+    --destructive: 0.55 0.15 25;
+    --destructive-foreground: 1.0 0.0 0; /* FIX: white */
 
-    --border: 0.90 0.02 200; /* Subtle teal border */
-    --input: 0.94 0.02 200; /* Light teal input background */
-    --ring: 0.65 0.12 200; /* Teal focus ring */
+    --border: 0.90 0.02 200;
+    --input: 0.94 0.02 200;
+    --ring: 0.65 0.12 200;
 
-      --radius: 0.5rem;
+    --radius: 0.5rem;
 
-      --success: 0.55 0.15 142; /* Green for success */
-      --warning: 0.70 0.15 65; /* Orange for warnings */
-      --error: 0.55 0.15 25; /* Red for errors */
-    }
+    --success: 0.55 0.15 142;
+    --warning: 0.70 0.15 65;
+    --error: 0.55 0.15 25;
   }
+}
 
-  /* HSL fallbacks - Dark Mode */
+/* HSL fallbacks - Dark Mode */
+[data-theme='dark'] {
+  --background: 200 30% 8%;
+  --foreground: 180 60% 85%;
+
+  --card: 180 50% 12%;
+  --card-foreground: 180 60% 85%;
+
+  --popover: 180 50% 12%;
+  --popover-foreground: 180 60% 85%;
+
+  --primary: 180 60% 65%;
+  --primary-foreground: 200 30% 8%; /* dark bg for contrast */
+
+  --secondary: 180 40% 35%;
+  --secondary-foreground: 180 60% 85%; /* light for contrast */
+
+  --muted: 200 20% 15%;
+  --muted-foreground: 180 20% 70%;
+
+  --accent: 180 60% 65%;
+  --accent-foreground: 200 30% 8%; /* dark for contrast */
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 100%; /* white */
+
+  --border: 180 20% 20%;
+  --input: 200 20% 15%;
+  --ring: 180 60% 65%;
+
+  --success: 142 52% 24%;
+  --warning: 38 64% 35%;
+  --error: 0 62% 50%;
+}
+
+/* OKLCH colors for modern browsers - Dark Mode */
+@supports (color: oklch(0.5 0.1 180)) {
   [data-theme='dark'] {
-    --background: 200 30% 8%;
-    --foreground: 180 60% 85%;
-    --card: 180 50% 12%;
-    --card-foreground: 180 60% 85%;
-    --popover: 180 50% 12%;
-    --popover-foreground: 180 60% 85%;
-    --primary: 180 60% 65%;
-    --primary-foreground: 200 30% 8%;
-    --secondary: 180 40% 35%;
-    --secondary-foreground: 180 60% 85%;
-    --muted: 200 20% 15%;
-    --muted-foreground: 180 20% 65%;
-    --accent: 180 60% 65%;
-    --accent-foreground: 200 30% 8%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 180 20% 20%;
-    --input: 200 20% 15%;
-    --ring: 180 60% 65%;
-    --success: 142 52% 24%;
-    --warning: 38 64% 35%;
-    --error: 0 62% 50%;
-  }
+    --background: 0.08 0.02 220;
+    --foreground: 0.85 0.08 200;
 
-  /* OKLCH colors for modern browsers - Dark Mode */
-  @supports (color: oklch(0.5 0.1 180)) {
-    [data-theme='dark'] {
-    /* Dark Mode - Smart Age Tech Teal Theme */
-    --background: 0.08 0.02 220; /* Dark navy background */
-    --foreground: 0.85 0.08 200; /* Light teal text */
-
-    --card: 0.12 0.04 200; /* Dark teal cards */
+    --card: 0.12 0.04 200;
     --card-foreground: 0.85 0.08 200;
 
     --popover: 0.12 0.04 200;
     --popover-foreground: 0.85 0.08 200;
 
-    --primary: 0.65 0.12 200; /* Light teal primary */
-    --primary-foreground: 0.08 0.02 220;
+    --primary: 0.65 0.12 200;
+    --primary-foreground: 0.08 0.02 220; /* dark bg for contrast */
 
-    --secondary: 0.45 0.08 200; /* Medium teal */
-    --secondary-foreground: 0.85 0.08 200;
+    --secondary: 0.45 0.08 200;
+    --secondary-foreground: 0.85 0.08 200; /* light for contrast */
 
-    --muted: 0.15 0.03 220; /* Dark muted with navy tint */
-    --muted-foreground: 0.65 0.06 200;
+    --muted: 0.15 0.03 220;
+    --muted-foreground: 0.70 0.06 200;
 
-    --accent: 0.65 0.12 200; /* Light teal accent */
-    --accent-foreground: 0.08 0.02 220;
+    --accent: 0.65 0.12 200;
+    --accent-foreground: 0.08 0.02 220; /* dark bg for contrast */
 
-    --destructive: 0.45 0.12 25; /* Darker red for dark mode */
-    --destructive-foreground: 0.95 0.02 25;
+    --destructive: 0.45 0.12 25;
+    --destructive-foreground: 1.0 0.0 0; /* white */
 
-    --border: 0.20 0.03 200; /* Dark teal border */
-    --input: 0.15 0.03 220; /* Dark input background */
-    --ring: 0.65 0.12 200; /* Teal focus ring */
+    --border: 0.20 0.03 200;
+    --input: 0.15 0.03 220;
+    --ring: 0.65 0.12 200;
 
-      --success: 0.45 0.12 142; /* Darker green for dark mode */
-      --warning: 0.60 0.12 65; /* Darker orange for dark mode */
-      --error: 0.45 0.12 25; /* Darker red for dark mode */
-    }
+    --success: 0.45 0.12 142;
+    --warning: 0.60 0.12 65;
+    --error: 0.45 0.12 25;
   }
+}
+
 }
 
 @layer base {

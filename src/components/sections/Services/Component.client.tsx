@@ -23,6 +23,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useLocale } from 'next-intl'
 import type { Homepage, Service } from '@/payload-types'
+import Link from 'next/link'
 
 interface ServicesClientProps {
   services: Homepage['services']
@@ -248,7 +249,7 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
           </motion.div>
         </AnimatePresence>
 
-        {/* Enhanced Service Selection Grid */}
+        {/* Enhanced Service Selection Grid - FIXED */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
           {servicesData.map((service, index) => {
             const ServiceIcon = iconMap[service.icon as keyof typeof iconMap] || Globe
@@ -270,22 +271,23 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                 className="cursor-pointer group"
               >
                 <Card
-                  className={`relative p-8 h-full transition-all duration-500 overflow-hidden ${
+                  className={`relative p-8 h-full transition-all duration-500 overflow-hidden border ${
                     isActive
                       ? 'ring-2 ring-primary bg-gradient-to-br from-primary/5 via-card to-accent/5 shadow-xl border-primary/20'
-                      : 'hover:shadow-xl hover:border-accent/30 bg-gradient-to-br from-card to-muted/20'
+                      : 'hover:shadow-xl hover:border-accent/30 bg-card border-border'
                   }`}
                 >
-                  {/* Card background decoration */}
+                  {/* Background decoration - positioned behind content */}
                   <div
-                    className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl transition-opacity duration-500 ${
+                    className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl transition-opacity duration-500 -z-10 ${
                       isActive
                         ? 'bg-primary/10 opacity-100'
                         : 'bg-accent/5 opacity-0 group-hover:opacity-100'
                     }`}
                   />
 
-                  <div className="relative flex flex-col items-center text-center space-y-6">
+                  {/* Content container with proper z-index */}
+                  <div className="relative z-10 flex flex-col items-center text-center space-y-6">
                     <motion.div
                       variants={iconVariants}
                       initial="idle"
@@ -332,13 +334,6 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                         </motion.div>
                       )}
                     </AnimatePresence>
-
-                    {/* Hover effect overlay */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-accent/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                        isActive ? 'opacity-100' : ''
-                      }`}
-                    />
                   </div>
                 </Card>
               </motion.div>
@@ -355,12 +350,11 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
           className="text-center"
         >
           <div className="relative bg-gradient-to-br from-card via-accent/5 to-primary/5 rounded-3xl p-12 border border-border/50 shadow-xl overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-            <div className="absolute top-8 right-8 w-32 h-32 bg-accent/10 rounded-full blur-2xl" />
-            <div className="absolute bottom-8 left-8 w-40 h-40 bg-primary/10 rounded-full blur-2xl" />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-accent/5 -z-10" />
+            <div className="absolute top-8 right-8 w-32 h-32 bg-accent/10 rounded-full blur-2xl -z-10" />
+            <div className="absolute bottom-8 left-8 w-40 h-40 bg-primary/10 rounded-full blur-2xl -z-10" />
 
-            <div className="relative">
+            <div className="relative z-10">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
@@ -368,16 +362,14 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                 className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent font-medium text-sm mb-6"
               >
                 <Sparkles className="h-4 w-4" />
-                {locale === 'ar' ? 'استشارة مجانية' : 'Free Consultation'}
+                {services.servicesCallToAction?.miniTitle}
               </motion.div>
 
               <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
-                {locale === 'ar' ? 'هل تحتاج لحل تقني مخصص؟' : 'Need a Custom Technical Solution?'}
+                {services.servicesCallToAction?.title}
               </h3>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-                {locale === 'ar'
-                  ? 'تواصل معنا اليوم لمناقشة احتياجاتك التقنية والحصول على استشارة مجانية من خبرائنا'
-                  : 'Contact us today to discuss your technical needs and get a free consultation from our experts'}
+                {services.servicesCallToAction?.description}
               </p>
 
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -385,10 +377,12 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                   size="lg"
                   className="group bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg"
                 >
-                  <span className="flex items-center gap-3">
-                    {locale === 'ar' ? 'احصل على استشارة مجانية' : 'Get Free Consultation'}
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </span>
+                  <Link href="#contact">
+                    <span className="flex items-center gap-3">
+                      {services.servicesCallToAction?.buttonText}
+                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Link>
                 </Button>
               </motion.div>
             </div>

@@ -158,7 +158,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   'transition-all duration-200 hover:scale-105 active:scale-95',
                 )}
               >
-                {locale === 'ar' ? 'EN' : 'عربي'}
+                <span> {locale === 'ar' ? 'EN' : 'عربي'} </span>
               </Button>
 
               {/* Mobile Menu Button */}
@@ -237,7 +237,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                         'transition-all duration-200 hover:scale-105 active:scale-95',
                       )}
                     >
-                      {locale === 'ar' ? 'EN' : 'عربي'}
+                      <span>{locale === 'ar' ? 'EN' : 'عربي'}</span>
                     </Button>
                   </div>
                 </div>

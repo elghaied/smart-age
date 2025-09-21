@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 import { revalidateContactInfo } from './hooks/RevalidateContactInfo'
+import { FormBlock } from '@/blocks/Form/config'
 
 export const ContactInfo: GlobalConfig = {
   slug: 'contact-info',
@@ -47,6 +48,14 @@ export const ContactInfo: GlobalConfig = {
           localized: true,
         },
         {
+          name: 'mapLink',
+          type: 'text',
+          label: {
+            en: 'Map Link (Google Maps URL)',
+            ar: 'رابط الخريطة (رابط جوجل مابس)',
+          },
+        },
+        {
           name: 'phone',
           type: 'text',
           label: {
@@ -76,113 +85,12 @@ export const ContactInfo: GlobalConfig = {
     // Contact Form Configuration
     {
       name: 'contactForm',
-      type: 'group',
-      label: {
-        en: 'Contact Form',
-        ar: 'نموذج الاتصال',
+      type: 'blocks',
+      blocks: [FormBlock],
+      required: true,
+      admin: {
+        initCollapsed: true,
       },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          label: {
-            en: 'Form Title',
-            ar: 'عنوان النموذج',
-          },
-          localized: true,
-        },
-        {
-          name: 'fields',
-          type: 'group',
-          label: {
-            en: 'Form Fields Labels',
-            ar: 'تسميات حقول النموذج',
-          },
-          fields: [
-            {
-              name: 'nameLabel',
-              type: 'text',
-              label: {
-                en: 'Name Field Label',
-                ar: 'تسمية حقل الاسم',
-              },
-              localized: true,
-            },
-            {
-              name: 'namePlaceholder',
-              type: 'text',
-              label: {
-                en: 'Name Field Placeholder',
-                ar: 'نص توضيحي لحقل الاسم',
-              },
-              localized: true,
-            },
-            {
-              name: 'emailLabel',
-              type: 'text',
-              label: {
-                en: 'Email Field Label',
-                ar: 'تسمية حقل البريد الإلكتروني',
-              },
-              localized: true,
-            },
-            {
-              name: 'emailPlaceholder',
-              type: 'text',
-              label: {
-                en: 'Email Field Placeholder',
-                ar: 'نص توضيحي لحقل البريد الإلكتروني',
-              },
-              localized: true,
-            },
-            {
-              name: 'subjectLabel',
-              type: 'text',
-              label: {
-                en: 'Subject Field Label',
-                ar: 'تسمية حقل الموضوع',
-              },
-              localized: true,
-            },
-            {
-              name: 'subjectPlaceholder',
-              type: 'text',
-              label: {
-                en: 'Subject Field Placeholder',
-                ar: 'نص توضيحي لحقل الموضوع',
-              },
-              localized: true,
-            },
-            {
-              name: 'messageLabel',
-              type: 'text',
-              label: {
-                en: 'Message Field Label',
-                ar: 'تسمية حقل الرسالة',
-              },
-              localized: true,
-            },
-            {
-              name: 'messagePlaceholder',
-              type: 'text',
-              label: {
-                en: 'Message Field Placeholder',
-                ar: 'نص توضيحي لحقل الرسالة',
-              },
-              localized: true,
-            },
-            {
-              name: 'submitButton',
-              type: 'text',
-              label: {
-                en: 'Submit Button Text',
-                ar: 'نص زر الإرسال',
-              },
-              localized: true,
-            },
-          ],
-        },
-      ],
     },
     // Contact Info Labels
     {
@@ -202,6 +110,7 @@ export const ContactInfo: GlobalConfig = {
           },
           localized: true,
         },
+
         {
           name: 'phone',
           type: 'text',

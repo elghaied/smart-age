@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import type { Homepage, TeamMember } from '@/payload-types'
+import Link from 'next/link'
 
 interface TeamClientProps {
   team: Homepage['team']
@@ -177,7 +178,7 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
                         <Badge
                           key={specialtyIndex}
                           variant="secondary"
-                          className="text-xs bg-gradient-to-r from-secondary/20 to-accent/20 hover:from-secondary/30 hover:to-accent/30 transition-all duration-200 border-primary/20"
+                          className="text-xs bg-gradient-to-r from-primary/10 to-accent/15 dark:from-secondary/20 dark:to-accent/20 hover:from-primary/15 hover:to-accent/20 dark:hover:from-secondary/30 dark:hover:to-accent/30 transition-all duration-200 border-primary/20 text-foreground font-semibold shadow-sm"
                         >
                           {specialtyItem.specialty}
                         </Badge>
@@ -185,38 +186,13 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
                       {member.specialties.length > 3 && (
                         <Badge
                           variant="outline"
-                          className="text-xs border-primary/30 text-primary hover:bg-primary/10 transition-all duration-200"
+                          className="text-xs border-primary/30 text-primary hover:bg-primary/10 transition-all duration-200 font-semibold"
                         >
                           +{member.specialties.length - 3}
                         </Badge>
                       )}
                     </div>
                   )}
-
-                  {/* Social Links */}
-                  <div className="flex justify-center space-x-4 pt-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center hover:from-primary hover:to-accent hover:text-primary-foreground transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
-                    >
-                      <Mail className="h-4 w-4" />
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center hover:from-primary hover:to-accent hover:text-primary-foreground transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center hover:from-primary hover:to-accent hover:text-primary-foreground transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg"
-                    >
-                      <MapPin className="h-4 w-4" />
-                    </motion.div>
-                  </div>
                 </div>
               </Card>
             </motion.div>
@@ -247,12 +223,10 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
               </motion.div>
 
               <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
-                {locale === 'ar' ? 'انضم إلى فريقنا المتميز' : 'Join Our Exceptional Team'}
+                {team.teamCallToAction?.title}
               </h3>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
-                {locale === 'ar'
-                  ? 'نحن دائماً نبحث عن المواهب المتميزة للانضمام إلى فريقنا. إذا كنت تشارك رؤيتنا وتريد أن تكون جزءاً من مستقبل التكنولوجيا، تواصل معنا'
-                  : 'We are always looking for exceptional talent to join our team. If you share our vision and want to be part of the future of technology, get in touch with us'}
+                {team.teamCallToAction?.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.button
@@ -260,14 +234,18 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
                   whileTap={{ scale: 0.95 }}
                   className="px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl hover:shadow-lg hover:shadow-primary/25 transition-all duration-200 font-semibold"
                 >
-                  {locale === 'ar' ? 'تصفح الوظائف المتاحة' : 'View Open Positions'}
+                  <Link href={team.teamCallToAction?.viewPositionsButtonLink || ''}>
+                    {team.teamCallToAction?.viewPositionsButtonText}
+                  </Link>
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-8 py-4 border-2 border-primary/30 rounded-xl hover:bg-primary/10 hover:border-primary/50 transition-all duration-200 font-semibold text-primary"
                 >
-                  {locale === 'ar' ? 'أرسل سيرتك الذاتية' : 'Send Your Resume'}
+                  <Link href={team.teamCallToAction?.joinUsButtonLink || ''}>
+                    {team.teamCallToAction?.joinUsButtonText}
+                  </Link>
                 </motion.button>
               </div>
             </div>
