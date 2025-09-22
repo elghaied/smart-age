@@ -1,31 +1,23 @@
-version: '3'
+version: "3.9"
 
 services:
-  payload:
-    image: node:18-alpine
-    ports:
-      - '3000:3000'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
+  payload-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: payload-app
     env_file:
       - .env
-
-  mongo:
-    image: mongo:latest
+    environment:
+      CRON_SECRET: ${CRON_SECRET}
+      DATABASE_URI: ${DATABASE_URI}
+      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      PREVIEW_SECRET: ${PREVIEW_SECRET}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_USER: ${SMTP_USER}
+      UPLOADTHING_TOKEN: ${UPLOADTHING_TOKEN}
     ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
-
-volumes:
-  data:
-  node_modules:
+      - "3000:3000"
+    restart: unless-stopped

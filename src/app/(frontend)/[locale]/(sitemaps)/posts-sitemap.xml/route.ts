@@ -1,10 +1,10 @@
 import { getServerSideSitemap } from 'next-sitemap'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
 const getPostsSitemap = unstable_cache(
-  async () => {
+  async (locale: TypedLocale) => {
     const payload = await getPayload({ config })
     const SITE_URL =
       process.env.NEXT_PUBLIC_SERVER_URL ||
@@ -18,6 +18,7 @@ const getPostsSitemap = unstable_cache(
       depth: 0,
       limit: 1000,
       pagination: false,
+      locale, // ✅ use locale here
       where: {
         _status: {
           equals: 'published',
@@ -35,7 +36,7 @@ const getPostsSitemap = unstable_cache(
       ? results.docs
           .filter((post) => Boolean(post?.slug))
           .map((post) => ({
-            loc: `${SITE_URL}/posts/${post?.slug}`,
+            loc: `${SITE_URL}/${locale}/posts/${post?.slug}`,
             lastmod: post.updatedAt || dateFallback,
           }))
       : []
@@ -43,13 +44,15 @@ const getPostsSitemap = unstable_cache(
     return sitemap
   },
   ['posts-sitemap'],
-  {
-    tags: ['posts-sitemap'],
-  },
+  { tags: ['posts-sitemap'] },
 )
 
-export async function GET() {
-  const sitemap = await getPostsSitemap()
+// ✅ Route handler for App Router
+export async function GET(request: Request) {
+  const { pathname } = new URL(request.url)
+  const locale = pathname.split('/')[1] as TypedLocale // e.g. "/en/(sitemaps)/posts-sitemap.xml"
+
+  const sitemap = await getPostsSitemap(locale)
 
   return getServerSideSitemap(sitemap)
 }

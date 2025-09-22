@@ -25,16 +25,24 @@ WORKDIR /app
 # Enable corepack for pnpm
 RUN corepack enable
 
-# Copy node_modules from deps stage
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+# Build-time arguments (these can be passed during docker build)
+ARG NEXT_PUBLIC_SERVER_URL
+ARG DATABASE_URI
 
 # Set build-time environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--no-deprecation"
 
+# Set public environment variables for build (these get baked into the client bundle)
+ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
+
+# Copy node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
 # Generate Payload types and import maps before building
+# Note: If these commands need database access, you might need DATABASE_URI as build arg
 RUN pnpm run generate:types
 RUN pnpm run generate:importmap
 
@@ -49,6 +57,17 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--no-deprecation"
+
+# Runtime environment variables (these will be provided by Coolify)
+ENV CRON_SECRET=""
+ENV DATABASE_URI=""
+ENV NEXT_PUBLIC_SERVER_URL=""
+ENV PAYLOAD_SECRET=""
+ENV PREVIEW_SECRET=""
+ENV SMTP_HOST=""
+ENV SMTP_PASS=""
+ENV SMTP_USER=""
+ENV UPLOADTHING_TOKEN=""
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
