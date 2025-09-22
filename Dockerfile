@@ -33,6 +33,7 @@ ARG DATABASE_URI
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--no-deprecation"
+ENV DATABASE_URI=${DATABASE_URI}
 
 # Set public environment variables for build (these get baked into the client bundle)
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
