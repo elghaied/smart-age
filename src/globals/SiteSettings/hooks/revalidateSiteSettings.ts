@@ -8,7 +8,7 @@ export const revalidateSiteSettings: GlobalAfterChangeHook = ({
 }) => {
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating Site Settings`)
-    revalidateTag('site-settings')
+    revalidateTag('global_site-settings')
   }
   return doc
 }

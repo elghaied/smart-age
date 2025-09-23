@@ -1,3 +1,4 @@
+import { revalidateDelete, revalidateHomePage } from '@/hooks/revalidateHomePage'
 import type { CollectionConfig } from 'payload'
 
 export const Services: CollectionConfig = {
@@ -31,7 +32,7 @@ export const Services: CollectionConfig = {
       localized: true,
       label: {
         en: 'Service Title',
-        ar: 'عنوان الخدمة'
+        ar: 'عنوان الخدمة',
       },
     },
     {
@@ -41,7 +42,7 @@ export const Services: CollectionConfig = {
       localized: true,
       label: {
         en: 'Short Description',
-        ar: 'وصف مختصر'
+        ar: 'وصف مختصر',
       },
     },
     {
@@ -50,7 +51,7 @@ export const Services: CollectionConfig = {
       localized: true,
       label: {
         en: 'Detailed Description',
-        ar: 'وصف مفصل'
+        ar: 'وصف مفصل',
       },
     },
     {
@@ -59,7 +60,7 @@ export const Services: CollectionConfig = {
       required: true,
       label: {
         en: 'Service Icon',
-        ar: 'أيقونة الخدمة'
+        ar: 'أيقونة الخدمة',
       },
       options: [
         { label: 'Globe (🌐)', value: 'Globe' },
@@ -81,7 +82,7 @@ export const Services: CollectionConfig = {
       type: 'array',
       label: {
         en: 'Service Features',
-        ar: 'مميزات الخدمة'
+        ar: 'مميزات الخدمة',
       },
       fields: [
         {
@@ -90,7 +91,7 @@ export const Services: CollectionConfig = {
           localized: true,
           label: {
             en: 'Feature',
-            ar: 'الميزة'
+            ar: 'الميزة',
           },
         },
       ],
@@ -102,12 +103,12 @@ export const Services: CollectionConfig = {
       defaultValue: 0,
       label: {
         en: 'Display Order',
-        ar: 'ترتيب العرض'
+        ar: 'ترتيب العرض',
       },
       admin: {
         description: {
           en: 'Lower numbers appear first',
-          ar: 'الأرقام الأقل تظهر أولاً'
+          ar: 'الأرقام الأقل تظهر أولاً',
         },
       },
     },
@@ -117,12 +118,12 @@ export const Services: CollectionConfig = {
       defaultValue: true,
       label: {
         en: 'Is Active',
-        ar: 'نشط'
+        ar: 'نشط',
       },
       admin: {
         description: {
           en: 'Uncheck to hide this service from the website',
-          ar: 'ألغ التحديد لإخفاء هذه الخدمة من الموقع'
+          ar: 'ألغ التحديد لإخفاء هذه الخدمة من الموقع',
         },
       },
     },
@@ -132,14 +133,18 @@ export const Services: CollectionConfig = {
       relationTo: 'media',
       label: {
         en: 'Service Image',
-        ar: 'صورة الخدمة'
+        ar: 'صورة الخدمة',
       },
       admin: {
         description: {
           en: 'Optional image for the service',
-          ar: 'صورة اختيارية للخدمة'
+          ar: 'صورة اختيارية للخدمة',
         },
       },
     },
   ],
+  hooks: {
+    afterChange: [revalidateHomePage],
+    afterDelete: [revalidateDelete],
+  },
 }

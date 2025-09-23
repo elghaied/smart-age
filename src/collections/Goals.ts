@@ -1,3 +1,4 @@
+import { revalidateDelete, revalidateHomePage } from '@/hooks/revalidateHomePage'
 import type { CollectionConfig } from 'payload'
 
 export const Goals: CollectionConfig = {
@@ -31,7 +32,7 @@ export const Goals: CollectionConfig = {
       localized: true,
       label: {
         en: 'Goal Text',
-        ar: 'نص الهدف'
+        ar: 'نص الهدف',
       },
     },
     {
@@ -40,12 +41,12 @@ export const Goals: CollectionConfig = {
       localized: true,
       label: {
         en: 'Short Title',
-        ar: 'عنوان مختصر'
+        ar: 'عنوان مختصر',
       },
       admin: {
         description: {
           en: 'Optional short title for display purposes',
-          ar: 'عنوان مختصر اختياري لأغراض العرض'
+          ar: 'عنوان مختصر اختياري لأغراض العرض',
         },
       },
     },
@@ -54,7 +55,7 @@ export const Goals: CollectionConfig = {
       type: 'select',
       label: {
         en: 'Goal Icon',
-        ar: 'أيقونة الهدف'
+        ar: 'أيقونة الهدف',
       },
       options: [
         { label: 'Target (🎯)', value: 'Target' },
@@ -76,50 +77,50 @@ export const Goals: CollectionConfig = {
       type: 'select',
       label: {
         en: 'Goal Category',
-        ar: 'فئة الهدف'
+        ar: 'فئة الهدف',
       },
       options: [
-        { 
+        {
           label: {
             en: 'Strategic',
-            ar: 'استراتيجي'
-          }, 
-          value: 'strategic' 
+            ar: 'استراتيجي',
+          },
+          value: 'strategic',
         },
-        { 
+        {
           label: {
             en: 'Operational',
-            ar: 'تشغيلي'
-          }, 
-          value: 'operational' 
+            ar: 'تشغيلي',
+          },
+          value: 'operational',
         },
-        { 
+        {
           label: {
             en: 'Customer-focused',
-            ar: 'يركز على العملاء'
-          }, 
-          value: 'customer_focused' 
+            ar: 'يركز على العملاء',
+          },
+          value: 'customer_focused',
         },
-        { 
+        {
           label: {
             en: 'Innovation',
-            ar: 'ابتكار'
-          }, 
-          value: 'innovation' 
+            ar: 'ابتكار',
+          },
+          value: 'innovation',
         },
-        { 
+        {
           label: {
             en: 'Growth',
-            ar: 'نمو'
-          }, 
-          value: 'growth' 
+            ar: 'نمو',
+          },
+          value: 'growth',
         },
-        { 
+        {
           label: {
             en: 'Quality',
-            ar: 'جودة'
-          }, 
-          value: 'quality' 
+            ar: 'جودة',
+          },
+          value: 'quality',
         },
       ],
     },
@@ -128,36 +129,36 @@ export const Goals: CollectionConfig = {
       type: 'select',
       label: {
         en: 'Timeline',
-        ar: 'الإطار الزمني'
+        ar: 'الإطار الزمني',
       },
       options: [
-        { 
+        {
           label: {
             en: 'Short-term (1 year)',
-            ar: 'قصير المدى (سنة واحدة)'
-          }, 
-          value: 'short_term' 
+            ar: 'قصير المدى (سنة واحدة)',
+          },
+          value: 'short_term',
         },
-        { 
+        {
           label: {
             en: 'Medium-term (2-3 years)',
-            ar: 'متوسط المدى (٢-٣ سنوات)'
-          }, 
-          value: 'medium_term' 
+            ar: 'متوسط المدى (٢-٣ سنوات)',
+          },
+          value: 'medium_term',
         },
-        { 
+        {
           label: {
             en: 'Long-term (5+ years)',
-            ar: 'طويل المدى (٥+ سنوات)'
-          }, 
-          value: 'long_term' 
+            ar: 'طويل المدى (٥+ سنوات)',
+          },
+          value: 'long_term',
         },
-        { 
+        {
           label: {
             en: 'Ongoing',
-            ar: 'مستمر'
-          }, 
-          value: 'ongoing' 
+            ar: 'مستمر',
+          },
+          value: 'ongoing',
         },
       ],
     },
@@ -168,12 +169,12 @@ export const Goals: CollectionConfig = {
       defaultValue: 0,
       label: {
         en: 'Display Order',
-        ar: 'ترتيب العرض'
+        ar: 'ترتيب العرض',
       },
       admin: {
         description: {
           en: 'Lower numbers appear first',
-          ar: 'الأرقام الأقل تظهر أولاً'
+          ar: 'الأرقام الأقل تظهر أولاً',
         },
       },
     },
@@ -183,12 +184,12 @@ export const Goals: CollectionConfig = {
       defaultValue: true,
       label: {
         en: 'Is Active',
-        ar: 'نشط'
+        ar: 'نشط',
       },
       admin: {
         description: {
           en: 'Uncheck to hide this goal from the website',
-          ar: 'ألغ التحديد لإخفاء هذا الهدف من الموقع'
+          ar: 'ألغ التحديد لإخفاء هذا الهدف من الموقع',
         },
       },
     },
@@ -197,16 +198,20 @@ export const Goals: CollectionConfig = {
       type: 'number',
       label: {
         en: 'Progress Percentage',
-        ar: 'نسبة التقدم'
+        ar: 'نسبة التقدم',
       },
       admin: {
         description: {
           en: 'Optional progress indicator (0-100)',
-          ar: 'مؤشر تقدم اختياري (٠-١٠٠)'
+          ar: 'مؤشر تقدم اختياري (٠-١٠٠)',
         },
       },
       min: 0,
       max: 100,
     },
   ],
+  hooks: {
+    afterChange: [revalidateHomePage],
+    afterDelete: [revalidateDelete],
+  },
 }

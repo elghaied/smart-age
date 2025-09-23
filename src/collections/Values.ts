@@ -1,3 +1,4 @@
+import { revalidateDelete, revalidateHomePage } from '@/hooks/revalidateHomePage'
 import type { CollectionConfig } from 'payload'
 
 export const Values: CollectionConfig = {
@@ -31,7 +32,7 @@ export const Values: CollectionConfig = {
       localized: true,
       label: {
         en: 'Value Title',
-        ar: 'عنوان القيمة'
+        ar: 'عنوان القيمة',
       },
     },
     {
@@ -41,7 +42,7 @@ export const Values: CollectionConfig = {
       localized: true,
       label: {
         en: 'Value Description',
-        ar: 'وصف القيمة'
+        ar: 'وصف القيمة',
       },
     },
     {
@@ -50,7 +51,7 @@ export const Values: CollectionConfig = {
       required: true,
       label: {
         en: 'Value Icon',
-        ar: 'أيقونة القيمة'
+        ar: 'أيقونة القيمة',
       },
       options: [
         { label: 'Lightbulb (💡)', value: 'Lightbulb' },
@@ -74,12 +75,12 @@ export const Values: CollectionConfig = {
       defaultValue: 0,
       label: {
         en: 'Display Order',
-        ar: 'ترتيب العرض'
+        ar: 'ترتيب العرض',
       },
       admin: {
         description: {
           en: 'Lower numbers appear first',
-          ar: 'الأرقام الأقل تظهر أولاً'
+          ar: 'الأرقام الأقل تظهر أولاً',
         },
       },
     },
@@ -89,12 +90,12 @@ export const Values: CollectionConfig = {
       defaultValue: true,
       label: {
         en: 'Is Active',
-        ar: 'نشط'
+        ar: 'نشط',
       },
       admin: {
         description: {
           en: 'Uncheck to hide this value from the website',
-          ar: 'ألغ التحديد لإخفاء هذه القيمة من الموقع'
+          ar: 'ألغ التحديد لإخفاء هذه القيمة من الموقع',
         },
       },
     },
@@ -104,14 +105,18 @@ export const Values: CollectionConfig = {
       relationTo: 'media',
       label: {
         en: 'Value Image',
-        ar: 'صورة القيمة'
+        ar: 'صورة القيمة',
       },
       admin: {
         description: {
           en: 'Optional image to represent this value',
-          ar: 'صورة اختيارية لتمثيل هذه القيمة'
+          ar: 'صورة اختيارية لتمثيل هذه القيمة',
         },
       },
     },
   ],
+  hooks: {
+    afterChange: [revalidateHomePage],
+    afterDelete: [revalidateDelete],
+  },
 }
