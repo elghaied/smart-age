@@ -6,7 +6,7 @@ import { SearchIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/utilities/ui'
-import { createSmoothScrollHandler } from '@/utilities/smoothScroll'
+// import { createSmoothScrollHandler } from '@/utilities/smoothScroll'
 
 import type { Header as HeaderType } from '@/payload-types'
 

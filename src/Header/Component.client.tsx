@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
-import { useReducedMotion, useMotionVariants } from '@/hooks/useReducedMotion'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 import type { Header } from '@/payload-types'
 
@@ -30,7 +30,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
   const prefersReducedMotion = useReducedMotion()
-  const motionVariants = useMotionVariants()
+  // const motionVariants = useMotionVariants()
 
   useEffect(() => {
     setHeaderTheme(null)

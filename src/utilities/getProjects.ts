@@ -1,6 +1,6 @@
 import type { Project } from '@/payload-types'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import { unstable_cache } from 'next/cache'
 
 async function getProjects(locale?: string) {
@@ -14,7 +14,7 @@ async function getProjects(locale?: string) {
       },
     },
     sort: 'order',
-    locale: locale as any,
+    locale: locale as TypedLocale,
   })
 
   return projects.docs as Project[]

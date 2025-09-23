@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { useReducedMotion, useMotionVariants } from '@/hooks/useReducedMotion'
+import { useMotionVariants } from '@/hooks/useReducedMotion'
 
 interface PageTransitionProps {
   children: React.ReactNode
@@ -10,7 +10,7 @@ interface PageTransitionProps {
 }
 
 export const PageTransition: React.FC<PageTransitionProps> = ({ children, className }) => {
-  const prefersReducedMotion = useReducedMotion()
+  // const prefersReducedMotion = useReducedMotion()
   const { fadeIn } = useMotionVariants()
 
   return (

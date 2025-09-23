@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Award, Clock, Star, Mail, Linkedin, MapPin } from 'lucide-react'
+import { Users, Award, Clock, Star } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useLocale } from 'next-intl'

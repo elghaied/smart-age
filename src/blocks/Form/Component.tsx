@@ -168,6 +168,7 @@ export const FormBlock: React.FC<
             <form id={formID} onSubmit={handleSubmit(onSubmit)} className="space-y-8">
               <div className="space-y-8">
                 {formFromProps?.fields?.map((field, index) => {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
                   if (Field) {
                     return (

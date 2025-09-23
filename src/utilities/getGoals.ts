@@ -1,6 +1,6 @@
 import type { Goal } from '@/payload-types'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import { unstable_cache } from 'next/cache'
 
 async function getGoals(locale?: string) {
@@ -14,7 +14,7 @@ async function getGoals(locale?: string) {
       },
     },
     sort: 'order',
-    locale: locale as any,
+    locale: locale as TypedLocale,
   })
 
   return goals.docs as Goal[]

@@ -24,6 +24,7 @@ import { Button } from '@/components/ui/button'
 import { useLocale } from 'next-intl'
 import type { Homepage, Service } from '@/payload-types'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface ServicesClientProps {
   services: Homepage['services']
@@ -213,10 +214,12 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img
+                    <Image
                       src={activeServiceData.image.url || ''}
                       alt={activeServiceData.image.alt || activeServiceData.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      priority // good for LCP-critical images, remove if not above the fold
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
                   </motion.div>

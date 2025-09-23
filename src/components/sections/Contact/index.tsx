@@ -18,8 +18,6 @@ import { Card } from '@/components/ui/card'
 import type { Homepage, ContactInfo } from '@/payload-types'
 
 import { FormBlock } from '@/blocks/Form/Component'
-import Link from 'next/link'
-import { Content } from '@radix-ui/react-select'
 
 interface ContactProps {
   contact: Homepage['contact']
