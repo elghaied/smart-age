@@ -5,10 +5,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        # Pass environment variables as build arguments
+        NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
+        DATABASE_URI: ${DATABASE_URI}
+        PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+        PREVIEW_SECRET: ${PREVIEW_SECRET}
+        UPLOADTHING_TOKEN: ${UPLOADTHING_TOKEN}
+        SMTP_HOST: ${SMTP_HOST}
+        SMTP_PASS: ${SMTP_PASS}
+        SMTP_USER: ${SMTP_USER}
+        SKIP_EMAIL_VERIFICATION: "true"
     container_name: payload-app
     env_file:
       - .env
     environment:
+      # Runtime environment variables
       CRON_SECRET: ${CRON_SECRET}
       DATABASE_URI: ${DATABASE_URI}
       NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
@@ -18,6 +30,8 @@ services:
       SMTP_PASS: ${SMTP_PASS}
       SMTP_USER: ${SMTP_USER}
       UPLOADTHING_TOKEN: ${UPLOADTHING_TOKEN}
+      # Ensure email verification is not skipped at runtime
+      SKIP_EMAIL_VERIFICATION: ""
     ports:
       - "3000:3000"
     restart: unless-stopped

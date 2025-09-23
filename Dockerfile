@@ -34,18 +34,27 @@ ARG UPLOADTHING_TOKEN
 ARG SMTP_HOST
 ARG SMTP_PASS
 ARG SMTP_USER
+ARG SKIP_EMAIL_VERIFICATION=true
 
 # Set build-time environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--no-deprecation"
+
+# Essential build-time environment variables
 ENV DATABASE_URI=${DATABASE_URI}
-ENV SMTP_HOST=${SMTP_HOST}
-ENV SMTP_PASS=${SMTP_PASS}
-ENV SMTP_USER=${SMTP_USER}
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV PREVIEW_SECRET=${PREVIEW_SECRET}
 ENV UPLOADTHING_TOKEN=${UPLOADTHING_TOKEN}
+
+# Email-related environment variables (will be empty during build)
+ENV SMTP_HOST=${SMTP_HOST:-}
+ENV SMTP_PASS=${SMTP_PASS:-}
+ENV SMTP_USER=${SMTP_USER:-}
+
+# Skip email verification during build
+ENV SKIP_EMAIL_VERIFICATION=${SKIP_EMAIL_VERIFICATION}
+
 # Set public environment variables for build (these get baked into the client bundle)
 ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
 
@@ -53,8 +62,13 @@ ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Debug: Print environment variables (remove in production)
+RUN echo "Build-time environment check:"
+RUN echo "PAYLOAD_SECRET length: ${#PAYLOAD_SECRET}"
+RUN echo "DATABASE_URI set: $([ -n "$DATABASE_URI" ] && echo 'yes' || echo 'no')"
+RUN echo "SKIP_EMAIL_VERIFICATION: $SKIP_EMAIL_VERIFICATION"
+
 # Generate Payload types and import maps before building
-# Note: If these commands need database access, you might need DATABASE_URI as build arg
 RUN pnpm run generate:types
 RUN pnpm run generate:importmap
 
@@ -80,6 +94,8 @@ ENV SMTP_HOST=""
 ENV SMTP_PASS=""
 ENV SMTP_USER=""
 ENV UPLOADTHING_TOKEN=""
+# Don't skip email verification at runtime
+ENV SKIP_EMAIL_VERIFICATION=""
 
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
@@ -96,7 +112,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Copy payload-generated files
-COPY --from=builder --chown=nextjs:nodejs /app/payload-types.ts ./payload-types.ts
+# COPY --from=builder --chown=nextjs:nodejs /app/payload-types.ts ./payload-types.ts
 
 # Switch to non-root user
 USER nextjs
