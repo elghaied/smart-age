@@ -15,6 +15,40 @@ export const translate = (translations: Translations, locale: TypedLocale): stri
   return translations[locale] || translations[DEFAULT_LOCALE]
 }
 
+// Helper to merge array IDs from created doc into localized data
+// This ensures localized updates target the same array rows, not create new ones
+const mergeArrayIds = (
+  createdDoc: Record<string, unknown>,
+  localizedData: Record<string, unknown>,
+): Record<string, unknown> => {
+  const result = { ...localizedData }
+
+  for (const key of Object.keys(localizedData)) {
+    const localizedValue = localizedData[key]
+    const createdValue = createdDoc[key]
+
+    // Check if both are arrays
+    if (Array.isArray(localizedValue) && Array.isArray(createdValue)) {
+      // Merge IDs from created array items into localized array items
+      result[key] = localizedValue.map((item, index) => {
+        const createdItem = createdValue[index]
+        if (
+          createdItem &&
+          typeof createdItem === 'object' &&
+          'id' in createdItem &&
+          typeof item === 'object' &&
+          item !== null
+        ) {
+          return { ...item, id: createdItem.id }
+        }
+        return item
+      })
+    }
+  }
+
+  return result
+}
+
 // Seed a collection item with all locales
 export const seedCollection = async <TSlug extends CollectionSlug>({
   payload,
@@ -48,10 +82,14 @@ export const seedCollection = async <TSlug extends CollectionSlug>({
       // Skip if data is identical to default
       if (JSON.stringify(localizedData) === JSON.stringify(defaultData)) continue
 
+      // Merge array IDs from created doc to ensure localized updates
+      // target the same rows instead of creating new ones
+      const mergedData = mergeArrayIds(doc as Record<string, unknown>, localizedData)
+
       await payload.update({
         collection,
         id: doc.id,
-        data: localizedData as never,
+        data: mergedData as never,
         locale,
         depth: 0,
         context: { disableRevalidate: true },
@@ -79,7 +117,7 @@ export const seedGlobal = async <TSlug extends GlobalSlug>({
   // First, update with default locale
   const defaultData = generator({ context, locale: DEFAULT_LOCALE })
 
-  await payload.updateGlobal({
+  const global = await payload.updateGlobal({
     slug,
     data: defaultData as never,
     locale: DEFAULT_LOCALE,
@@ -96,9 +134,13 @@ export const seedGlobal = async <TSlug extends GlobalSlug>({
       // Skip if data is identical to default
       if (JSON.stringify(localizedData) === JSON.stringify(defaultData)) continue
 
+      // Merge array IDs from created global to ensure localized updates
+      // target the same rows instead of creating new ones
+      const mergedData = mergeArrayIds(global as Record<string, unknown>, localizedData)
+
       await payload.updateGlobal({
         slug,
-        data: localizedData as never,
+        data: mergedData as never,
         locale,
         context: { disableRevalidate: true },
       })
