@@ -215,7 +215,7 @@ export default function Hero({ hero }: HeroProps) {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto group relative overflow-hidden px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-full sm:w-auto group relative overflow-hidden px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 "
                   asChild={!!hero.primaryCTA.link}
                 >
                   {hero.primaryCTA.link ? (

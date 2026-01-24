@@ -135,6 +135,29 @@
     text-decoration: underline;
   }
 
+  /* Links inside buttons should inherit the button's text color */
+  button a,
+  [role="button"] a,
+  .btn a,
+  [class*="bg-primary"] a,
+  [class*="bg-secondary"] a,
+  [class*="bg-destructive"] a,
+  [class*="bg-accent"] a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  button a:hover,
+  [role="button"] a:hover,
+  .btn a:hover,
+  [class*="bg-primary"] a:hover,
+  [class*="bg-secondary"] a:hover,
+  [class*="bg-destructive"] a:hover,
+  [class*="bg-accent"] a:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
   /* List styling */
   ul,
   ol {

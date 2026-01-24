@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { SearchIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -21,10 +21,55 @@ interface HeaderNavProps {
 export const HeaderNav: React.FC<HeaderNavProps> = ({ data, isMobile = false, onItemClick }) => {
   const navItems = data?.navItems || []
   const pathname = usePathname()
+  const [activeHash, setActiveHash] = useState<string>('')
+
+  // Extract hash section IDs from nav items
+  const hashSectionIds = navItems
+    .map(({ link }) => link?.url)
+    .filter((url): url is string => !!url && url.startsWith('#'))
+    .map((url) => url.slice(1))
+
+  // Track active section using Intersection Observer
+  useEffect(() => {
+    if (hashSectionIds.length === 0) return
+
+    const observers: IntersectionObserver[] = []
+
+    hashSectionIds.forEach((sectionId) => {
+      const element = document.getElementById(sectionId)
+      if (!element) return
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveHash(`#${sectionId}`)
+            }
+          })
+        },
+        {
+          rootMargin: '-20% 0px -60% 0px', // Trigger when section is in upper-middle of viewport
+          threshold: 0,
+        },
+      )
+
+      observer.observe(element)
+      observers.push(observer)
+    })
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect())
+    }
+  }, [hashSectionIds.join(',')])
 
   // Helper function to check if a link is active
   const isActiveLink = (linkUrl: string | null | undefined) => {
     if (!linkUrl) return false
+
+    // Check if it's a hash link
+    if (linkUrl.startsWith('#')) {
+      return activeHash === linkUrl
+    }
 
     // Remove locale prefix for comparison
     const cleanPathname = pathname.replace(/^\/(ar|en)/, '') || '/'
