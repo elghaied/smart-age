@@ -1,13 +1,14 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import type { Homepage, Service } from '@/payload-types'
 import ServicesClient from './Component.client'
 
 interface ServicesProps {
   services: Homepage['services']
+  locale: TypedLocale
 }
 
-export default async function Services({ services }: ServicesProps) {
+export default async function Services({ services, locale }: ServicesProps) {
   if (!services) return null
 
   // Fetch services using Payload's local API
@@ -15,6 +16,7 @@ export default async function Services({ services }: ServicesProps) {
 
   const servicesResult = await payload.find({
     collection: 'services',
+    locale: locale,
     where: {
       isActive: {
         equals: true,

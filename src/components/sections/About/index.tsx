@@ -1,13 +1,14 @@
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import type { Homepage, Value } from '@/payload-types'
 import AboutClient from './Component.client'
 
 interface AboutProps {
   about: Homepage['about']
+  locale: TypedLocale
 }
 
-export default async function About({ about }: AboutProps) {
+export default async function About({ about, locale }: AboutProps) {
   if (!about) return null
 
   // Fetch values using Payload's local API
@@ -15,6 +16,7 @@ export default async function About({ about }: AboutProps) {
 
   const valuesResult = await payload.find({
     collection: 'values',
+    locale: locale,
     where: {
       isActive: {
         equals: true,

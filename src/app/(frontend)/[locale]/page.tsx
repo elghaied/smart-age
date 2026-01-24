@@ -52,10 +52,10 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
       <Hero hero={homepage.hero} />
 
       {/* About Section */}
-      <About about={homepage.about} />
+      <About about={homepage.about} locale={locale} />
 
       {/* Why Us Section */}
-      <WhyUs whyUs={homepage.whyUs} />
+      <WhyUs whyUs={homepage.whyUs} locale={locale} />
 
       {/* Goals Section */}
       {homepage.goals && (
@@ -68,7 +68,7 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
       )}
 
       {/* Services Section */}
-      <Services services={homepage.services} />
+      <Services services={homepage.services} locale={locale} />
 
       {/* Team Section */}
       <Team team={homepage.team} locale={locale} />
