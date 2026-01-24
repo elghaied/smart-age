@@ -1,0 +1,55 @@
+.seed-button-wrapper {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--theme-elevation-50);
+  border-radius: 8px;
+  border: 1px solid var(--theme-elevation-100);
+}
+
+.seed-button-content {
+  h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0 0 1rem;
+    color: var(--theme-elevation-800);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .seed-warning {
+    color: var(--theme-error-500);
+    font-size: 0.85rem;
+  }
+}
+
+.seed-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  background: var(--theme-success-500);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--theme-success-600);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.seed-error {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--theme-error-500);
+  font-size: 0.85rem;
+}

@@ -61,6 +61,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     user: Users.slug,
+    components: {
+      beforeDashboard: ['@/components/BeforeDashboard/SeedButton'],
+    },
     livePreview: {
       breakpoints: [
         {
