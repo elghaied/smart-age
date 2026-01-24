@@ -139,7 +139,6 @@ export default function Hero({ hero }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl sm:text-6xl lg:text-8xl font-bold text-foreground mb-8 text-balance leading-[1.1] tracking-tight"
-            style={{ fontFamily: 'var(--font-geist-sans)' }}
           >
             {hero.title}
           </motion.h1>
@@ -154,7 +153,6 @@ export default function Hero({ hero }: HeroProps) {
             >
               <p
                 className="text-xl sm:text-2xl lg:text-4xl text-primary mb-3 text-balance font-semibold tracking-wide"
-                style={{ fontFamily: 'var(--font-geist-sans)' }}
               >
                 {hero.subtitle}
               </p>
@@ -174,7 +172,6 @@ export default function Hero({ hero }: HeroProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-10 max-w-4xl mx-auto text-pretty leading-relaxed font-light"
-              style={{ fontFamily: 'var(--font-geist-sans)' }}
             >
               {hero.description}
             </motion.p>

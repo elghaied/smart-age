@@ -106,13 +106,19 @@
   [dir="rtl"] h4,
   [dir="rtl"] h5,
   [dir="rtl"] h6 {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
     letter-spacing: 0;
     font-weight: 700;
   }
 
   [dir="rtl"] p {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
     line-height: 1.8;
     text-align: right;
+  }
+
+  [dir="rtl"] body {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
   }
 
   /* Code and monospace text */
@@ -585,15 +591,17 @@
   [dir="rtl"] .heading-4,
   [dir="rtl"] .heading-5,
   [dir="rtl"] .heading-6 {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
     letter-spacing: 0;
     font-weight: 700;
   }
-  
+
   [dir="rtl"] .body-sm,
   [dir="rtl"] .body-md,
   [dir="rtl"] .body-lg,
   [dir="rtl"] .body-xl,
   [dir="rtl"] .text-lead {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
     line-height: 1.8;
     text-align: right;
   }
@@ -1029,6 +1037,19 @@
     border-left: none;
     border-right: 4px solid oklch(var(--primary));
     border-radius: 0.5rem 0 0 0.5rem;
+  }
+
+  [dir="rtl"] .content-rich-text {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
+  }
+
+  [dir="rtl"] .content-rich-text h1,
+  [dir="rtl"] .content-rich-text h2,
+  [dir="rtl"] .content-rich-text h3,
+  [dir="rtl"] .content-rich-text h4,
+  [dir="rtl"] .content-rich-text h5,
+  [dir="rtl"] .content-rich-text h6 {
+    font-family: var(--font-noto-sans-arabic), var(--font-geist-sans);
   }
   
   .content-rich-text code {

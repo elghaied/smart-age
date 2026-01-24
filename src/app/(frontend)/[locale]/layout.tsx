@@ -1,9 +1,16 @@
+import React from 'react'
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import React from 'react'
+import { Noto_Sans_Arabic } from 'next/font/google'
+
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-noto-sans-arabic',
+  display: 'swap',
+})
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
@@ -43,7 +50,11 @@ export default async function RootLayout({ children, params }: Args) {
 
   return (
     <html
-      className={cn(GeistSans.variable, GeistMono.variable)}
+      className={cn(
+        GeistSans.variable,
+        GeistMono.variable,
+        locale === 'ar' && notoSansArabic.variable,
+      )}
       lang={locale}
       dir={direction}
       suppressHydrationWarning
