@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import { slugField, type CollectionConfig } from 'payload'
 
 import {
   BlocksFeature,
@@ -17,7 +17,8 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
-
+import { transliterate } from 'transliteration'
+import slugify from 'slugify'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -25,7 +26,6 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import { slugField } from '@/fields/slug'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -64,7 +64,7 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req,locale }) => {
+      url: ({ data, req, locale }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'posts',
@@ -75,7 +75,7 @@ export const Posts: CollectionConfig<'posts'> = {
         return path
       },
     },
-    preview: (data, { req ,locale}) =>
+    preview: (data, { req, locale }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'posts',
@@ -233,7 +233,22 @@ export const Posts: CollectionConfig<'posts'> = {
         },
       ],
     },
-    ...slugField(),
+    slugField({
+      localized: true,
+      slugify: ({ valueToSlugify }) => {
+        // First transliterate Arabic to Latin
+        const transliterated = transliterate(valueToSlugify)
+
+        // Then apply custom slugify rules
+        return slugify(transliterated, {
+          lower: true,
+          strict: true,
+          locale: 'en',
+          trim: true,
+          remove: /[*+~.()'"!:@]/g,
+        })
+      },
+    }),
   ],
   hooks: {
     afterChange: [revalidatePost],

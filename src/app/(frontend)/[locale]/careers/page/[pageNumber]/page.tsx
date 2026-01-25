@@ -49,7 +49,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         />
       </div>
 
-      <CollectionArchive items={posts.docs} relationTo="posts" emptyMessage="No posts found." />
+      <CollectionArchive items={posts.docs} relationTo="careers" emptyMessage="No career opportunities found." />
 
       <div className="container">
         {posts?.page && posts?.totalPages > 1 && (

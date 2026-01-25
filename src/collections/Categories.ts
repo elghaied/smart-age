@@ -1,9 +1,10 @@
-import type { CollectionConfig } from 'payload'
+import { slugField, type CollectionConfig } from 'payload'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
-import { slugField } from '@/fields/slug'
 
+import { transliterate } from 'transliteration'
+import slugify from 'slugify'
 export const Categories: CollectionConfig = {
   slug: 'categories',
   labels: {
@@ -35,6 +36,21 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    ...slugField(),
+    slugField({
+      localized: true,
+      slugify: ({ valueToSlugify }) => {
+        // First transliterate Arabic to Latin
+        const transliterated = transliterate(valueToSlugify)
+
+        // Then apply custom slugify rules
+        return slugify(transliterated, {
+          lower: true,
+          strict: true,
+          locale: 'en',
+          trim: true,
+          remove: /[*+~.()'"!:@]/g,
+        })
+      },
+    }),
   ],
 }

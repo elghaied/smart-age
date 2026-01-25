@@ -12,7 +12,7 @@ export default async function Page() {
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'careers',
     depth: 1,
     limit: 12,
     overrideAccess: false,
@@ -20,6 +20,10 @@ export default async function Page() {
       title: true,
       slug: true,
       categories: true,
+      jobType: true,
+      workMode: true,
+      location: true,
+      isActive: true,
       meta: true,
     },
   })
@@ -29,20 +33,20 @@ export default async function Page() {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+          <h1>Careers</h1>
         </div>
       </div>
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
+          collection="careers"
           currentPage={posts.page}
           limit={12}
           totalDocs={posts.totalDocs}
         />
       </div>
 
-      <CollectionArchive items={posts.docs} relationTo="posts" emptyMessage="No posts found." />
+      <CollectionArchive items={posts.docs} relationTo="careers" emptyMessage="No career opportunities found." />
 
       <div className="container">
         {posts.totalPages > 1 && posts.page && (
@@ -55,6 +59,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Smart age Posts`,
+    title: `Smart Age Careers`,
   }
 }

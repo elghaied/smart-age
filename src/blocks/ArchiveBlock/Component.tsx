@@ -64,7 +64,7 @@ export const ArchiveBlock: React.FC<
             />
           </div>
         )}
-        <CollectionArchive posts={posts} />
+        <CollectionArchive items={posts} relationTo="posts" />
       </div>
     </section>
   )
