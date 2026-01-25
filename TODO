@@ -1,2 +1,9 @@
-- Timeline doesn't change side when we are on RTL 
-- Rework other components 
+- rework header , if # is counted then don't put active for path 
+- issue with the contact form it shows and disapear randomly on each refresh ctrl +f5 
+- home page has many seo 
+- add icon for the website , 
+- add sitemap 
+- update meta functions 
+- add gshell studio icon and url 
+
+
