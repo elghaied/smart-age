@@ -94,9 +94,9 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@smartagetech',
   },
 }
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }))
+  return []
 }

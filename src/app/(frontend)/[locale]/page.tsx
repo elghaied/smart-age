@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import React from 'react'
 import { TypedLocale } from 'payload'
+
 import type { Homepage, ContactInfo } from '@/payload-types'
 
 import { LivePreviewListener } from '@/components/LivePreviewListener'
