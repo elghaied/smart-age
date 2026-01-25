@@ -27,8 +27,8 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+    ? doc?.meta?.title + ' | Smart Age Technologies'
+    : 'Smart Age Technologies'
 
   return {
     description: doc?.meta?.description,
@@ -59,8 +59,8 @@ export const generateMetaForGlobal = async (args: {
   const ogImage = getImageURL(null) // Use default image for now
 
   const title = global?.meta?.title
-    ? global?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+    ? global?.meta?.title + ' | Smart Age Technologies'
+    : 'Smart Age Technologies'
 
   return {
     description: global?.meta?.description || 'Welcome to our website',

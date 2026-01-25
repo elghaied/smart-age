@@ -1,3 +1,5 @@
+import { TypedLocale } from 'payload'
+
 const localization = {
   defaultLocale: 'en',
   // fallback: true,
@@ -21,4 +23,5 @@ const localization = {
 
 export const locales = localization.locales.map((l) => l.code)
 
+export const defaultLocale: TypedLocale = 'en'
 export default localization

@@ -5,6 +5,7 @@ import { getLocale } from 'next-intl/server'
 import type { Footer, ContactInfo, SiteSetting } from '@/payload-types'
 
 import AnimatedLogo from '@/components/AnimatedLogo'
+import { GShellBrand } from '@/components/GShellBrand'
 import { SocialMedia } from './SocialMedia'
 import { FooterNav } from './FooterNav'
 import { ContactSection } from './ContactSection'
@@ -59,11 +60,11 @@ export async function Footer() {
               © 2024 {siteSettingsData?.siteName || 'Smart Age Tech'}.{' '}
               {currentLocale === 'ar' ? 'جميع الحقوق محفوظة' : 'All rights reserved'}
             </p>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <span>{currentLocale === 'ar' ? 'صُنع بـ' : 'Made with'}</span>
-              <span className="text-primary">♥</span>
-              <span>{currentLocale === 'ar' ? 'في ليبيا' : 'in Libya'}</span>
-            </div>
+            <GShellBrand
+              size="sm"
+              showPrefix
+              prefixText={currentLocale === 'ar' ? 'صُنع بواسطة' : 'Made by'}
+            />
           </div>
         </div>
       </div>
