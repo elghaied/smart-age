@@ -1,126 +1,81 @@
-# Improved Dockerfile for Payload CMS v3 with MongoDB Atlas and UploadThing
-# Requires `output: 'standalone'` in next.config.js
+# To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.js file.
+# From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
 FROM node:22.17.0-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-# Install necessary packages for node-gyp and MongoDB native dependencies
-RUN apk add --no-cache libc6-compat python3 make g++
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Enable corepack for pnpm support
-RUN corepack enable
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
-# Copy package files
-COPY package.json pnpm-lock.yaml* ./
-
-# Install dependencies with pnpm
-RUN pnpm install --frozen-lockfile --ignore-scripts
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
-
-# Enable corepack for pnpm
-RUN corepack enable
-
-# Build-time arguments (these can be passed during docker build)
-ARG NEXT_PUBLIC_SERVER_URL
-ARG DATABASE_URI
-ARG PAYLOAD_SECRET
-ARG PREVIEW_SECRET
-ARG UPLOADTHING_TOKEN
-ARG SMTP_HOST
-ARG SMTP_PASS
-ARG SMTP_USER
-ARG SKIP_EMAIL_VERIFICATION=true
-
-# Set build-time environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--no-deprecation"
-
-# Essential build-time environment variables
-ENV DATABASE_URI=${DATABASE_URI}
-ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
-ENV PREVIEW_SECRET=${PREVIEW_SECRET}
-ENV UPLOADTHING_TOKEN=${UPLOADTHING_TOKEN}
-
-# Email-related environment variables (will be empty during build)
-ENV SMTP_HOST=${SMTP_HOST:-}
-ENV SMTP_PASS=${SMTP_PASS:-}
-ENV SMTP_USER=${SMTP_USER:-}
-
-# Skip email verification during build
-ENV SKIP_EMAIL_VERIFICATION=${SKIP_EMAIL_VERIFICATION}
-
-# Set public environment variables for build (these get baked into the client bundle)
-ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
-
-# Copy node_modules from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Debug: Print environment variables (remove in production)
-RUN echo "Build-time environment check:"
-RUN echo "PAYLOAD_SECRET length: ${#PAYLOAD_SECRET}"
-RUN echo "DATABASE_URI set: $([ -n "$DATABASE_URI" ] && echo 'yes' || echo 'no')"
-RUN echo "SKIP_EMAIL_VERIFICATION: $SKIP_EMAIL_VERIFICATION"
+# Build arguments (passed from CI/CD)
+ARG PAYLOAD_SECRET
+ARG NEXT_PUBLIC_SERVER_URL
+ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
-# Generate Payload types and import maps before building
-RUN pnpm run generate:types
-RUN pnpm run generate:importmap
+# Set as environment variables for the build
+ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
+ENV NEXT_PUBLIC_SERVER_URL=${NEXT_PUBLIC_SERVER_URL}
+ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 
-# Build the application
-RUN pnpm run build
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
+# ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--no-deprecation"
+ENV NODE_ENV production
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED 1
 
-# Runtime environment variables (these will be provided by Coolify)
-ENV CRON_SECRET=""
-ENV DATABASE_URI=""
-ENV NEXT_PUBLIC_SERVER_URL=""
-ENV PAYLOAD_SECRET=""
-ENV PREVIEW_SECRET=""
-ENV SMTP_HOST=""
-ENV SMTP_PASS=""
-ENV SMTP_USER=""
-ENV UPLOADTHING_TOKEN=""
-# Don't skip email verification at runtime
-ENV SKIP_EMAIL_VERIFICATION=""
-
-# Create non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy public assets (remove this line if you don't have a public folder)
+# Remove this line if you do not have this folder
 COPY --from=builder /app/public ./public
 
-# Create and set permissions for .next directory
-RUN mkdir .next && chown nextjs:nodejs .next
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Copy built application with correct ownership
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy payload-generated files
-# COPY --from=builder --chown=nextjs:nodejs /app/payload-types.ts ./payload-types.ts
-
-# Switch to non-root user
 USER nextjs
 
-# Expose port
 EXPOSE 3000
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
 
-# Start the application
-CMD ["node", "server.js"]
+ENV PORT 3000
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+CMD HOSTNAME="0.0.0.0" node server.js
