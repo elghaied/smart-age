@@ -14,7 +14,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { FormBlock } from '../../blocks/Form/config'
+import { ApplicationFormBlock } from '../../blocks/ApplicationForm/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidateCareer'
@@ -73,8 +73,8 @@ export const Careers: CollectionConfig<'careers'> = {
   },
   admin: {
     group: {
-      en: 'Content',
-      ar: 'المحتوى',
+      en: 'Careers',
+      ar: 'الوظائف',
     },
     defaultColumns: ['title', 'jobType', 'location', 'isActive', 'updatedAt'],
     livePreview: {
@@ -385,7 +385,7 @@ export const Careers: CollectionConfig<'careers'> = {
             {
               name: 'applicationForm',
               type: 'blocks',
-              blocks: [FormBlock],
+              blocks: [ApplicationFormBlock],
               localized: true,
               label: {
                 en: 'Application Form',

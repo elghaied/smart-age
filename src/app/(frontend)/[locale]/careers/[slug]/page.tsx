@@ -123,7 +123,10 @@ export default async function Career({ params: paramsPromise }: Args) {
           {post.applicationForm && post.applicationForm.length > 0 && (
             <section className="my-12 max-w-[48rem] mx-auto">
               <h2 className="text-2xl font-bold mb-6 text-foreground">{titles.applyNow}</h2>
-              <RenderBlocks blocks={post.applicationForm} />
+              <RenderBlocks
+                blocks={post.applicationForm}
+                extraProps={{ positionApplied: post.title }}
+              />
             </section>
           )}
 

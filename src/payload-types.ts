@@ -79,6 +79,7 @@ export interface Config {
     features: Feature;
     'team-members': TeamMember;
     careers: Career;
+    applications: Application;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -103,6 +104,7 @@ export interface Config {
     features: FeaturesSelect<false> | FeaturesSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     careers: CareersSelect<false> | CareersSelect<true>;
+    applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -1142,7 +1144,7 @@ export interface Career {
   /**
    * Add a form block to enable job applications
    */
-  applicationForm?: FormBlock[] | null;
+  applicationForm?: ApplicationFormBlock[] | null;
   relatedCareers?: (string | Career)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
@@ -1169,6 +1171,62 @@ export interface Career {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ApplicationFormBlock".
+ */
+export interface ApplicationFormBlock {
+  enableIntro?: boolean | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  successMessage?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  submitButtonLabel?: string | null;
+  requireRecaptcha?: boolean | null;
+  maxFileSizeMB?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'applicationForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications".
+ */
+export interface Application {
+  id: string;
+  applicantName: string;
+  email: string;
+  cv: string | Media;
+  positionApplied: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1408,6 +1466,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'careers';
         value: string | Career;
+      } | null)
+    | ({
+        relationTo: 'applications';
+        value: string | Application;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1911,7 +1973,7 @@ export interface CareersSelect<T extends boolean = true> {
   applicationForm?:
     | T
     | {
-        formBlock?: T | FormBlockSelect<T>;
+        applicationForm?: T | ApplicationFormBlockSelect<T>;
       };
   relatedCareers?: T;
   categories?: T;
@@ -1935,6 +1997,32 @@ export interface CareersSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ApplicationFormBlock_select".
+ */
+export interface ApplicationFormBlockSelect<T extends boolean = true> {
+  enableIntro?: T;
+  introContent?: T;
+  successMessage?: T;
+  submitButtonLabel?: T;
+  requireRecaptcha?: T;
+  maxFileSizeMB?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "applications_select".
+ */
+export interface ApplicationsSelect<T extends boolean = true> {
+  applicantName?: T;
+  email?: T;
+  cv?: T;
+  positionApplied?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

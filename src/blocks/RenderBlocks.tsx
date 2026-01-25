@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 
-import type { Page } from '@/payload-types'
+import type { Page, ApplicationFormBlock as ApplicationFormBlockType } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import { ApplicationFormBlock } from '@/blocks/ApplicationForm/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -10,16 +11,20 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
+  applicationForm: ApplicationFormBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
 }
 
+type BlockTypes = Page['layout'][0] | ApplicationFormBlockType
+
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: BlockTypes[]
+  extraProps?: Record<string, unknown>
 }> = (props) => {
-  const { blocks } = props
+  const { blocks, extraProps = {} } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -36,7 +41,7 @@ export const RenderBlocks: React.FC<{
               return (
                 <div className="my-16" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
+                  <Block {...block} {...extraProps} disableInnerContainer />
                 </div>
               )
             }

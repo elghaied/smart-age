@@ -29,6 +29,7 @@ import { Homepage } from './globals/LandingPage'
 import { SiteSettings } from './globals/SiteSettings'
 import localization from './i18n/localization'
 import { Careers } from './collections/Careers'
+import { Applications } from './collections/Applications'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -106,6 +107,7 @@ export default buildConfig({
     Features,
     TeamMembers,
     Careers,
+    Applications,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, ContactInfo, Homepage, SiteSettings],
