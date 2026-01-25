@@ -8,6 +8,7 @@ import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useLocale } from 'next-intl'
 
 import type { Header } from '@/payload-types'
 
@@ -15,6 +16,7 @@ import { HeaderNav } from './Nav'
 
 import AnimatedLogo from '@/components/AnimatedLogo'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import LanguageSwitcher from './LanguagesSwitcher'
 
 interface HeaderClientProps {
   data: Header
@@ -23,14 +25,13 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
-  const [locale, setLocale] = useState<'en' | 'ar'>('en')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
   const prefersReducedMotion = useReducedMotion()
-  // const motionVariants = useMotionVariants()
+  const locale = useLocale()
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -42,12 +43,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
-  // Extract locale from pathname
-  useEffect(() => {
-    const pathLocale = pathname.startsWith('/ar') ? 'ar' : 'en'
-    setLocale(pathLocale)
-  }, [pathname])
-
   // Handle scroll effect for header background
   useEffect(() => {
     const handleScroll = () => {
@@ -57,13 +52,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const toggleLocale = () => {
-    const newLocale = locale === 'ar' ? 'en' : 'ar'
-    const currentPath = pathname.replace(/^\/(ar|en)/, '')
-    const newPath = `/${newLocale}${currentPath}`
-    window.location.href = newPath
-  }
 
   return (
     <>
@@ -147,19 +135,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               </div>
 
               {/* Language Toggle - Hidden on mobile */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleLocale}
-                className={cn(
-                  'hidden sm:flex bg-transparent border-border/50',
-                  'hover:bg-primary/10 hover:border-primary/30 hover:text-primary',
-                  'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-                  'transition-all duration-200 hover:scale-105 active:scale-95',
-                )}
-              >
-                <span> {locale === 'ar' ? 'EN' : 'عربي'} </span>
-              </Button>
+              <div className="hidden sm:flex">
+                <LanguageSwitcher />
+              </div>
 
               {/* Mobile Menu Button */}
               <Button
@@ -226,19 +204,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                     <div className="transition-transform duration-200 hover:scale-105">
                       <ThemeSelector />
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={toggleLocale}
-                      className={cn(
-                        'bg-transparent border-border/50',
-                        'hover:bg-primary/10 hover:border-primary/30 hover:text-primary',
-                        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-                        'transition-all duration-200 hover:scale-105 active:scale-95',
-                      )}
-                    >
-                      <span>{locale === 'ar' ? 'EN' : 'عربي'}</span>
-                    </Button>
+                    <LanguageSwitcher mobile />
                   </div>
                 </div>
               </motion.div>
