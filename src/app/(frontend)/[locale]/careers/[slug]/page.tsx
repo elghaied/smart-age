@@ -162,6 +162,7 @@ const queryCareerBySlug = cache(async ({ slug, locale }: { slug: string; locale:
     draft,
     locale,
     limit: 1,
+    depth: 2,
     overrideAccess: draft,
     pagination: false,
     where: {
