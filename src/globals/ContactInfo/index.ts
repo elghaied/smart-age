@@ -88,6 +88,7 @@ export const ContactInfo: GlobalConfig = {
       type: 'blocks',
       blocks: [FormBlock],
       required: true,
+      localized: true,
       admin: {
         initCollapsed: true,
       },
