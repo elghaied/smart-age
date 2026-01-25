@@ -62,7 +62,7 @@ export const plugins: Plugin[] = [
     },
     formOverrides: {
       fields: ({ defaultFields }) => {
-        return defaultFields.map((field) => {
+        const modifiedFields = defaultFields.map((field) => {
           if ('name' in field && field.name === 'confirmationMessage') {
             return {
               ...field,
@@ -79,6 +79,62 @@ export const plugins: Plugin[] = [
           }
           return field
         })
+        return [
+          ...modifiedFields,
+          {
+            name: 'requireRecaptcha',
+            type: 'checkbox',
+            label: 'Require reCAPTCHA',
+            defaultValue: false,
+          },
+        ]
+      },
+    },
+    formSubmissionOverrides: {
+      fields: ({ defaultFields }) => {
+        return [
+          ...defaultFields,
+          {
+            name: 'recaptcha',
+            type: 'text',
+            admin: {
+              readOnly: true,
+            },
+            validate: async (value: any, { req, siblingData }: any) => {
+              if (!siblingData?.form) {
+                return true
+              }
+
+              const form = await req.payload.findByID({
+                id: siblingData.form,
+                collection: 'forms',
+              })
+
+              if (!form.requireRecaptcha) {
+                return true
+              }
+
+              if (!value) {
+                return 'Please complete the reCAPTCHA'
+              }
+
+              const res: Response = await fetch(
+                `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY}&response=${value}`,
+                {
+                  method: 'POST',
+                },
+              )
+
+              const data: any = await res.json()
+
+              if (!data.success) {
+                return 'Invalid captcha'
+              }
+
+              return true
+            },
+          },
+        ]
       },
     },
   }),

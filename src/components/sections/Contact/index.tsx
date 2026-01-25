@@ -16,8 +16,7 @@ import { Button } from '@/components/ui/button'
 
 import { Card } from '@/components/ui/card'
 import type { Homepage, ContactInfo } from '@/payload-types'
-
-import { FormBlock } from '@/blocks/Form/Component'
+import { RenderBlocksClient } from '@/blocks/RenderBlocks.client'
 
 interface ContactProps {
   contact: Homepage['contact']
@@ -263,19 +262,7 @@ export default function Contact({ contact, contactInfo, locale }: ContactProps) 
               </div>
 
               {contactInfo.contactForm && contactInfo.contactForm.length > 0 && (
-                <>
-                  {contactInfo.contactForm.map((block, index) => {
-                    if (block.blockType === 'formBlock') {
-                      return (
-                        <div key={index}>
-                          {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                          <FormBlock {...block} disableInnerContainer />
-                        </div>
-                      )
-                    }
-                    return null
-                  })}
-                </>
+                <RenderBlocksClient blocks={contactInfo.contactForm} />
               )}
             </Card>
           </motion.div>

@@ -81,7 +81,7 @@ export default async function RootLayout({ children, params }: Args) {
             <main id="main-content" tabIndex={-1}>
               {children}
             </main>
-            <Footer locale={locale} />
+            <Footer />
           </NextIntlClientProvider>
         </Providers>
       </body>

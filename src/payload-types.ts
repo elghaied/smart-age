@@ -760,6 +760,7 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
+  requireRecaptcha?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1060,6 +1061,7 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
+  recaptcha?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1878,6 +1880,7 @@ export interface FormsSelect<T extends boolean = true> {
         message?: T;
         id?: T;
       };
+  requireRecaptcha?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1894,6 +1897,7 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
+  recaptcha?: T;
   updatedAt?: T;
   createdAt?: T;
 }

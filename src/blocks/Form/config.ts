@@ -15,19 +15,12 @@ export const FormBlock: Block = {
       name: 'form',
       type: 'relationship',
       relationTo: 'forms',
-      label: {
-        en: 'Form',
-        ar: 'النموذج',
-      },
       required: true,
     },
     {
       name: 'enableIntro',
       type: 'checkbox',
-      label: {
-        en: 'Enable Intro Content',
-        ar: 'تفعيل المحتوى التمهيدي',
-      },
+      label: 'Enable Intro Content',
     },
     {
       name: 'introContent',
@@ -45,24 +38,14 @@ export const FormBlock: Block = {
           ]
         },
       }),
-      label: {
-        en: 'Intro Content',
-        ar: 'المحتوى التمهيدي',
-      },
-      localized: true,
+      label: 'Intro Content',
     },
   ],
   graphQL: {
     singularName: 'FormBlock',
   },
   labels: {
-    singular: {
-      en: 'Form Block',
-      ar: 'كتلة نموذج',
-    },
-    plural: {
-      en: 'Form Blocks',
-      ar: 'كتل النماذج',
-    },
+    plural: 'Form Blocks',
+    singular: 'Form Block',
   },
 }

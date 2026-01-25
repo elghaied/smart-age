@@ -21,55 +21,43 @@ export const Select: React.FC<
     errors: Partial<FieldErrorsImpl>
   }
 > = ({ name, control, errors, label, options, required, width, defaultValue }) => {
-  const hasError = !!errors[name]
-
   return (
     <Width width={width}>
-      <div className="space-y-2">
-        <Label htmlFor={name} className="text-sm font-medium text-foreground">
-          {label}
-          {required && (
-            <span className="ml-1 text-destructive" aria-label="required">
-              *
-            </span>
-          )}
-        </Label>
-        <Controller
-          control={control}
-          defaultValue={defaultValue}
-          name={name}
-          render={({ field: { onChange, value } }) => {
-            const controlledValue = options.find((t) => t.value === value)
+      <Label htmlFor={name}>
+        {label}
+        {required && (
+          <span className="required">
+            * <span className="sr-only">(required)</span>
+          </span>
+        )}
+      </Label>
+      <Controller
+        control={control}
+        defaultValue={defaultValue}
+        name={name}
+        render={({ field: { onChange, value } }) => {
+          const controlledValue = options.find((t) => t.value === value)
 
-            return (
-              <SelectComponent
-                onValueChange={(val) => onChange(val)}
-                value={controlledValue?.value}
-              >
-                <SelectTrigger
-                  className={`w-full transition-all duration-200 ${hasError ? 'border-destructive focus:ring-destructive' : ''}`}
-                  id={name}
-                >
-                  <SelectValue placeholder={`Select ${label?.toLowerCase() || 'an option'}`} />
-                </SelectTrigger>
-                <SelectContent>
-                  {options.map(({ label: optionLabel, value: optionValue }) => {
-                    return (
-                      <SelectItem key={optionValue} value={optionValue}>
-                        {optionLabel}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectContent>
-              </SelectComponent>
-            )
-          }}
-          rules={{
-            required: required ? `${label} is required` : false,
-          }}
-        />
-        <Error name={name} />
-      </div>
+          return (
+            <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
+              <SelectTrigger className="w-full" id={name}>
+                <SelectValue placeholder={label} />
+              </SelectTrigger>
+              <SelectContent>
+                {options.map(({ label, value }) => {
+                  return (
+                    <SelectItem key={value} value={value}>
+                      {label}
+                    </SelectItem>
+                  )
+                })}
+              </SelectContent>
+            </SelectComponent>
+          )
+        }}
+        rules={{ required }}
+      />
+      {errors[name] && <Error name={name} />}
     </Width>
   )
 }

@@ -17,6 +17,7 @@ export const translate = (translations: Translations, locale: TypedLocale): stri
 
 // Helper to merge array IDs from created doc into localized data
 // This ensures localized updates target the same array rows, not create new ones
+// Recursively handles nested objects and arrays
 const mergeArrayIds = (
   createdDoc: Record<string, unknown>,
   localizedData: Record<string, unknown>,
@@ -39,10 +40,29 @@ const mergeArrayIds = (
           typeof item === 'object' &&
           item !== null
         ) {
-          return { ...item, id: createdItem.id }
+          // Recursively merge nested arrays within array items
+          const mergedItem = mergeArrayIds(
+            createdItem as Record<string, unknown>,
+            item as Record<string, unknown>,
+          )
+          return { ...mergedItem, id: createdItem.id }
         }
         return item
       })
+    }
+    // Recursively handle nested objects (non-arrays)
+    else if (
+      typeof localizedValue === 'object' &&
+      localizedValue !== null &&
+      !Array.isArray(localizedValue) &&
+      typeof createdValue === 'object' &&
+      createdValue !== null &&
+      !Array.isArray(createdValue)
+    ) {
+      result[key] = mergeArrayIds(
+        createdValue as Record<string, unknown>,
+        localizedValue as Record<string, unknown>,
+      )
     }
   }
 
@@ -84,7 +104,7 @@ export const seedCollection = async <TSlug extends CollectionSlug>({
 
       // Merge array IDs from created doc to ensure localized updates
       // target the same rows instead of creating new ones
-      const mergedData = mergeArrayIds(doc as Record<string, unknown>, localizedData)
+      const mergedData = mergeArrayIds(doc as unknown as Record<string, unknown>, localizedData)
 
       await payload.update({
         collection,
@@ -136,7 +156,7 @@ export const seedGlobal = async <TSlug extends GlobalSlug>({
 
       // Merge array IDs from created global to ensure localized updates
       // target the same rows instead of creating new ones
-      const mergedData = mergeArrayIds(global as Record<string, unknown>, localizedData)
+      const mergedData = mergeArrayIds(global as unknown as Record<string, unknown>, localizedData)
 
       await payload.updateGlobal({
         slug,
