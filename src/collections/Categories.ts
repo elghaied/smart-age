@@ -3,7 +3,6 @@ import type { CollectionConfig } from 'payload'
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 import { slugField } from '@/fields/slug'
-import { revalidateDelete, revalidateHomePage } from '@/hooks/revalidateHomePage'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -38,8 +37,4 @@ export const Categories: CollectionConfig = {
     },
     ...slugField(),
   ],
-  hooks: {
-    afterChange: [revalidateHomePage],
-    afterDelete: [revalidateDelete],
-  },
 }

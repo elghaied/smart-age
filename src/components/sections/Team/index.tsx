@@ -1,19 +1,13 @@
-import { getCachedTeamMembers } from '@/utilities/getTeamMembers'
-import type { Homepage } from '@/payload-types'
-import type { TypedLocale } from 'payload'
+import type { Homepage, TeamMember } from '@/payload-types'
 import TeamClient from './Component.client'
 
 interface TeamProps {
   team: Homepage['team']
-  locale?: TypedLocale
+  teamMembers: TeamMember[]
 }
 
-export default async function Team({ team, locale }: TeamProps) {
+export default function Team({ team, teamMembers }: TeamProps) {
   if (!team) return null
-
-  // Fetch team members using the cached utility function
-  const getTeamMembers = getCachedTeamMembers(locale)
-  const teamMembers = await getTeamMembers()
 
   return <TeamClient team={team} teamMembers={teamMembers} />
 }

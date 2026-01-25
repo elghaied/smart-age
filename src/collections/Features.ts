@@ -1,4 +1,4 @@
-import { revalidateDelete, revalidateHomePage } from '@/hooks/revalidateHomePage'
+import { revalidateFeature, revalidateFeatureDelete } from '@/hooks/revalidateFeature'
 import type { CollectionConfig } from 'payload'
 
 export const Features: CollectionConfig = {
@@ -152,7 +152,7 @@ export const Features: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateHomePage],
-    afterDelete: [revalidateDelete],
+    afterChange: [revalidateFeature],
+    afterDelete: [revalidateFeatureDelete],
   },
 }

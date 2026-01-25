@@ -15,8 +15,12 @@ import Projects from '@/components/sections/Projects'
 import Services from '@/components/sections/Services'
 import Team from '@/components/sections/Team'
 import Contact from '@/components/sections/Contact'
-import { getCachedGoals } from '@/utilities/getGoals'
-import { getCachedProjects } from '@/utilities/getProjects'
+import {
+  queryGoalsByLocale,
+  queryProjectsByLocale,
+  queryServicesByLocale,
+  queryTeamMembersByLocale,
+} from '@/utilities/queryCollections'
 
 type Args = {
   params: Promise<{
@@ -28,17 +32,15 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { locale = 'en' } = await paramsPromise
 
-  // Fetch LandingPage global data
-  const homepage = (await getCachedGlobal('homepage', 0, locale)()) as Homepage
-
-  // Fetch ContactInfo global data
-  const contactInfo = (await getCachedGlobal('contact-info', 0, locale)()) as ContactInfo
-
-  // Fetch Goals data
-  const goals = await getCachedGoals(locale)()
-
-  // Fetch Projects data
-  const projects = await getCachedProjects(locale)()
+  // Fetch all data in parallel
+  const [homepage, contactInfo, goals, projects, services, teamMembers] = await Promise.all([
+    getCachedGlobal('homepage', 0, locale)() as Promise<Homepage>,
+    getCachedGlobal('contact-info', 0, locale)() as Promise<ContactInfo>,
+    queryGoalsByLocale({ locale, draft }),
+    queryProjectsByLocale({ locale, draft }),
+    queryServicesByLocale({ locale, draft }),
+    queryTeamMembersByLocale({ locale, draft }),
+  ])
 
   if (!homepage) {
     return <div>Homepage data not found</div>
@@ -68,10 +70,10 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
       )}
 
       {/* Services Section */}
-      <Services services={homepage.services} locale={locale} />
+      <Services services={homepage.services} servicesData={services} />
 
       {/* Team Section */}
-      <Team team={homepage.team} locale={locale} />
+      <Team team={homepage.team} teamMembers={teamMembers} />
 
       {/* Contact Section */}
       {homepage.contact && contactInfo && (

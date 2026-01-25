@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import {
   Calendar,
   Building,
@@ -17,194 +17,14 @@ import {
   ZoomIn,
   ChevronLeft,
   ChevronRight,
-  Sparkles,
-  Clock,
   CheckCircle2,
   Zap,
+  Clock,
+  X,
 } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import { Timeline } from '@/components/ui/timeline'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { Media } from '@/components/Media'
 import type { Homepage, Project, Media as MediaType } from '@/payload-types'
-import { useState } from 'react'
-
-interface ProjectImageGalleryProps {
-  images: (string | MediaType)[]
-  projectName: string
-  projectDescription?: string
-}
-
-function ProjectImageGallery({
-  images,
-  projectName,
-  projectDescription,
-}: ProjectImageGalleryProps) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [modalImageIndex, setModalImageIndex] = useState(0)
-
-  const validImages = images.filter(
-    (img): img is MediaType => typeof img === 'object' && img !== null,
-  )
-
-  if (validImages.length === 0) return null
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % validImages.length)
-  }
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + validImages.length) % validImages.length)
-  }
-
-  const nextModalImage = () => {
-    setModalImageIndex((prev) => (prev + 1) % validImages.length)
-  }
-
-  const prevModalImage = () => {
-    setModalImageIndex((prev) => (prev - 1 + validImages.length) % validImages.length)
-  }
-
-  return (
-    <div className="mb-4 relative group">
-      <div className="relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
-        <Media
-          resource={validImages[currentImageIndex]}
-          className="w-full h-40 object-cover transition-all duration-500 group-hover:scale-110"
-        />
-
-        {/* Enhanced gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        {/* Image Navigation Arrows */}
-        {validImages.length > 1 && (
-          <>
-            <motion.button
-              onClick={prevImage}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 border border-white/20"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </motion.button>
-            <motion.button
-              onClick={nextImage}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 border border-white/20"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </motion.button>
-          </>
-        )}
-
-        {/* Enhanced Image Counter */}
-        {validImages.length > 1 && (
-          <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-white/20">
-            {currentImageIndex + 1} / {validImages.length}
-          </div>
-        )}
-
-        {/* Enhanced Zoom Overlay */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <div
-              className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center cursor-pointer"
-              onClick={() => setModalImageIndex(currentImageIndex)}
-            >
-              <motion.div
-                className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full p-3 border border-white/20"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <ZoomIn className="h-5 w-5 text-gray-800" />
-              </motion.div>
-            </div>
-          </DialogTrigger>
-          <DialogContent className="max-w-6xl w-full">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-semibold">{projectName}</DialogTitle>
-            </DialogHeader>
-            <div className="relative">
-              <Media
-                resource={validImages[modalImageIndex]}
-                className="w-full max-h-[70vh] object-contain rounded-xl"
-              />
-
-              {/* Modal Navigation */}
-              {validImages.length > 1 && (
-                <>
-                  <motion.button
-                    onClick={prevModalImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors backdrop-blur-sm"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronLeft className="h-6 w-6" />
-                  </motion.button>
-                  <motion.button
-                    onClick={nextModalImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-colors backdrop-blur-sm"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronRight className="h-6 w-6" />
-                  </motion.button>
-
-                  {/* Modal Image Counter */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white text-sm px-4 py-2 rounded-full backdrop-blur-sm">
-                    {modalImageIndex + 1} / {validImages.length}
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Enhanced Image Thumbnails */}
-            {validImages.length > 1 && (
-              <div className="flex gap-3 mt-6 overflow-x-auto pb-2">
-                {validImages.map((image, index) => (
-                  <motion.button
-                    key={index}
-                    onClick={() => setModalImageIndex(index)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
-                      index === modalImageIndex
-                        ? 'border-primary shadow-lg scale-105'
-                        : 'border-transparent hover:border-border hover:scale-105'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Media resource={image} className="w-full h-full object-cover" />
-                  </motion.button>
-                ))}
-              </div>
-            )}
-
-            {projectDescription && (
-              <div className="mt-6 p-4 bg-muted/30 rounded-xl border border-border/30">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {projectDescription}
-                </p>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
-      </div>
-    </div>
-  )
-}
-
-interface ProjectsTimelineProps {
-  projects: Homepage['projects']
-  projectsData: Project[]
-  locale: string
-}
+import { useState, useRef } from 'react'
 
 // Icon mapping for projects
 const iconMap = {
@@ -221,7 +41,381 @@ const iconMap = {
   Award,
 } as const
 
-// Group projects by year and sort them
+interface ProjectImageGalleryProps {
+  images: (string | MediaType)[]
+  projectName: string
+  projectDescription?: string
+}
+
+function ProjectImageGallery({
+  images,
+  projectName,
+  projectDescription,
+}: ProjectImageGalleryProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const validImages = images.filter(
+    (img): img is MediaType => typeof img === 'object' && img !== null,
+  )
+
+  if (validImages.length === 0) return null
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setCurrentImageIndex((prev) => (prev + 1) % validImages.length)
+  }
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setCurrentImageIndex((prev) => (prev - 1 + validImages.length) % validImages.length)
+  }
+
+  return (
+    <>
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg group/gallery">
+        <Media
+          resource={validImages[currentImageIndex]}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover/gallery:scale-105"
+        />
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/gallery:opacity-100 transition-opacity duration-300" />
+
+        {/* Navigation arrows */}
+        {validImages.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute start-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-foreground flex items-center justify-center opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-4 h-4 rtl:rotate-180" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute end-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-foreground flex items-center justify-center opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-4 h-4 rtl:rotate-180" />
+            </button>
+          </>
+        )}
+
+        {/* Image counter */}
+        {validImages.length > 1 && (
+          <div className="absolute bottom-2 start-2 px-2 py-1 rounded-full bg-black/60 text-white text-xs font-medium">
+            {currentImageIndex + 1} / {validImages.length}
+          </div>
+        )}
+
+        {/* Zoom button */}
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="absolute bottom-2 end-2 w-8 h-8 rounded-full bg-white/90 text-foreground flex items-center justify-center opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+          aria-label="View full size"
+        >
+          <ZoomIn className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Fullscreen Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 md:p-8"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="relative max-w-6xl w-full max-h-[90vh] flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute -top-12 end-0 w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Main image */}
+              <div className="relative flex-1 min-h-0">
+                <Media
+                  resource={validImages[currentImageIndex]}
+                  className="w-full h-full object-contain rounded-lg"
+                />
+
+                {/* Modal navigation */}
+                {validImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute start-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-6 h-6 rtl:rotate-180" />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute end-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-6 h-6 rtl:rotate-180" />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Thumbnails */}
+              {validImages.length > 1 && (
+                <div className="flex gap-2 mt-4 justify-center overflow-x-auto pb-2">
+                  {validImages.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                        index === currentImageIndex
+                          ? 'border-white scale-105'
+                          : 'border-transparent opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <Media resource={image} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Project info */}
+              <div className="mt-4 text-center">
+                <h3 className="text-white text-xl font-semibold">{projectName}</h3>
+                {projectDescription && (
+                  <p className="text-white/70 text-sm mt-2 max-w-2xl mx-auto">
+                    {projectDescription}
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
+
+// Status badge component
+function StatusBadge({ status, label }: { status: string; label: string }) {
+  const config = {
+    completed: {
+      bg: 'bg-emerald-500/10',
+      text: 'text-emerald-600 dark:text-emerald-400',
+      dot: 'bg-emerald-500',
+      icon: CheckCircle2,
+    },
+    in_development: {
+      bg: 'bg-amber-500/10',
+      text: 'text-amber-600 dark:text-amber-400',
+      dot: 'bg-amber-500',
+      icon: Zap,
+    },
+    planning: {
+      bg: 'bg-sky-500/10',
+      text: 'text-sky-600 dark:text-sky-400',
+      dot: 'bg-sky-500',
+      icon: Clock,
+    },
+  }
+
+  const statusConfig = config[status as keyof typeof config] || config.planning
+  const Icon = statusConfig.icon
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${statusConfig.bg} ${statusConfig.text}`}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot}`} />
+      {label}
+      <Icon className="w-3 h-3" />
+    </span>
+  )
+}
+
+// Single project card
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project
+  index: number
+}) {
+  const IconComponent = iconMap[project.icon as keyof typeof iconMap] || Building
+  const statusLabel = project.statusLabel || project.status
+  const hasImages = project.image && Array.isArray(project.image) && project.image.length > 0
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative"
+    >
+      <div className="relative bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5">
+        {/* Subtle gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        {/* Content */}
+        <div className="relative">
+          {/* Image section */}
+          {hasImages && (
+            <div className="p-3 pb-0">
+              <ProjectImageGallery
+                images={project.image!}
+                projectName={project.name}
+                projectDescription={project.description}
+              />
+            </div>
+          )}
+
+          {/* Text content */}
+          <div className="p-5 pt-4">
+            {/* Header with icon */}
+            <div className="flex items-start gap-3 mb-3">
+              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                <IconComponent className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-semibold text-foreground text-base leading-tight mb-1 group-hover:text-primary transition-colors duration-300">
+                  {project.name}
+                </h4>
+                <StatusBadge status={project.status} label={statusLabel} />
+              </div>
+            </div>
+
+            {/* Description */}
+            <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+              {project.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  )
+}
+
+// Year section with projects
+function YearSection({
+  year,
+  title,
+  projects,
+}: {
+  year: string
+  title: string
+  projects: Project[]
+}) {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.8 }}
+      className="relative"
+    >
+      {/* Year header - spans full width with centered badge */}
+      <div className="relative mb-12">
+        {/* Horizontal decorative line */}
+        <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+        {/* Year badge */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="relative flex justify-center"
+        >
+          <div className="bg-background px-6 flex items-center gap-4">
+            <div className="flex items-center gap-3 bg-primary text-primary-foreground px-5 py-3 rounded-2xl shadow-lg shadow-primary/20">
+              <Calendar className="w-5 h-5" />
+              <span className="text-2xl font-bold tracking-tight">{year}</span>
+            </div>
+            {title !== year && (
+              <span className="text-lg font-medium text-muted-foreground hidden sm:block">
+                {title}
+              </span>
+            )}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Projects grid */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project, projectIndex) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={projectIndex}
+          />
+        ))}
+      </div>
+    </motion.section>
+  )
+}
+
+// Statistics card
+function StatCard({
+  value,
+  label,
+  index,
+}: {
+  value: string
+  label: string
+  index: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="relative group"
+    >
+      <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 text-center">
+        {/* Glow effect */}
+        <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        <motion.div
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{
+            type: 'spring',
+            stiffness: 200,
+            delay: index * 0.1 + 0.3,
+          }}
+          className="relative"
+        >
+          <div className="text-4xl md:text-5xl font-bold text-primary mb-2 tracking-tight">
+            {value}
+          </div>
+          <div className="text-sm text-muted-foreground font-medium">{label}</div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
+
+// Group projects by year
 function groupProjectsByYear(projects: Project[]) {
   const grouped = projects
     .filter((project) => project.isActive)
@@ -241,23 +435,20 @@ function groupProjectsByYear(projects: Project[]) {
       {} as Record<string, { year: string; title: string; projects: Project[] }>,
     )
 
-  // Sort projects within each year by order
   Object.values(grouped).forEach((yearData) => {
     yearData.projects.sort((a, b) => (a.order || 0) - (b.order || 0))
   })
 
-  // Convert to array and sort by year (descending)
   return Object.values(grouped).sort((a, b) => Number.parseInt(b.year) - Number.parseInt(a.year))
 }
 
-// Calculate statistics from projects data
+// Calculate statistics
 function calculateStats(projects: Project[], locale: string) {
   const completedCount = projects.filter((p) => p.status === 'completed' && p.isActive).length
   const inDevelopmentCount = projects.filter(
     (p) => p.status === 'in_development' && p.isActive,
   ).length
 
-  // Calculate years of experience (from earliest project year to current year)
   const years = projects.map((p) => Number.parseInt(p.year)).filter((y) => !isNaN(y))
   const earliestYear = Math.min(...years)
   const currentYear = new Date().getFullYear()
@@ -278,9 +469,16 @@ function calculateStats(projects: Project[], locale: string) {
     },
     {
       value: inDevelopmentCount.toString(),
-      label: locale === 'ar' ? 'مشاريع قيد التطوير' : 'Projects in Development',
+      label: locale === 'ar' ? 'مشاريع قيد التطوير' : 'In Development',
     },
   ]
+}
+
+// Main component
+interface ProjectsTimelineProps {
+  projects: Homepage['projects']
+  projectsData: Project[]
+  locale: string
 }
 
 export default function ProjectsTimeline({
@@ -288,202 +486,128 @@ export default function ProjectsTimeline({
   projectsData,
   locale,
 }: ProjectsTimelineProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const timelineData = groupProjectsByYear(projectsData)
   const stats = calculateStats(projectsData, locale)
 
-  // Transform data for Timeline component with enhanced styling
-  const timelineEntries = timelineData.map((yearData) => ({
-    title: yearData.year,
-    content: (
-      <div className="mb-8">
-        <Card className="relative p-8 border border-border/50 hover:border-border transition-all duration-500 hover:shadow-2xl bg-gradient-to-br from-card via-card to-accent/5 overflow-hidden group">
-          {/* Enhanced background decoration */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  })
 
-          {/* Enhanced Year Header */}
-          <div className="relative mb-8">
-            <div className="flex items-center gap-6 mb-6">
-              <motion.div
-                className="relative w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg"
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-              >
-                <Calendar className="h-8 w-8 text-white" />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl" />
-              </motion.div>
-              <div>
-                <h3 className="text-3xl lg:text-4xl font-bold text-primary mb-1">
-                  {yearData.year}
-                </h3>
-                <p className="text-xl font-semibold text-foreground">{yearData.title}</p>
-              </div>
-            </div>
-            <div className="h-px bg-gradient-to-r from-border via-accent/30 to-transparent" />
-          </div>
-
-          {/* Enhanced Projects Grid */}
-          <div className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {yearData.projects.map((project, projectIndex) => {
-              const IconComponent = iconMap[project.icon as keyof typeof iconMap] || Building
-              const statusLabel = project.statusLabel || project.status
-
-              return (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: projectIndex * 0.1,
-                    type: 'spring',
-                    stiffness: 300,
-                  }}
-                  viewport={{ once: true }}
-                  className="relative bg-gradient-to-br from-muted/20 via-muted/30 to-accent/5 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border border-border/30 hover:border-accent/30 group/card overflow-hidden"
-                >
-                  {/* Card background decoration */}
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-accent/10 to-transparent rounded-full blur-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
-
-                  {/* Enhanced Project Images */}
-                  {project.image && Array.isArray(project.image) && project.image.length > 0 && (
-                    <ProjectImageGallery
-                      images={project.image}
-                      projectName={project.name}
-                      projectDescription={project.description}
-                    />
-                  )}
-
-                  <div className="relative flex items-start gap-4">
-                    <motion.div
-                      className="w-12 h-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/20"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: 'spring', stiffness: 400 }}
-                    >
-                      <IconComponent className="h-6 w-6 text-primary" />
-                    </motion.div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-foreground mb-2 text-base leading-tight group-hover/card:text-primary transition-colors duration-200">
-                        {project.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                        {project.description}
-                      </p>
-
-                      {/* Enhanced Status Badge */}
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-2">
-                          <motion.div
-                            className={`w-3 h-3 rounded-full shadow-sm ${
-                              project.status === 'completed'
-                                ? 'bg-green-500 shadow-green-500/30'
-                                : project.status === 'in_development'
-                                  ? 'bg-yellow-500 shadow-yellow-500/30'
-                                  : 'bg-blue-500 shadow-blue-500/30'
-                            }`}
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          />
-                          <span className="text-sm font-medium text-muted-foreground">
-                            {statusLabel}
-                          </span>
-                        </div>
-
-                        {/* Status Icon */}
-                        {project.status === 'completed' && (
-                          <CheckCircle2 className="h-4 w-4 text-green-500" />
-                        )}
-                        {project.status === 'in_development' && (
-                          <Zap className="h-4 w-4 text-yellow-500" />
-                        )}
-                        {project.status === 'planning' && (
-                          <Clock className="h-4 w-4 text-blue-500" />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
-        </Card>
-      </div>
-    ),
-  }))
+  // Animated timeline line
+  const timelineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
   return (
     <section
       id="projects"
-      className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-muted/20 to-accent/5 overflow-hidden"
+      ref={containerRef}
+      className="relative py-24 md:py-32 overflow-hidden"
     >
-      {/* Enhanced background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-      <div className="absolute top-20 right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
 
-      <div className="relative max-w-7xl mx-auto">
-        {/* Enhanced Header */}
-        <motion.div
+      {/* Decorative grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+          backgroundSize: '32px 32px',
+        }}
+      />
+
+      {/* Animated gradient orbs */}
+      <div className="absolute top-1/4 start-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-x-1/2" />
+      <div className="absolute bottom-1/4 end-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] translate-x-1/2" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <motion.header
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
           viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-accent font-medium text-sm mb-6">
-            <Sparkles className="h-4 w-4" />
-            {locale === 'ar' ? 'مشاريعنا المتميزة' : 'Our Featured Projects'}
-          </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+          >
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            {locale === 'ar' ? 'رحلتنا' : 'Our Journey'}
+          </motion.div>
+
+          {/* Title */}
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
             {projects?.title}
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
-            {projects?.subtitle}
-          </p>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            {projects?.description}
-          </p>
-        </motion.div>
 
-        {/* Enhanced Statistics */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
-        >
+          {/* Subtitle */}
+          {projects?.subtitle && (
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
+              {projects.subtitle}
+            </p>
+          )}
+
+          {/* Description */}
+          {projects?.description && (
+            <p className="text-base text-muted-foreground/80 max-w-3xl mx-auto">
+              {projects.description}
+            </p>
+          )}
+        </motion.header>
+
+        {/* Statistics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-24">
           {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="relative text-center p-6 rounded-2xl bg-gradient-to-br from-card via-card to-accent/5 border border-border/30 hover:border-accent/30 transition-all duration-300 hover:shadow-lg group"
-              whileHover={{ y: -4, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-accent/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative">
-                <motion.div
-                  className="text-4xl lg:text-5xl font-bold text-primary mb-3"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.5, type: 'spring', stiffness: 300 }}
-                  viewport={{ once: true }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm font-medium text-muted-foreground leading-relaxed">
-                  {stat.label}
-                </div>
-              </div>
-            </motion.div>
+            <StatCard key={index} {...stat} index={index} />
           ))}
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Enhanced Timeline */}
-      <div className="relative">
-        <Timeline data={timelineEntries} />
+        {/* Timeline */}
+        <div className="relative">
+          {/* Central vertical timeline line */}
+          <div className="absolute top-0 bottom-0 start-1/2 -translate-x-1/2 w-px hidden lg:block">
+            {/* Background line */}
+            <div className="absolute inset-0 bg-border/50" />
+            {/* Animated progress line */}
+            <motion.div
+              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary via-primary to-transparent"
+              style={{ height: timelineHeight }}
+            />
+          </div>
+
+          {/* Year sections */}
+          <div className="space-y-24">
+            {timelineData.map((yearData) => (
+              <YearSection
+                key={yearData.year}
+                year={yearData.year}
+                title={yearData.title}
+                projects={yearData.projects}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom decoration */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-center mt-20"
+        >
+          <div className="flex items-center gap-2 text-muted-foreground text-sm">
+            <span className="w-8 h-px bg-border" />
+            <span>{locale === 'ar' ? 'وما زلنا نبني المزيد' : 'And still building more'}</span>
+            <span className="w-8 h-px bg-border" />
+          </div>
+        </motion.div>
       </div>
     </section>
   )
