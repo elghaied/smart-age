@@ -13,7 +13,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
-
+import { s3Storage } from '@payloadcms/storage-s3'
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Smart Age Tech` : 'Smart Age Tech'
 }
@@ -24,7 +24,30 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   return doc?.slug ? `${url}/${doc.slug}` : url
 }
 
+// S3 storage plugin - only enabled when S3 environment variables are set
+const s3StoragePlugin: Plugin[] = process.env.S3_BUCKET
+  ? [
+      s3Storage({
+        collections: {
+          media: {
+            prefix: 'media',
+          },
+        },
+        bucket: process.env.S3_BUCKET,
+        config: {
+          credentials: {
+            accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+          },
+          region: process.env.S3_REGION || 'us-east-1',
+          forcePathStyle: true, // Required for MinIO
+          endpoint: process.env.S3_ENDPOINT,
+        },
+      }),
+    ]
+  : []
 export const plugins: Plugin[] = [
+  ...s3StoragePlugin,
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
@@ -145,15 +168,6 @@ export const plugins: Plugin[] = [
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },
-    },
-  }),
-  uploadthingStorage({
-    collections: {
-      media: true,
-    },
-    options: {
-      token: process.env.UPLOADTHING_TOKEN,
-      acl: 'public-read',
     },
   }),
 ]

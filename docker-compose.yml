@@ -1,4 +1,4 @@
-version: "3.9"
+
 
 services:
   payload-app:
@@ -34,4 +34,21 @@ services:
       SKIP_EMAIL_VERIFICATION: ""
     ports:
       - "3000:3000"
+    networks:
+      - app-network-dev
     restart: unless-stopped
+ 
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data-dev:/data/db
+    networks:
+      - app-network-dev
+volumes:
+  mongodb-data-dev:
+ 
+networks:
+  app-network-dev:
+    driver: bridge
