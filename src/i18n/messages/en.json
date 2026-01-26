@@ -1,1 +1,17 @@
-{}
+{
+  "Careers": {
+    "title": "Join Our Team",
+    "subtitle": "Shape the future with us",
+    "description": "Discover opportunities to grow, innovate, and make an impact. We are looking for passionate individuals ready to push boundaries.",
+    "openPositions": "Open Positions",
+    "noPositions": "No open positions at the moment",
+    "checkBack": "Check back soon for new opportunities",
+    "showing": "Showing",
+    "of": "of",
+    "positions": "positions"
+  },
+  "Apply": {
+    "generalApplication": "General Application",
+    "generalApplicationDescription": "Don't see a position that fits? Send us your CV and we'll keep you in mind for future opportunities."
+  }
+}

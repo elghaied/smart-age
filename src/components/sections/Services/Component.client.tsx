@@ -103,9 +103,7 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {service.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                     {service.description}
                   </p>
@@ -150,7 +148,7 @@ export default function ServicesClient({ services, servicesData }: ServicesClien
                 </p>
               )}
               <Button size="lg" className="group" asChild>
-                <Link href="#contact">
+                <Link href="#contact" className="flex items-center">
                   {services.servicesCallToAction.buttonText}
                   <ArrowRight className="ms-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>

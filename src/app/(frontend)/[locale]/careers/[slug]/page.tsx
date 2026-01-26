@@ -13,7 +13,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { JobSpecifications } from '@/components/JobSpecifications'
-import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { ApplicationForm } from '@/components/ApplicationForm'
 import type { Career } from '@/payload-types'
 
 export async function generateStaticParams() {
@@ -120,13 +120,10 @@ export default async function Career({ params: paramsPromise }: Args) {
           </div>
 
           {/* Application Form */}
-          {post.applicationForm && post.applicationForm.length > 0 && (
+          {post.isActive && (
             <section className="my-12 max-w-[48rem] mx-auto">
               <h2 className="text-2xl font-bold mb-6 text-foreground">{titles.applyNow}</h2>
-              <RenderBlocks
-                blocks={post.applicationForm}
-                extraProps={{ positionApplied: post.title }}
-              />
+              <ApplicationForm positionApplied={post.title} locale={locale} />
             </section>
           )}
 

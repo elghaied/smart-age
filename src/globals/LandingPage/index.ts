@@ -507,28 +507,12 @@ export const Homepage: GlobalConfig = {
                       },
                     },
                     {
-                      name: 'viewPositionsButtonLink',
-                      type: 'text',
-                      label: {
-                        en: 'View Open Positions Button Link',
-                        ar: 'عرض رابط زر الوظائف المفتوحة',
-                      },
-                    },
-                    {
                       name: 'joinUsButtonText',
                       type: 'text',
                       localized: true,
                       label: {
                         en: 'Join Us Button Text',
                         ar: 'انضم إلينا نص الزر',
-                      },
-                    },
-                    {
-                      name: 'joinUsButtonLink',
-                      type: 'text',
-                      label: {
-                        en: 'Join Us Button Link',
-                        ar: 'انضم إلينا رابط الزر',
                       },
                     },
                   ],

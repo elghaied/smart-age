@@ -1167,10 +1167,6 @@ export interface Career {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * Add a form block to enable job applications
-   */
-  applicationForm?: ApplicationFormBlock[] | null;
   relatedCareers?: (string | Career)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
@@ -1197,49 +1193,6 @@ export interface Career {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ApplicationFormBlock".
- */
-export interface ApplicationFormBlock {
-  enableIntro?: boolean | null;
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  successMessage?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  submitButtonLabel?: string | null;
-  requireRecaptcha?: boolean | null;
-  maxFileSizeMB?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'applicationForm';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1994,11 +1947,6 @@ export interface CareersSelect<T extends boolean = true> {
   qualifications?: T;
   preferredQualifications?: T;
   benefits?: T;
-  applicationForm?:
-    | T
-    | {
-        applicationForm?: T | ApplicationFormBlockSelect<T>;
-      };
   relatedCareers?: T;
   categories?: T;
   meta?:
@@ -2021,20 +1969,6 @@ export interface CareersSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ApplicationFormBlock_select".
- */
-export interface ApplicationFormBlockSelect<T extends boolean = true> {
-  enableIntro?: T;
-  introContent?: T;
-  successMessage?: T;
-  submitButtonLabel?: T;
-  requireRecaptcha?: T;
-  maxFileSizeMB?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2548,9 +2482,7 @@ export interface Homepage {
       title?: string | null;
       description?: string | null;
       viewPositionsButtonText?: string | null;
-      viewPositionsButtonLink?: string | null;
       joinUsButtonText?: string | null;
-      joinUsButtonLink?: string | null;
     };
   };
   contact?: {
@@ -2817,9 +2749,7 @@ export interface HomepageSelect<T extends boolean = true> {
               title?: T;
               description?: T;
               viewPositionsButtonText?: T;
-              viewPositionsButtonLink?: T;
               joinUsButtonText?: T;
-              joinUsButtonLink?: T;
             };
       };
   contact?:

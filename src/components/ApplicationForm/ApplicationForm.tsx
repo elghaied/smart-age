@@ -2,13 +2,12 @@
 
 import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { submitApplication } from './action'
+import type { TypedLocale } from 'payload'
 
 type FormData = {
   applicantName: string
@@ -16,16 +15,10 @@ type FormData = {
   cv: FileList
 }
 
-export type ApplicationFormBlockType = {
-  blockName?: string
-  blockType?: 'applicationForm'
-  enableIntro?: boolean
-  introContent?: DefaultTypedEditorState
-  successMessage?: DefaultTypedEditorState
-  submitButtonLabel?: string
-  requireRecaptcha?: boolean
-  maxFileSizeMB?: number
+export type ApplicationFormProps = {
   positionApplied?: string
+  locale: TypedLocale
+  className?: string
 }
 
 const ALLOWED_EXTENSIONS = '.pdf,.doc,.docx'
@@ -35,20 +28,55 @@ const ALLOWED_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]
 
-export const ApplicationFormBlock: React.FC<
-  {
-    id?: string
-  } & ApplicationFormBlockType
-> = (props) => {
-  const {
-    enableIntro,
-    introContent,
-    successMessage,
-    submitButtonLabel = 'Submit Application',
-    requireRecaptcha = true,
-    maxFileSizeMB = 10,
-    positionApplied = '',
-  } = props
+const MAX_FILE_SIZE_MB = 10
+
+const translations = {
+  en: {
+    name: 'Name',
+    namePlaceholder: 'Your full name',
+    nameRequired: 'Name is required',
+    email: 'Email',
+    emailPlaceholder: 'your.email@example.com',
+    emailRequired: 'Email is required',
+    emailInvalid: 'Please enter a valid email address',
+    cv: 'CV / Resume',
+    cvRequired: 'Please upload your CV',
+    cvDragDrop: 'Drag and drop your CV here, or click to browse',
+    cvFileTypes: `PDF, DOC, or DOCX (max ${MAX_FILE_SIZE_MB}MB)`,
+    cvFileTypeError: 'Only PDF and Word documents are allowed',
+    cvFileSizeError: `File size must be less than ${MAX_FILE_SIZE_MB}MB`,
+    submitButton: 'Submit Application',
+    submitting: 'Submitting, please wait...',
+    recaptchaError: 'Please complete the reCAPTCHA.',
+    successMessage: 'Thank you for your application! We will review it and get back to you soon.',
+  },
+  ar: {
+    name: 'الاسم',
+    namePlaceholder: 'اسمك الكامل',
+    nameRequired: 'الاسم مطلوب',
+    email: 'البريد الإلكتروني',
+    emailPlaceholder: 'your.email@example.com',
+    emailRequired: 'البريد الإلكتروني مطلوب',
+    emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح',
+    cv: 'السيرة الذاتية',
+    cvRequired: 'يرجى تحميل السيرة الذاتية',
+    cvDragDrop: 'اسحب وأفلت سيرتك الذاتية هنا، أو انقر للتصفح',
+    cvFileTypes: `PDF أو DOC أو DOCX (بحد أقصى ${MAX_FILE_SIZE_MB} ميجابايت)`,
+    cvFileTypeError: 'مسموح فقط بمستندات PDF و Word',
+    cvFileSizeError: `يجب أن يكون حجم الملف أقل من ${MAX_FILE_SIZE_MB} ميجابايت`,
+    submitButton: 'إرسال الطلب',
+    submitting: 'جاري الإرسال، يرجى الانتظار...',
+    recaptchaError: 'يرجى إكمال التحقق.',
+    successMessage: 'شكراً لتقديمك! سنراجع طلبك ونتواصل معك قريباً.',
+  },
+}
+
+export const ApplicationForm: React.FC<ApplicationFormProps> = ({
+  positionApplied = 'General Application',
+  locale,
+  className,
+}) => {
+  const t = translations[locale as keyof typeof translations] || translations.en
 
   const {
     register,
@@ -74,14 +102,14 @@ export const ApplicationFormBlock: React.FC<
   const selectedFile = watchedCv?.[0]
 
   const validateFile = (file: File): string | null => {
-    const maxSizeBytes = maxFileSizeMB * 1024 * 1024
+    const maxSizeBytes = MAX_FILE_SIZE_MB * 1024 * 1024
 
     if (file.size > maxSizeBytes) {
-      return `File size must be less than ${maxFileSizeMB}MB`
+      return t.cvFileSizeError
     }
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      return 'Only PDF and Word documents (.pdf, .doc, .docx) are allowed'
+      return t.cvFileTypeError
     }
 
     return null
@@ -92,13 +120,13 @@ export const ApplicationFormBlock: React.FC<
 
     const captchaValue = recaptcha.current?.getValue()
 
-    if (requireRecaptcha && !captchaValue) {
-      setError('Please complete the reCAPTCHA.')
+    if (!captchaValue) {
+      setError(t.recaptchaError)
       return
     }
 
     if (!data.cv || data.cv.length === 0) {
-      setError('Please upload your CV')
+      setError(t.cvRequired)
       return
     }
 
@@ -117,11 +145,9 @@ export const ApplicationFormBlock: React.FC<
       formData.append('email', data.email)
       formData.append('positionApplied', positionApplied)
       formData.append('cv', file)
-      if (captchaValue) {
-        formData.append('recaptchaToken', captchaValue)
-      }
+      formData.append('recaptchaToken', captchaValue)
 
-      const result = await submitApplication(formData, requireRecaptcha, maxFileSizeMB)
+      const result = await submitApplication(formData, true)
 
       if (!result.success) {
         setError(result.error || 'Something went wrong. Please try again.')
@@ -178,22 +204,22 @@ export const ApplicationFormBlock: React.FC<
   }
 
   const { ref: registerRef, ...cvRegister } = register('cv', {
-    required: 'Please upload your CV',
+    required: t.cvRequired,
     validate: {
       fileType: (files) => {
         if (!files || files.length === 0) return true
         const file = files[0]
         if (!ALLOWED_TYPES.includes(file.type)) {
-          return 'Only PDF and Word documents are allowed'
+          return t.cvFileTypeError
         }
         return true
       },
       fileSize: (files) => {
         if (!files || files.length === 0) return true
         const file = files[0]
-        const maxSizeBytes = maxFileSizeMB * 1024 * 1024
+        const maxSizeBytes = MAX_FILE_SIZE_MB * 1024 * 1024
         if (file.size > maxSizeBytes) {
-          return `File size must be less than ${maxFileSizeMB}MB`
+          return t.cvFileSizeError
         }
         return true
       },
@@ -201,31 +227,24 @@ export const ApplicationFormBlock: React.FC<
   })
 
   return (
-    <div className="container lg:max-w-[48rem]">
-      {enableIntro && introContent && !hasSubmitted && (
-        <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
-      )}
+    <div className={className}>
       <div className="p-4 lg:p-6 border border-border rounded-[0.8rem] dark:bg-[#212121]">
-        {hasSubmitted && successMessage ? (
-          <RichText data={successMessage} />
-        ) : hasSubmitted ? (
-          <p className="text-center text-lg">
-            Thank you for your application! We will review it and get back to you soon.
-          </p>
+        {hasSubmitted ? (
+          <p className="text-center text-lg">{t.successMessage}</p>
         ) : null}
 
-        {isLoading && !hasSubmitted && <p className="text-center">Submitting, please wait...</p>}
+        {isLoading && !hasSubmitted && <p className="text-center">{t.submitting}</p>}
 
         {error && <div className="mb-4 text-red-500 text-sm text-center">{error}</div>}
 
         {!hasSubmitted && !isLoading && (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="applicantName">Name *</Label>
+              <Label htmlFor="applicantName">{t.name} *</Label>
               <Input
                 id="applicantName"
-                placeholder="Your full name"
-                {...register('applicantName', { required: 'Name is required' })}
+                placeholder={t.namePlaceholder}
+                {...register('applicantName', { required: t.nameRequired })}
               />
               {errors.applicantName && (
                 <p className="text-red-500 text-sm">{errors.applicantName.message}</p>
@@ -233,16 +252,16 @@ export const ApplicationFormBlock: React.FC<
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email *</Label>
+              <Label htmlFor="email">{t.email} *</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="your.email@example.com"
+                placeholder={t.emailPlaceholder}
                 {...register('email', {
-                  required: 'Email is required',
+                  required: t.emailRequired,
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Please enter a valid email address',
+                    message: t.emailInvalid,
                   },
                 })}
               />
@@ -250,7 +269,7 @@ export const ApplicationFormBlock: React.FC<
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="cv">CV / Resume *</Label>
+              <Label htmlFor="cv">{t.cv} *</Label>
               <div
                 className={`relative border-2 border-dashed rounded-lg p-6 transition-colors ${
                   dragActive
@@ -309,12 +328,8 @@ export const ApplicationFormBlock: React.FC<
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        Drag and drop your CV here, or click to browse
-                      </p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        PDF, DOC, or DOCX (max {maxFileSizeMB}MB)
-                      </p>
+                      <p className="mt-2 text-sm text-muted-foreground">{t.cvDragDrop}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">{t.cvFileTypes}</p>
                     </>
                   )}
                 </div>
@@ -322,20 +337,18 @@ export const ApplicationFormBlock: React.FC<
               {errors.cv && <p className="text-red-500 text-sm">{errors.cv.message}</p>}
             </div>
 
-            {requireRecaptcha && (
-              <div className="flex justify-center">
-                <div className="overflow-hidden">
-                  <ReCAPTCHA
-                    ref={recaptcha}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                    theme="dark"
-                  />
-                </div>
+            <div className="flex justify-center">
+              <div className="overflow-hidden">
+                <ReCAPTCHA
+                  ref={recaptcha}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                  theme="dark"
+                />
               </div>
-            )}
+            </div>
 
             <Button type="submit" variant="default" size="lg">
-              {submitButtonLabel}
+              {t.submitButton}
             </Button>
           </form>
         )}

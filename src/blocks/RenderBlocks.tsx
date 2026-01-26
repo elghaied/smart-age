@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react'
 
-import type { Page, ApplicationFormBlock as ApplicationFormBlockType } from '@/payload-types'
+import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
-import { ApplicationFormBlock } from '@/blocks/ApplicationForm/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -11,14 +10,13 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
-  applicationForm: ApplicationFormBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
 }
 
-type BlockTypes = Page['layout'][0] | ApplicationFormBlockType
+type BlockTypes = Page['layout'][0]
 
 export const RenderBlocks: React.FC<{
   blocks: BlockTypes[]

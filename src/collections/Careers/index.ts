@@ -14,7 +14,6 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { ApplicationFormBlock } from '../../blocks/ApplicationForm/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidateCareer'
@@ -373,31 +372,6 @@ export const Careers: CollectionConfig<'careers'> = {
                   ar: 'المزايا والامتيازات المقدمة مع هذه الوظيفة',
                 },
               },
-            },
-          ],
-        },
-        {
-          label: {
-            en: 'Application',
-            ar: 'التقديم',
-          },
-          fields: [
-            {
-              name: 'applicationForm',
-              type: 'blocks',
-              blocks: [ApplicationFormBlock],
-              localized: true,
-              label: {
-                en: 'Application Form',
-                ar: 'نموذج التقديم',
-              },
-              admin: {
-                description: {
-                  en: 'Add a form block to enable job applications',
-                  ar: 'أضف نموذجاً لتمكين التقديم على الوظيفة',
-                },
-              },
-              maxRows: 1,
             },
           ],
         },

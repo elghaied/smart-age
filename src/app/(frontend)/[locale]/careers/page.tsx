@@ -8,43 +8,17 @@ import { CareersHero } from './CareersHero'
 import { CareerCard } from './CareerCard'
 import { Pagination } from '@/components/Pagination'
 
+import { getTranslations } from 'next-intl/server'
+
 type Args = {
   params: Promise<{
     locale: TypedLocale
   }>
 }
 
-const translations = {
-  en: {
-    title: 'Join Our Team',
-    subtitle: 'Shape the future with us',
-    description:
-      'Discover opportunities to grow, innovate, and make an impact. We are looking for passionate individuals ready to push boundaries.',
-    openPositions: 'Open Positions',
-    noPositions: 'No open positions at the moment',
-    checkBack: 'Check back soon for new opportunities',
-    showing: 'Showing',
-    of: 'of',
-    positions: 'positions',
-  },
-  ar: {
-    title: 'انضم إلى فريقنا',
-    subtitle: 'اصنع المستقبل معنا',
-    description:
-      'اكتشف فرصاً للنمو والابتكار وإحداث التأثير. نحن نبحث عن أفراد شغوفين مستعدين لتجاوز الحدود.',
-    openPositions: 'الوظائف المتاحة',
-    noPositions: 'لا توجد وظائف متاحة حالياً',
-    checkBack: 'تابعنا قريباً للفرص الجديدة',
-    showing: 'عرض',
-    of: 'من',
-    positions: 'وظيفة',
-  },
-}
-
 export default async function Page({ params }: Args) {
   const { locale } = await params
-  const t = translations[locale as keyof typeof translations] || translations.en
-
+  const t = await getTranslations('Careers')
   const payload = await getPayload({ config: configPromise })
 
   const careers = await payload.find({
@@ -79,9 +53,9 @@ export default async function Page({ params }: Args) {
 
       {/* Hero Section */}
       <CareersHero
-        title={t.title}
-        subtitle={t.subtitle}
-        description={t.description}
+        title={t('title')}
+        subtitle={t('subtitle')}
+        description={t('description')}
         openPositionsCount={careers.totalDocs}
         locale={locale}
       />
@@ -96,17 +70,17 @@ export default async function Page({ params }: Args) {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 lg:mb-16">
             <div>
               <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-4">
-                {t.openPositions}
+                {t('openPositions')}
               </span>
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
                 {careers.totalDocs > 0 ? (
                   <>
-                    {t.showing}{' '}
-                    <span className="text-primary">{careers.docs.length}</span> {t.of}{' '}
-                    <span className="text-primary">{careers.totalDocs}</span> {t.positions}
+                    {t('showing')} <span className="text-primary">{careers.docs.length}</span>{' '}
+                    {t('of')} <span className="text-primary">{careers.totalDocs}</span>{' '}
+                    {t('positions')}
                   </>
                 ) : (
-                  t.noPositions
+                  t('noPositions')
                 )}
               </h2>
             </div>
@@ -142,8 +116,8 @@ export default async function Page({ params }: Args) {
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3">{t.noPositions}</h3>
-                <p className="text-muted-foreground text-lg">{t.checkBack}</p>
+                <h3 className="text-2xl font-bold text-foreground mb-3">{t('noPositions')}</h3>
+                <p className="text-muted-foreground text-lg">{t('checkBack')}</p>
               </div>
             </div>
           )}
@@ -160,12 +134,11 @@ export default async function Page({ params }: Args) {
   )
 }
 
-export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  const { locale } = await params
-  const t = translations[locale as keyof typeof translations] || translations.en
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('Careers')
 
   return {
-    title: `${t.title} | Smart Age`,
-    description: t.description,
+    title: `${t('title')} | Smart Age`,
+    description: t('description'),
   }
 }

@@ -337,7 +337,7 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                     <Link
-                      href={team.teamCallToAction?.viewPositionsButtonLink || ''}
+                      href={'/careers'}
                       className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
                     >
                       {team.teamCallToAction?.viewPositionsButtonText}
@@ -345,7 +345,7 @@ export default function TeamClient({ team, teamMembers }: TeamClientProps) {
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                     <Link
-                      href={team.teamCallToAction?.joinUsButtonLink || ''}
+                      href={'/careers/apply'}
                       className="inline-flex items-center justify-center px-8 py-4 border-2 border-primary/30 rounded-xl font-semibold text-primary hover:bg-primary/5 hover:border-primary/50 transition-all duration-300"
                     >
                       {team.teamCallToAction?.joinUsButtonText}

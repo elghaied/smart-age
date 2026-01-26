@@ -151,9 +151,7 @@ export default function Hero({ hero }: HeroProps) {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="relative mb-8"
             >
-              <p
-                className="text-xl sm:text-2xl lg:text-4xl text-primary mb-3 text-balance font-semibold tracking-wide"
-              >
+              <p className="text-xl sm:text-2xl lg:text-4xl text-primary mb-3 text-balance font-semibold tracking-wide">
                 {hero.subtitle}
               </p>
               <motion.div

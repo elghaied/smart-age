@@ -3,13 +3,6 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
-type ApplicationData = {
-  applicantName: string
-  email: string
-  positionApplied: string
-  recaptchaToken?: string
-}
-
 type ActionResult = {
   success: boolean
   error?: string
@@ -102,10 +95,11 @@ function getFileExtension(filename: string): string {
   return match ? match[0].toLowerCase() : ''
 }
 
+const MAX_FILE_SIZE_MB = 10
+
 export async function submitApplication(
   formData: FormData,
-  requireRecaptcha: boolean = false,
-  maxFileSizeMB: number = 10,
+  requireRecaptcha: boolean = true,
 ): Promise<ActionResult> {
   const applicantName = formData.get('applicantName') as string
   const email = formData.get('email') as string
@@ -142,9 +136,9 @@ export async function submitApplication(
   }
 
   // Check file size
-  const maxSizeBytes = maxFileSizeMB * 1024 * 1024
+  const maxSizeBytes = MAX_FILE_SIZE_MB * 1024 * 1024
   if (cvFile.size > maxSizeBytes) {
-    return { success: false, error: `File size must be less than ${maxFileSizeMB}MB` }
+    return { success: false, error: `File size must be less than ${MAX_FILE_SIZE_MB}MB` }
   }
 
   // Validate filename
