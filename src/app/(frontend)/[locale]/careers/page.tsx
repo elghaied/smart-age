@@ -9,7 +9,7 @@ import { CareerCard } from './CareerCard'
 import { Pagination } from '@/components/Pagination'
 
 import { getTranslations } from 'next-intl/server'
-
+export const dynamic = 'force-dynamic'
 type Args = {
   params: Promise<{
     locale: TypedLocale

@@ -3,6 +3,8 @@ import { ApplicationForm } from '@/components/ApplicationForm'
 import { getTranslations } from 'next-intl/server'
 import { TypedLocale } from 'payload'
 
+export const dynamic = 'force-dynamic'
+
 type Args = {
   params: Promise<{
     locale: TypedLocale
