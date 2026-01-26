@@ -1,7 +1,7 @@
 
 
 services:
-  payload-app:
+  smartage-app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,12 +11,11 @@ services:
         DATABASE_URI: ${DATABASE_URI}
         PAYLOAD_SECRET: ${PAYLOAD_SECRET}
         PREVIEW_SECRET: ${PREVIEW_SECRET}
-        UPLOADTHING_TOKEN: ${UPLOADTHING_TOKEN}
         SMTP_HOST: ${SMTP_HOST}
         SMTP_PASS: ${SMTP_PASS}
         SMTP_USER: ${SMTP_USER}
         SKIP_EMAIL_VERIFICATION: "true"
-    container_name: payload-app
+    container_name: smartage-app
     env_file:
       - .env
     environment:
@@ -29,15 +28,22 @@ services:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PASS: ${SMTP_PASS}
       SMTP_USER: ${SMTP_USER}
-      UPLOADTHING_TOKEN: ${UPLOADTHING_TOKEN}
+      S3_ENDPOINT: ${S3_ENDPOINT:-http://minio:9000} 
+      S3_ACCESS_KEY_I: ${S3_ACCESS_KEY_ID:-minioadmin}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minioadmin}
+      S3_BUCKET: ${S3_BUCKET:-media}
+      S3_REGION: ${S3_REGION:-us-east-1}
+      S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-true}
       # Ensure email verification is not skipped at runtime
       SKIP_EMAIL_VERIFICATION: ""
     ports:
       - "3000:3000"
+    depends_on:
+      - mongodb
+      - minio
     networks:
       - app-network-dev
     restart: unless-stopped
- 
   mongodb:
     image: mongo:6
     ports:
@@ -46,9 +52,41 @@ services:
       - mongodb-data-dev:/data/db
     networks:
       - app-network-dev
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadmin}
+    volumes:
+      - minio-data-dev:/data
+    command: server --console-address ":9001" /data
+    networks:
+      - app-network-dev
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadmin}
+    entrypoint: >
+      /bin/sh -c " sleep 10 && /usr/bin/mc alias set myminio http://minio:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD} && /usr/bin/mc mb myminio/$${S3_BUCKET:-media} --ignore-existing && /usr/bin/mc anonymous set public myminio/$${S3_BUCKET:-media} && exit 0 "
+    networks:
+      - app-network-dev
+
 volumes:
   mongodb-data-dev:
- 
+  minio-data-dev:
+
 networks:
   app-network-dev:
     driver: bridge

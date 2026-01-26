@@ -5,38 +5,23 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-// import path from 'path'
-// import { fileURLToPath } from 'url'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 
-// const filename = fileURLToPath(import.meta.url)
-// const dirname = path.dirname(filename)
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  labels: {
-    singular: {
-      en: 'Media',
-      ar: 'وسائط',
-    },
-    plural: {
-      en: 'Media',
-      ar: 'الوسائط',
-    },
-  },
+  folders: true,
   access: {
     create: authenticated,
     delete: authenticated,
     read: anyone,
     update: authenticated,
-  },
-  admin: {
-    group: {
-      en: 'Media',
-      ar: 'الوسائط',
-    },
   },
   fields: [
     {
@@ -55,7 +40,11 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    disableLocalStorage: true,
+    // Upload to the public/media directory in Next.js when S3 is not configured
+    // When S3 is configured, the s3Storage plugin handles storage
+    ...(process.env.S3_BUCKET
+      ? { disableLocalStorage: true }
+      : { staticDir: path.resolve(dirname, '../../public/media') }),
     adminThumbnail: 'thumbnail',
     focalPoint: true,
     imageSizes: [
