@@ -8,9 +8,6 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
-// S3/MinIO endpoint for remote image patterns
-const S3_ENDPOINT = process.env.S3_ENDPOINT
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -24,15 +21,12 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
-      // Add S3/MinIO endpoint for media images
-      ...(S3_ENDPOINT
-        ? [
-            {
-              hostname: new URL(S3_ENDPOINT).hostname,
-              protocol: 'https',
-            },
-          ]
-        : []),
+      // MinIO endpoint for S3 media images (hardcoded since it's static)
+      {
+        protocol: 'https',
+        hostname: 'minio-tg400k044c0gwskk408wwg4s.gshell.fr',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (webpackConfig) => {
