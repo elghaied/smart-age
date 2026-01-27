@@ -142,7 +142,7 @@ export const plugins: Plugin[] = [
               }
 
               const res: Response = await fetch(
-                `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY}&response=${value}`,
+                `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${value}`,
                 {
                   method: 'POST',
                 },

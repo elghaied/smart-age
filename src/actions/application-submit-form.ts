@@ -45,10 +45,10 @@ const DANGEROUS_PATTERNS = [
 ]
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
-  const secretKey = process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY
 
   if (!secretKey) {
-    console.error('NEXT_PRIVATE_RECAPTCHA_SECRET_KEY is not configured')
+    console.error('RECAPTCHA_SECRET_KEY is not configured')
     return false
   }
 

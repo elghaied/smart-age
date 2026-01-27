@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { submitApplication } from './action'
+import { submitApplication } from '../../actions/application-submit-form'
 import type { TypedLocale } from 'payload'
 
 type FormData = {

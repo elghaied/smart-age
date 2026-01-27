@@ -8,13 +8,9 @@ services:
       args:
         # Pass environment variables as build arguments
         NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
-        DATABASE_URI: ${DATABASE_URI}
         PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-        PREVIEW_SECRET: ${PREVIEW_SECRET}
-        SMTP_HOST: ${SMTP_HOST}
-        SMTP_PASS: ${SMTP_PASS}
-        SMTP_USER: ${SMTP_USER}
-        SKIP_EMAIL_VERIFICATION: "true"
+        NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+
     container_name: smartage-app
     env_file:
       - .env
@@ -34,6 +30,8 @@ services:
       S3_BUCKET: ${S3_BUCKET:-media}
       S3_REGION: ${S3_REGION:-us-east-1}
       S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-true}
+      NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+      RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY}
       # Ensure email verification is not skipped at runtime
       SKIP_EMAIL_VERIFICATION: ""
     ports:

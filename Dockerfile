@@ -25,14 +25,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build arguments (passed from CI/CD)
-ARG PAYLOAD_SECRET
+# Build arguments for public variables (safe to use as ARG/ENV)
 ARG NEXT_PUBLIC_SERVER_URL
 ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
-# Set as environment variables for the build
-ENV PAYLOAD_SECRET="${PAYLOAD_SECRET}" \
-    NEXT_PUBLIC_SERVER_URL="${NEXT_PUBLIC_SERVER_URL}" \
+ENV NEXT_PUBLIC_SERVER_URL="${NEXT_PUBLIC_SERVER_URL}" \
     NEXT_PUBLIC_RECAPTCHA_SITE_KEY="${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}"
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -40,7 +37,9 @@ ENV PAYLOAD_SECRET="${PAYLOAD_SECRET}" \
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN \
+# Use secret mount for PAYLOAD_SECRET (not persisted in image metadata)
+RUN --mount=type=secret,id=PAYLOAD_SECRET \
+  export PAYLOAD_SECRET=$(cat /run/secrets/PAYLOAD_SECRET) && \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
