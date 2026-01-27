@@ -31,15 +31,6 @@ const s3StoragePlugin: Plugin[] = process.env.S3_BUCKET
         collections: {
           media: {
             prefix: 'media',
-            // Disable Payload's /api/media/file proxy - serve directly from S3/MinIO
-            disablePayloadAccessControl: true,
-            // Generate direct S3/MinIO URLs
-            generateFileURL: ({ filename, prefix }) => {
-              const endpoint = process.env.S3_ENDPOINT || ''
-              const bucket = process.env.S3_BUCKET || ''
-              // Path-style URL format for MinIO: endpoint/bucket/prefix/filename
-              return `${endpoint}/${bucket}/${prefix}/${filename}`
-            },
           },
         },
         bucket: process.env.S3_BUCKET,

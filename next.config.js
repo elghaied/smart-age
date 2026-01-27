@@ -21,12 +21,6 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
-      // MinIO endpoint for S3 media images (hardcoded since it's static)
-      {
-        protocol: 'https',
-        hostname: 'minio-tg400k044c0gwskk408wwg4s.gshell.fr',
-        pathname: '/**',
-      },
     ],
   },
   webpack: (webpackConfig) => {
