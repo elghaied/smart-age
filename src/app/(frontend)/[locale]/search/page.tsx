@@ -1,5 +1,8 @@
 import type { Metadata } from 'next/types'
 
+// Force dynamic rendering since this page uses searchParams
+export const dynamic = 'force-dynamic'
+
 import { CollectionArchive } from '@/components/CollectionArchive'
 import configPromise from '@payload-config'
 import { getPayload, Locale, TypedLocale } from 'payload'
@@ -7,7 +10,6 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardData } from '@/components/Card'
-import { setRequestLocale } from 'next-intl/server'
 
 type Args = {
   params: Promise<{
@@ -24,8 +26,6 @@ export default async function Page({
 }: Args) {
   const { locale } = await paramsPromise
   const { q: query } = await searchParamsPromise
-  // Enable static rendering
-  setRequestLocale(locale)
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
