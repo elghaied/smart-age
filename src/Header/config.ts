@@ -39,6 +39,48 @@ export const Header: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'homeSections',
+      type: 'array',
+      label: {
+        en: 'Homepage Section Navigation',
+        ar: 'التنقل في أقسام الصفحة الرئيسية',
+      },
+      admin: {
+        description: {
+          en: 'Section links that appear as a secondary navigation bar on the homepage only',
+          ar: 'روابط الأقسام التي تظهر كشريط تنقل ثانوي في الصفحة الرئيسية فقط',
+        },
+        initCollapsed: true,
+      },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+          localized: true,
+          label: {
+            en: 'Label',
+            ar: 'العنوان',
+          },
+        },
+        {
+          name: 'sectionId',
+          type: 'text',
+          required: true,
+          label: {
+            en: 'Section ID',
+            ar: 'معرف القسم',
+          },
+          admin: {
+            description: {
+              en: 'The HTML id of the section (e.g., "about", "services", "projects")',
+              ar: 'معرف HTML للقسم (مثل "about"، "services"، "projects")',
+            },
+          },
+        },
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],

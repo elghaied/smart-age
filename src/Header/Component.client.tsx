@@ -13,6 +13,7 @@ import { useLocale } from 'next-intl'
 import type { Header } from '@/payload-types'
 
 import { HeaderNav } from './Nav'
+import { HomeSectionsNav } from './HomeSectionsNav'
 
 import AnimatedLogo from '@/components/AnimatedLogo'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
@@ -32,6 +33,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const pathname = usePathname()
   const prefersReducedMotion = useReducedMotion()
   const locale = useLocale()
+
+  // Check if we're on the homepage
+  const isHomepage = (() => {
+    const cleanPathname = pathname.replace(/^\/(ar|en)/, '') || '/'
+    return cleanPathname === '/' || cleanPathname === ''
+  })()
+
+  const homeSections = data?.homeSections || []
+  const showHomeSectionsNav = isHomepage && homeSections.length > 0
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -163,6 +173,29 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           </div>
         </div>
 
+        {/* Homepage Sections Navigation - Desktop */}
+        <AnimatePresence>
+          {showHomeSectionsNav && (
+            <motion.div
+              initial={{
+                opacity: prefersReducedMotion ? 1 : 0,
+                height: prefersReducedMotion ? 'auto' : 0,
+              }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{
+                opacity: prefersReducedMotion ? 1 : 0,
+                height: prefersReducedMotion ? 'auto' : 0,
+              }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: 'easeInOut' }}
+              className="hidden md:block border-t border-border/50"
+            >
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+                <HomeSectionsNav sections={homeSections} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMenuOpen && (
@@ -194,6 +227,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               >
                 {/* Mobile Navigation Items */}
                 <HeaderNav data={data} isMobile={true} onItemClick={() => setIsMenuOpen(false)} />
+
+                {/* Mobile Homepage Sections */}
+                {showHomeSectionsNav && (
+                  <HomeSectionsNav
+                    sections={homeSections}
+                    isMobile={true}
+                    onItemClick={() => setIsMenuOpen(false)}
+                  />
+                )}
 
                 {/* Mobile controls container */}
                 <div className="flex items-center justify-between pt-3 mt-3 border-t border-border/50">

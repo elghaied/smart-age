@@ -2294,6 +2294,19 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Section links that appear as a secondary navigation bar on the homepage only
+   */
+  homeSections?:
+    | {
+        label: string;
+        /**
+         * The HTML id of the section (e.g., "about", "services", "projects")
+         */
+        sectionId: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2568,6 +2581,13 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  homeSections?:
+    | T
+    | {
+        label?: T;
+        sectionId?: T;
         id?: T;
       };
   updatedAt?: T;

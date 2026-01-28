@@ -43,7 +43,7 @@ export default function WhyUsClient({ whyUs, features }: WhyUsClientProps) {
   if (!whyUs) return null
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/50">
+    <section id="why-us" className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/50">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
