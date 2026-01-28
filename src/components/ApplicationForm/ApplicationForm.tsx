@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { submitApplication } from '../../actions/application-submit-form'
+import { FormFeedback, FormLoadingOverlay } from '@/components/FormFeedback'
 import type { TypedLocale } from 'payload'
 
 type FormData = {
@@ -228,14 +229,14 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
   return (
     <div className={className}>
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem] bg-card">
-        {hasSubmitted ? <p className="text-center text-lg">{t.successMessage}</p> : null}
+      <div className="relative p-4 lg:p-6 border border-border rounded-[0.8rem] bg-card">
+        <FormLoadingOverlay visible={isLoading && !hasSubmitted} message={t.submitting} />
 
-        {isLoading && !hasSubmitted && <p className="text-center">{t.submitting}</p>}
+        <FormFeedback type="success" message={hasSubmitted ? t.successMessage : undefined} visible={hasSubmitted} className="mb-4" />
 
-        {error && <div className="mb-4 text-red-500 text-sm text-center">{error}</div>}
+        <FormFeedback type="error" message={error} visible={!!error} className="mb-4" />
 
-        {!hasSubmitted && !isLoading && (
+        {!hasSubmitted && (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="applicantName">{t.name} *</Label>
