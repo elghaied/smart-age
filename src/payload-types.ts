@@ -1261,10 +1261,19 @@ export interface Search {
   id: string;
   title?: string | null;
   priority?: number | null;
-  doc: {
-    relationTo: 'posts';
-    value: string | Post;
-  };
+  doc:
+    | {
+        relationTo: 'posts';
+        value: string | Post;
+      }
+    | {
+        relationTo: 'pages';
+        value: string | Page;
+      }
+    | {
+        relationTo: 'careers';
+        value: string | Career;
+      };
   slug?: string | null;
   meta?: {
     title?: string | null;

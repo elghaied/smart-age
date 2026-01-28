@@ -2,25 +2,37 @@ import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, Locale, TypedLocale } from 'payload'
 import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardData } from '@/components/Card'
+import { setRequestLocale } from 'next-intl/server'
 
 type Args = {
+  params: Promise<{
+    locale: string
+  }>
   searchParams: Promise<{
     q: string
   }>
 }
-export default async function Page({ searchParams: searchParamsPromise }: Args) {
+
+export default async function Page({
+  params: paramsPromise,
+  searchParams: searchParamsPromise,
+}: Args) {
+  const { locale } = await paramsPromise
   const { q: query } = await searchParamsPromise
+  // Enable static rendering
+  setRequestLocale(locale)
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'search',
     depth: 1,
     limit: 12,
+    locale: locale as TypedLocale,
     select: {
       title: true,
       slug: true,
@@ -78,7 +90,11 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive items={posts.docs as CardData[]} relationTo="posts" emptyMessage="No results found." />
+        <CollectionArchive
+          items={posts.docs as CardData[]}
+          relationTo="posts"
+          emptyMessage="No results found."
+        />
       ) : (
         <div className="container">No results found.</div>
       )}

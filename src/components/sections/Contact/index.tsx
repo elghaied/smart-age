@@ -1,22 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Send,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-} from 'lucide-react'
+import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 import { Card } from '@/components/ui/card'
 import type { Homepage, ContactInfo } from '@/payload-types'
 import { RenderBlocksClient } from '@/blocks/RenderBlocks.client'
+import SocialMedia from './SocialMedia'
 
 interface ContactProps {
   contact: Homepage['contact']
@@ -173,77 +164,7 @@ export default function Contact({ contact, contactInfo, locale }: ContactProps) 
 
             {/* Social Media */}
             {contactInfo.socialMedia?.title && (
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-foreground mb-8">
-                  {contactInfo.socialMedia.title}
-                </h3>
-                <div className="flex justify-center gap-6">
-                  {contactInfo.socialMedia.facebook && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="w-14 h-14 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 hover:scale-110 bg-card/80 backdrop-blur-sm border-border/50 text-foreground group"
-                      asChild
-                    >
-                      <a
-                        href={contactInfo.socialMedia.facebook}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Facebook className="h-6 w-6 text-foreground group-hover:text-white transition-colors duration-300" />
-                      </a>
-                    </Button>
-                  )}
-                  {contactInfo.socialMedia.twitter && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="w-14 h-14 hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-all duration-300 hover:scale-110 bg-card/80 backdrop-blur-sm border-border/50 text-foreground group"
-                      asChild
-                    >
-                      <a
-                        href={contactInfo.socialMedia.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Twitter className="h-6 w-6 text-foreground group-hover:text-white transition-colors duration-300" />
-                      </a>
-                    </Button>
-                  )}
-                  {contactInfo.socialMedia.instagram && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="w-14 h-14 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white hover:border-purple-500 transition-all duration-300 hover:scale-110 bg-card/80 backdrop-blur-sm border-border/50 text-foreground group"
-                      asChild
-                    >
-                      <a
-                        href={contactInfo.socialMedia.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Instagram className="h-6 w-6 text-foreground group-hover:text-white transition-colors duration-300" />
-                      </a>
-                    </Button>
-                  )}
-                  {contactInfo.socialMedia.linkedin && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="w-14 h-14 hover:bg-blue-700 hover:text-white hover:border-blue-700 transition-all duration-300 hover:scale-110 bg-card/80 backdrop-blur-sm border-border/50 text-foreground group"
-                      asChild
-                    >
-                      <a
-                        href={contactInfo.socialMedia.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Linkedin className="h-6 w-6 text-foreground group-hover:text-white transition-colors duration-300" />
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </div>
+              <SocialMedia socialMedia={contactInfo.socialMedia} />
             )}
           </motion.div>
 
