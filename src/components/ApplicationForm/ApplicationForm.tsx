@@ -228,10 +228,8 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
   return (
     <div className={className}>
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem] dark:bg-[#212121]">
-        {hasSubmitted ? (
-          <p className="text-center text-lg">{t.successMessage}</p>
-        ) : null}
+      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem] bg-card">
+        {hasSubmitted ? <p className="text-center text-lg">{t.successMessage}</p> : null}
 
         {isLoading && !hasSubmitted && <p className="text-center">{t.submitting}</p>}
 
