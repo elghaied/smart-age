@@ -21,7 +21,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ contactData, loc
     },
     {
       icon: Phone,
-      value: contactInfo.phone,
+      value: `+ ${contactInfo.phone}`,
       label: labels?.phone || (locale === 'ar' ? 'الهاتف' : 'Phone'),
     },
     {

@@ -215,7 +215,7 @@ export default function Contact({ contact, contactInfo, locale }: ContactProps) 
                   className="group h-14 px-8 text-lg font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/25"
                 >
                   <a
-                    href={`${contactInfo?.contactInfo?.phone || ''}`}
+                    href={`https://wa.me/${contactInfo?.contactInfo?.phone || ''}`}
                     className="flex items-center gap-3 text-primary-foreground dark:group-hover:text-accent-foreground"
                   >
                     <Phone className="h-5 w-5 transition-transform group-hover:rotate-12" />
