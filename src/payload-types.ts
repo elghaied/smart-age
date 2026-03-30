@@ -2507,6 +2507,16 @@ export interface Homepage {
       joinUsButtonText?: string | null;
     };
   };
+  partners?: {
+    title?: string | null;
+    items?:
+      | {
+          name?: string | null;
+          logo?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
   contact?: {
     title?: string | null;
     subtitle?: string | null;
@@ -2779,6 +2789,18 @@ export interface HomepageSelect<T extends boolean = true> {
               description?: T;
               viewPositionsButtonText?: T;
               joinUsButtonText?: T;
+            };
+      };
+  partners?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              id?: T;
             };
       };
   contact?:

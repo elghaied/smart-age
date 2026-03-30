@@ -519,6 +519,33 @@ export const Homepage: GlobalConfig = {
                 },
               ],
             },
+            // Partners Section
+            {
+              name: 'partners',
+              type: 'group',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  localized: true,
+                },
+                {
+                  name: 'items',
+                  type: 'array',
+                  fields: [
+                    {
+                      name: 'name',
+                      type: 'text',
+                    },
+                    {
+                      name: 'logo',
+                      type: 'upload',
+                      relationTo: 'media',
+                    },
+                  ],
+                },
+              ],
+            },
             // Contact Section
             {
               name: 'contact',

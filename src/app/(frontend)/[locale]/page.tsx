@@ -22,6 +22,7 @@ import {
   queryServicesByLocale,
   queryTeamMembersByLocale,
 } from '@/utilities/queryCollections'
+import Partners from '@/components/sections/Partners'
 
 type Args = {
   params: Promise<{
@@ -35,7 +36,7 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
 
   // Fetch all data in parallel
   const [homepage, contactInfo, goals, projects, services, teamMembers] = await Promise.all([
-    getCachedGlobal('homepage', 0, locale)() as Promise<Homepage>,
+    getCachedGlobal('homepage', 2, locale)() as Promise<Homepage>,
     getCachedGlobal('contact-info', 2, locale)() as Promise<ContactInfo>,
     queryGoalsByLocale({ locale, draft }),
     queryProjectsByLocale({ locale, draft }),
@@ -75,6 +76,9 @@ export default async function LandingPage({ params: paramsPromise }: Args) {
 
       {/* Team Section */}
       <Team team={homepage.team} teamMembers={teamMembers} />
+
+      {/* Partners Section */}
+      {homepage.partners && <Partners partners={homepage.partners} />}
 
       {/* Contact Section */}
       {homepage.contact && contactInfo && (
