@@ -33,13 +33,14 @@ import localization from '@/i18n/localization'
 type Args = {
   children: React.ReactNode
   params: Promise<{
-    locale: TypedLocale
+    locale: string
   }>
 }
 
 export default async function RootLayout({ children, params }: Args) {
   const { isEnabled } = await draftMode()
-  const { locale } = await params
+  // validated against routing.locales below
+  const locale = (await params).locale as TypedLocale
   const currentLocale = localization.locales.find((loc) => loc.code === locale)
   const direction = currentLocale?.rtl ? 'rtl' : 'ltr'
   if (!routing.locales.includes(locale as TypedLocale)) {

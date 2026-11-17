@@ -9,9 +9,9 @@ export const revalidateHeader: GlobalAfterChangeHook = ({ doc, req: { payload, c
 
     // Revalidate cache for all locales
     for (const locale of locales) {
-      revalidateTag(`global_header_${locale}`)
+      revalidateTag(`global_header_${locale}`, { expire: 0 })
     }
-    revalidateTag('global_header_default')
+    revalidateTag('global_header_default', { expire: 0 })
   }
 
   return doc

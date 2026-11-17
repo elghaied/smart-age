@@ -12,7 +12,7 @@ export const revalidateTeamMember: CollectionAfterChangeHook<TeamMember> = ({
     if (doc.isActive) {
       payload.logger.info(`Revalidating team members`)
       revalidatePath('/')
-      revalidateTag('team-members')
+      revalidateTag('team-members', { expire: 0 })
     }
   }
   return doc
@@ -25,7 +25,7 @@ export const revalidateTeamMemberDelete: CollectionAfterDeleteHook<TeamMember> =
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating team members after delete`)
     revalidatePath('/')
-    revalidateTag('team-members')
+    revalidateTag('team-members', { expire: 0 })
   }
 
   return doc

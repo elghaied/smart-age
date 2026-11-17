@@ -97,7 +97,7 @@ describe('Focus Management Utilities', () => {
   })
 
   describe('announceToScreenReader', () => {
-    it('should create and remove announcement element', (done) => {
+    it('should create and remove announcement element', async () => {
       announceToScreenReader('Test announcement')
 
       // Check that announcement element was created
@@ -106,11 +106,8 @@ describe('Focus Management Utilities', () => {
       expect(announcement?.textContent).toBe('Test announcement')
 
       // Check that it gets removed after timeout
-      setTimeout(() => {
-        const announcementAfter = document.querySelector('[aria-live]')
-        expect(announcementAfter).toBeFalsy()
-        done()
-      }, 1100)
+      await new Promise((resolve) => setTimeout(resolve, 1100))
+      expect(document.querySelector('[aria-live]')).toBeFalsy()
     })
   })
 

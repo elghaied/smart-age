@@ -16,7 +16,7 @@ export const revalidatePost: CollectionAfterChangeHook<Career> = ({
       payload.logger.info(`Revalidating career at path: ${path}`)
 
       revalidatePath(path)
-      revalidateTag('careers-sitemap')
+      revalidateTag('careers-sitemap', { expire: 0 })
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -26,7 +26,7 @@ export const revalidatePost: CollectionAfterChangeHook<Career> = ({
       payload.logger.info(`Revalidating old career at path: ${oldPath}`)
 
       revalidatePath(oldPath)
-      revalidateTag('careers-sitemap')
+      revalidateTag('careers-sitemap', { expire: 0 })
     }
   }
   return doc
@@ -37,7 +37,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Career> = ({ doc, req: 
     const path = `/careers/${doc?.slug}`
 
     revalidatePath(path)
-    revalidateTag('careers-sitemap')
+    revalidateTag('careers-sitemap', { expire: 0 })
   }
 
   return doc

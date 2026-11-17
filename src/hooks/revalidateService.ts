@@ -12,7 +12,7 @@ export const revalidateService: CollectionAfterChangeHook<Service> = ({
     if (doc.isActive) {
       payload.logger.info(`Revalidating services`)
       revalidatePath('/')
-      revalidateTag('services')
+      revalidateTag('services', { expire: 0 })
     }
   }
   return doc
@@ -25,7 +25,7 @@ export const revalidateServiceDelete: CollectionAfterDeleteHook<Service> = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating services after delete`)
     revalidatePath('/')
-    revalidateTag('services')
+    revalidateTag('services', { expire: 0 })
   }
 
   return doc

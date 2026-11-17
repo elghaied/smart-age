@@ -12,7 +12,7 @@ export const revalidateFeature: CollectionAfterChangeHook<Feature> = ({
     if (doc.isActive) {
       payload.logger.info(`Revalidating features`)
       revalidatePath('/')
-      revalidateTag('features')
+      revalidateTag('features', { expire: 0 })
     }
   }
   return doc
@@ -25,7 +25,7 @@ export const revalidateFeatureDelete: CollectionAfterDeleteHook<Feature> = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating features after delete`)
     revalidatePath('/')
-    revalidateTag('features')
+    revalidateTag('features', { expire: 0 })
   }
 
   return doc

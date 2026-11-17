@@ -12,7 +12,7 @@ export const revalidateProject: CollectionAfterChangeHook<Project> = ({
     if (doc.isActive) {
       payload.logger.info(`Revalidating projects`)
       revalidatePath('/')
-      revalidateTag('projects')
+      revalidateTag('projects', { expire: 0 })
     }
   }
   return doc
@@ -25,7 +25,7 @@ export const revalidateProjectDelete: CollectionAfterDeleteHook<Project> = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating projects after delete`)
     revalidatePath('/')
-    revalidateTag('projects')
+    revalidateTag('projects', { expire: 0 })
   }
 
   return doc

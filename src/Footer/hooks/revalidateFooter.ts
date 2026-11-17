@@ -9,9 +9,9 @@ export const revalidateFooter: GlobalAfterChangeHook = ({ doc, req: { payload, c
 
     // Revalidate cache for all locales
     for (const locale of locales) {
-      revalidateTag(`global_footer_${locale}`)
+      revalidateTag(`global_footer_${locale}`, { expire: 0 })
     }
-    revalidateTag('global_footer_default')
+    revalidateTag('global_footer_default', { expire: 0 })
   }
 
   return doc

@@ -13,7 +13,7 @@ export const revalidateContactInfo: GlobalAfterChangeHook = ({
     // Revalidate paths and tags for all locales
     for (const locale of locales) {
       revalidatePath(`/${locale}`)
-      revalidateTag(`global_contact-info_${locale}`)
+      revalidateTag(`global_contact-info_${locale}`, { expire: 0 })
     }
     revalidatePath('/')
   }

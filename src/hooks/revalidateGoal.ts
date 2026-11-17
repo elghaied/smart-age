@@ -12,7 +12,7 @@ export const revalidateGoal: CollectionAfterChangeHook<Goal> = ({
     if (doc.isActive) {
       payload.logger.info(`Revalidating goals`)
       revalidatePath('/')
-      revalidateTag('goals')
+      revalidateTag('goals', { expire: 0 })
     }
   }
   return doc
@@ -25,7 +25,7 @@ export const revalidateGoalDelete: CollectionAfterDeleteHook<Goal> = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating goals after delete`)
     revalidatePath('/')
-    revalidateTag('goals')
+    revalidateTag('goals', { expire: 0 })
   }
 
   return doc

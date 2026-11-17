@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SmartAge is a Payload CMS 3.x website built with Next.js 15 (App Router) and MongoDB. It features internationalization (English/Arabic with RTL support), a layout builder system, and uses UploadThing for media storage.
+SmartAge is a Payload CMS 3.x website built with Next.js 16 (App Router) and MongoDB. It features internationalization (English/Arabic with RTL support), a layout builder system, and uses UploadThing for media storage.
 
 ## Development Commands
 

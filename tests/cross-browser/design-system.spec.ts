@@ -83,7 +83,7 @@ BROWSERS.forEach(browserName => {
         
         // Check if layout adapts properly
         const container = page.locator('.container');
-        const containerWidth = await container.evaluate(el => el.offsetWidth);
+        const containerWidth = await container.evaluate(el => (el as HTMLElement).offsetWidth);
         
         expect(containerWidth).toBeGreaterThan(0);
         expect(containerWidth).toBeLessThanOrEqual(viewport.width);

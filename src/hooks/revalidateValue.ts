@@ -12,7 +12,7 @@ export const revalidateValue: CollectionAfterChangeHook<Value> = ({
     if (doc.isActive) {
       payload.logger.info(`Revalidating values`)
       revalidatePath('/')
-      revalidateTag('values')
+      revalidateTag('values', { expire: 0 })
     }
   }
   return doc
@@ -25,7 +25,7 @@ export const revalidateValueDelete: CollectionAfterDeleteHook<Value> = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating values after delete`)
     revalidatePath('/')
-    revalidateTag('values')
+    revalidateTag('values', { expire: 0 })
   }
 
   return doc

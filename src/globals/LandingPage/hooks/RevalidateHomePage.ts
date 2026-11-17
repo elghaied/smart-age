@@ -13,7 +13,7 @@ export const revalidateHomepage: GlobalAfterChangeHook = ({
     // Revalidate paths and tags for all locales
     for (const locale of locales) {
       revalidatePath(`/${locale}`)
-      revalidateTag(`global_homepage_${locale}`)
+      revalidateTag(`global_homepage_${locale}`, { expire: 0 })
     }
     revalidatePath('/')
   }

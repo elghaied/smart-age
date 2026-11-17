@@ -15,6 +15,8 @@ const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
 const nextConfig = {
   output: 'standalone',
   images: {
+    // Next 16 only allows quality 75 by default; ImageMedia requests 100
+    qualities: [75, 100],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
@@ -36,6 +38,8 @@ const nextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
+  // Next 16 builds with Turbopack by default; this key acknowledges the webpack config above
+  turbopack: {},
   redirects,
 }
 export default withNextIntl(withPayload(nextConfig, { devBundleServerPackages: false }))
