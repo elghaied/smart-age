@@ -9,12 +9,15 @@ import { getClientSideURL } from '@/utilities/getURL'
 export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | null): string => {
   if (!url) return ''
 
+  // media URLs may already carry a query (?prefix=media from the S3 adapter)
+  const sep = url.includes('?') ? '&' : '?'
+
   // Check if URL already has http/https protocol
   if (url.startsWith('http://') || url.startsWith('https://')) {
-    return cacheTag ? `${url}?${cacheTag}` : url
+    return cacheTag ? `${url}${sep}${cacheTag}` : url
   }
 
   // Otherwise prepend client-side URL
   const baseUrl = getClientSideURL()
-  return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`
+  return cacheTag ? `${baseUrl}${url}${sep}${cacheTag}` : `${baseUrl}${url}`
 }

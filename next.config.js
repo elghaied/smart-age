@@ -17,6 +17,9 @@ const nextConfig = {
   images: {
     // Next 16 only allows quality 75 by default; ImageMedia requests 100
     qualities: [75, 100],
+    // Payload's S3 adapter appends ?prefix=media to media URLs; Next 16 rejects local
+    // query strings unless a pattern allows them. Everything else: no query, as before.
+    localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/**', search: '' }],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
